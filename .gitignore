@@ -1,0 +1,25 @@
+# OS files
+.DS_Store
+
+# Hidden folders
+__MACOSX/
+.gemini/
+
+# Large development assets
+*.pdf
+/2nd slide.png
+/3rd slide.png
+/4th slide.png
+/burger menu.png
+
+# Duplicate nested subfolders
+/global-coffee-landing/
+/global-coffee-landing — копия/
+
+# Development scripts
+/scratch/
+
+# Local databases and logs
+leads.json
+tg_subscribers.json
+*.log

@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Партнёрам Global Coffee - Совместное развитие</title>
+    <meta name="description"
+        content="Партнёрские программы Global Coffee — совместный мерч, брендированные стаканчики и интеграция в кейтеринг.">
+
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=15.0">
+
+    <style>
+        /* Reusing common premium styles from franchise.html */
+        .header {
+            background-image: url('franchise/main%20image.png') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            background-blend-mode: normal !important;
+            background-color: #15110F !important;
+            position: relative !important;
+            z-index: 100 !important;
+        }
+
+        .footer-card,
+        #contact-form {
+            background-image: url('franchise/main%20image.png') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            background-blend-mode: normal !important;
+            background-color: #15110F !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        .partners-card-bg {
+            background-image: url('franchise/main%20image.png') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            background-blend-mode: normal !important;
+            background-color: #000000 !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        .partners-hero {
+            background-color: #000000 !important;
+            position: relative !important;
+            overflow: visible !important;
+        }
+
+        .partners-beans-bg {
+            display: block !important;
+            position: absolute !important;
+            left: -300px !important;
+            top: auto !important;
+            bottom: -100px !important;
+            width: 900px !important;
+            height: 1500px !important;
+            background-image: url('franchise/coffee2.2.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left bottom !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.9 !important;
+        }
+
+        @media (max-width: 768px) {
+            .partners-beans-bg {
+                width: 150px !important;
+                height: 250px !important;
+                top: auto !important;
+                bottom: -60px !important;
+            }
+        }
+
+        .partners-beans-right-bg {
+            position: absolute !important;
+            left: auto !important;
+            right: -80px !important;
+            top: -50px !important;
+            width: 300px !important;
+            height: 500px !important;
+            background-image: url('franchise/coffee2.1.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: right top !important;
+            pointer-events: none !important;
+            z-index: 0 !important;
+            opacity: 0.9 !important;
+        }
+
+        @media (max-width: 768px) {
+            .partners-beans-right-bg {
+                width: 150px !important;
+                height: 250px !important;
+                top: -30px !important;
+            }
+        }
+
+        /* Redesigned Premium Footer Styles */
+        .footer-card {
+            background-color: #15110F !important;
+            border-radius: 0 !important;
+            padding: 60px 0 40px 0 !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: none !important;
+            box-shadow: none !important;
+            position: relative !important;
+            z-index: 5 !important;
+        }
+
+        .partners-beans-left-extra {
+            display: block !important;
+            position: absolute !important;
+            left: 0 !important;
+            top: -280px !important;
+            bottom: auto !important;
+            width: 350px !important;
+            height: 560px !important;
+            background-image: url('franchise/coffee17.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left top !important;
+            pointer-events: none !important;
+            z-index: 10 !important;
+            opacity: 0.95 !important;
+        }
+
+        @media (max-width: 768px) {
+            .partners-beans-left-extra {
+                width: 170px !important;
+                height: 272px !important;
+                top: -140px !important;
+                bottom: auto !important;
+            }
+        }
+
+        .footer-top-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 50px !important;
+            flex-wrap: wrap !important;
+            gap: 30px !important;
+        }
+
+        .footer-search-container {
+            display: flex !important;
+            align-items: center !important;
+            gap: 20px !important;
+            flex-grow: 1 !important;
+            justify-content: flex-end !important;
+            max-width: 600px !important;
+        }
+
+        .footer-search-input-wrapper {
+            position: relative !important;
+            flex-grow: 1 !important;
+            max-width: 350px !important;
+        }
+
+        .footer-search-input-wrapper input {
+            width: 100% !important;
+            background: transparent !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+            padding: 12px 10px 12px 32px !important;
+            color: #fff !important;
+            font-size: 0.95rem !important;
+            outline: none !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .footer-search-input-wrapper input:focus {
+            border-color: #FBB03B !important;
+        }
+
+        .footer-partner-btn {
+            background: #FBB03B !important;
+            color: #15110F !important;
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 14px 28px !important;
+            font-weight: 700 !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.95rem !important;
+            cursor: pointer !important;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+            white-space: nowrap !important;
+            box-shadow: 0 4px 15px rgba(251, 176, 59, 0.2) !important;
+        }
+
+        .footer-partner-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(251, 176, 59, 0.45) !important;
+            background: #fca821 !important;
+        }
+
+        .footer-middle-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 40px !important;
+            margin-bottom: 50px !important;
+        }
+
+        .footer-col-nav {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+        .footer-col-nav h4 {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+            color: #FFF5E1 !important;
+            letter-spacing: 1px !important;
+            margin-bottom: 8px !important;
+            text-transform: uppercase !important;
+        }
+
+        .footer-col-nav a {
+            color: #8A8581 !important;
+            text-decoration: none !important;
+            font-size: 0.95rem !important;
+            transition: all 0.25s ease !important;
+            display: inline-block !important;
+        }
+
+        .footer-col-nav a:hover {
+            color: #FFF5E1 !important;
+            transform: translateX(4px) !important;
+        }
+
+        .footer-contact-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            color: #8A8581 !important;
+            font-size: 0.95rem !important;
+        }
+
+        .footer-contact-item a {
+            color: #8A8581 !important;
+            text-decoration: none !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-contact-item a:hover {
+            color: #FFF5E1 !important;
+        }
+
+        .footer-social-link {
+            background: transparent !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.3s ease !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .footer-social-link:hover {
+            background: transparent !important;
+            transform: scale(1.1) translateY(-2px) !important;
+        }
+
+        .footer-social-link img {
+            width: 32px !important;
+            height: 32px !important;
+            object-fit: contain !important;
+            transition: all 0.3s ease !important;
+            display: block !important;
+        }
+
+        .footer-social-link:hover img {
+            filter: brightness(1.2) !important;
+        }
+
+        .header-container,
+        .container {
+            max-width: 100% !important;
+            padding: 0 60px !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+        }
+
+        :root {
+            --bg-color: #000000;
+            --surface-color: #15110F;
+            --primary-color: #fbb03b;
+            --primary-hover: #e0962b;
+            --text-main: #ffffff;
+            --text-muted: #A19C99;
+            --text-gold: #FFF5E1;
+            --border-color: rgba(255, 245, 225, 0.1);
+            --border-radius: 40px;
+            --font-family: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-gold);
+            margin-bottom: 24px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .partners-slider-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+        .partners-slider-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 200%;
+        }
+        .partners-slide {
+            width: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Partners Specific Styles */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .partner-card {
+            background-image: url('franchise/main%20image.png');
+            background-size: cover;
+            background-position: center;
+            background-color: #15110F;
+            border-radius: 40px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 2;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-10px) !important;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #FFF5E1;
+            color: #000000;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.25;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .card-image-placeholder {
+            width: 100%;
+            height: 380px;
+            background-color: #2C2825;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Form Section */
+        .form-section {
+            background-color: #000;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-bg-cups {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .form-bg-cup-left {
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 600px;
+            background: linear-gradient(135deg, #fbb03b 0%, #ff7b00 100%);
+            border-radius: 40px;
+            opacity: 0.8;
+            /* Placeholder for the cup image */
+        }
+
+        .form-bg-cup-right {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 600px;
+            background: linear-gradient(135deg, #fbb03b 0%, #ff7b00 100%);
+            border-radius: 40px;
+            opacity: 0.8;
+            /* Placeholder for the cup image */
+        }
+
+        .form-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+            background: rgba(26, 22, 20, 0.8);
+            padding: 50px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .form-tab {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-tab.active {
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .form-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .apply-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .form-checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .form-checkbox-wrapper input {
+            margin-top: 4px;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: #000;
+            padding: 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 30px rgba(251, 176, 59, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(251, 176, 59, 0.4);
+        }
+
+        /* Decorative Arrows */
+        .header-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .arrow-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .arrow-btn {
+            width: 52px;
+            height: 52px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: #fff;
+        }
+
+        .arrow-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(251, 176, 59, 0.05);
+        }
+
+        /* Navigation */
+        .header {
+            background-color: #15110F;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+            margin-left: 60px;
+        }
+
+        .nav a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.5px;
+        }
+
+        .nav a.active {
+            color: #ffffff;
+        }
+
+        .nav a:hover {
+            color: #ffffff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .language-selector span {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .phone-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFF5E1;
+        }
+
+        .phone-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 1200px) {
+            .form-bg-cup-left, .form-bg-cup-right {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 2.8rem;
+            }
+            .form-bg-cups {
+                display: none;
+            }
+            .nav {
+                margin-left: 0;
+                gap: 20px;
+            }
+        }
+
+        .partners-header-row {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+        }
+        .partners-header-row .section-subtitle {
+            margin: 0 auto;
+            max-width: 950px;
+            padding-right: 30px;
+            padding-left: 30px;
+            padding-top: 15px;
+        }
+        .partners-header-arrows {
+            position: absolute;
+            right: 0;
+            bottom: -5px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            z-index: 10;
+        }
+        @media (max-width: 991px) {
+            .partners-header-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .partners-header-row .section-subtitle {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .partners-header-arrows {
+                position: static;
+                transform: none;
+                margin-top: 10px;
+                justify-content: center;
+            }
+        }
+
+        /* ===========================
+           MOBILE RESPONSIVE
+           =========================== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1100;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #FFF5E1;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        /* Premium Burger Menu styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000000 !important;
+            z-index: 10000 !important;
+            flex-direction: column;
+            padding: 30px 24px !important;
+            box-sizing: border-box !important;
+            overflow-y: auto;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .mobile-menu.open {
+            display: flex !important;
+        }
+
+        .mobile-menu-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-bottom: 20px !important;
+        }
+
+        .mobile-menu-header .logo img {
+            height: 38px !important;
+            object-fit: contain !important;
+        }
+
+        .mobile-menu-close {
+            background: transparent !important;
+            border: none !important;
+            color: #FFF5E1 !important;
+            font-size: 2rem !important;
+            cursor: pointer !important;
+            line-height: 1 !important;
+            padding: 4px !important;
+        }
+
+        .mobile-menu-section-title {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+            width: 100% !important;
+            margin-top: 15px !important;
+        }
+
+        .mobile-menu-section-title span {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            color: #8A8581 !important;
+            letter-spacing: 1px !important;
+        }
+
+        .menu-divider-line {
+            width: 100% !important;
+            height: 1px !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .mobile-menu-links {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 25px !important;
+            margin: 15px 0 !important;
+            width: 100% !important;
+        }
+
+        .mobile-menu-link {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 1.8rem !important;
+            font-weight: 700 !important;
+            color: #FFF5E1 !important;
+            text-decoration: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            letter-spacing: -0.5px !important;
+            transition: color 0.2s ease !important;
+            text-transform: uppercase !important;
+        }
+
+        .mobile-menu-link:hover, .mobile-menu-link.active {
+            color: #ffffff !important;
+        }
+
+        .mobile-menu-link.active {
+            font-weight: 800 !important;
+        }
+
+        .active-dot {
+            width: 8px !important;
+            height: 8px !important;
+            background-color: #8A8581 !important;
+            border-radius: 50% !important;
+            display: inline-block !important;
+        }
+
+        .mobile-menu-search {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            width: 100% !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+            padding-bottom: 8px !important;
+            margin: 20px 0 !important;
+        }
+
+        .mobile-search-input {
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            color: #ffffff !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 1rem !important;
+            flex-grow: 1 !important;
+        }
+
+        .mobile-search-input::placeholder {
+            color: #8A8581 !important;
+        }
+
+        .mobile-menu-contacts {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 20px !important;
+            margin: 15px 0 !important;
+            width: 100% !important;
+        }
+
+        .mobile-contact-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 15px !important;
+        }
+
+        .mobile-contact-item a {
+            color: #FFF5E1 !important;
+            text-decoration: none !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+        }
+
+        .contact-icon {
+            width: 20px !important;
+            height: 20px !important;
+            object-fit: contain !important;
+        }
+
+        .mobile-menu-languages {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            margin-top: auto !important;
+            padding-top: 30px !important;
+        }
+
+        .lang-item {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.95rem !important;
+            font-weight: 700 !important;
+            color: #8A8581 !important;
+            cursor: pointer !important;
+        }
+
+        .lang-item.active {
+            color: #FFF5E1 !important;
+        }
+
+        .lang-separator {
+            color: rgba(255, 255, 255, 0.15) !important;
+            font-size: 0.95rem !important;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex !important; }
+            .nav { display: none !important; }
+            .header-right { display: none !important; }
+            .header-container, .container { padding: 0 20px !important; }
+            .footer-card .container { padding-left: 20px !important; padding-right: 20px !important; }
+            .footer-middle-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+            .footer-top-row { flex-direction: column !important; gap: 16px !important; align-items: flex-start !important; }
+            .footer-search-container { flex-direction: column !important; gap: 12px !important; width: 100% !important; }
+            .footer-search-input-wrapper { max-width: 100% !important; width: 100% !important; }
+            .footer-partner-btn { width: 100% !important; box-sizing: border-box !important; }
+            .footer-bottom-row { flex-direction: column !important; gap: 16px !important; align-items: flex-start !important; }
+            .section-title { font-size: 2rem !important; }
+            .partners-hero { padding: 40px 20px 30px !important; }
+            .partner-card { padding: 24px 20px !important; }
+            .card-image-placeholder { height: 220px !important; }
+            .form-wrapper { max-width: 100% !important; }
+        }
+        @media (max-width: 480px) {
+            .header-container, .container { padding: 0 16px !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Global Coffee Logo">
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="franchise.html">Франшиза</a>
+                <a href="partners.html" class="active">Партнерам</a>
+            </nav>
+
+            <!-- Language and Contact Info -->
+            <div class="header-right">
+                <div class="language-selector">
+                    <span>Ru</span> <span class="arrow" style="font-size: 0.6rem; opacity: 0.4;">▼</span>
+                </div>
+                <div class="header-contact">
+                    <a href="tel:+77071913434" class="phone-link">
+                        <img src="Vector.png" alt="Phone" class="phone-icon">
+                        <span>+ 7 707 191 34 34</span>
+                    </a>
+                </div>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="section partners-hero">
+            <div class="partners-beans-bg"></div>
+            <div class="partners-beans-right-bg"></div>
+            <div class="container">
+                <div class="text-center" style="margin-top: -20px; margin-bottom: 20px;">
+                    <h1 class="section-title">Партнёрам Global Coffee</h1>
+                    <div style="margin: 24px auto; max-width: 380px; display: block;">
+                        <img src="Frame 13.png" alt="Divider" style="width: 100%; height: auto; display: block; margin: 0 auto; opacity: 0.8; filter: brightness(1.5);">
+                    </div>
+                    <div class="partners-header-row">
+                        <p class="section-subtitle">
+                            Наша команда помогает подобрать формат, который будет работать именно на вашу цель — от охвата
+                            до прямых продаж. Global Coffee — место, где бренды становятся ближе к людям.
+                        </p>
+                        <div class="partners-header-arrows">
+                            <img src="franchise/slider buttons.svg" alt="Prev slide" style="cursor: pointer; height: 48px; width: auto; opacity: 0.8; transition: opacity 0.3s ease;" onmouseenter="this.style.opacity='1'" onmouseleave="this.style.opacity='0.8'" onclick="changePartnersSlide('prev')">
+                            <img src="franchise/arrow right.svg" alt="Next slide" style="cursor: pointer; height: 48px; width: auto; opacity: 0.8; transition: opacity 0.3s ease;" onmouseenter="this.style.opacity='1'" onmouseleave="this.style.opacity='0.8'" onclick="changePartnersSlide('next')">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="partners-slider-container">
+                    <div class="partners-slider-track" id="partnersSliderTrack">
+                        <!-- Slide 1 -->
+                        <div class="partners-slide" id="partnersSlide1">
+                            <div class="partners-grid">
+                                <!-- Card 5 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#БРЕНДИНГ</span>
+                                        <span class="tag">#УПАКОВКА</span>
+                                    </div>
+                                    <h3 class="card-title">СОВМЕСТНЫЕ БРЕНДИРОВАННЫЕ СТАКАНЧИКИ</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/partner1.png" alt="Partner 5" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <!-- Card 6 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#ЭКСКЛЮЗИВ</span>
+                                        <span class="tag">#ДИЗАЙНУПАКОВКИ</span>
+                                    </div>
+                                    <h3 class="card-title">ЛИМИТИРОВАННАЯ ЛИНЕЙКА КОФЕ ПОД ВАШИМ БРЕНДОМ</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/partner3.png" alt="Partner 6" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <!-- Card 7 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#МЕРЧ</span>
+                                        <span class="tag">#КОРПОРАТИВНЫЙСТИЛЬ</span>
+                                    </div>
+                                    <h3 class="card-title">СОВМЕСТНЫЙ МЕРЧ ДЛЯ БАРИСТА И АКСЕССУАРЫ</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/partner2.png" alt="Partner 7" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <!-- Card 8 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#POSM</span>
+                                        <span class="tag">#МАРКЕТИНГ</span>
+                                    </div>
+                                    <h3 class="card-title">РАЗРАБОТКА ЭКСКЛЮЗИВНЫХ POSM-МАТЕРИАЛОВ</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/partner4.png" alt="Partner 8" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="partners-slide" id="partnersSlide2">
+                            <div class="partners-grid">
+                                <!-- Card 1 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#БРЕНДИНГ</span>
+                                        <span class="tag">#КЕЙТЕРИНГ</span>
+                                    </div>
+                                    <h3 class="card-title">ИНТЕГРИРОВАНИЕ В ОФОРМЛЕНИИ КЕЙТЕРИНГА</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/photo1.png" alt="Partner 1" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <!-- Card 2 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#КОЛЛАБОРАЦИЯ</span>
+                                        <span class="tag">#PR</span>
+                                    </div>
+                                    <h3 class="card-title">СОВМЕСТНЫЕ СПЕЦПРОЕКТЫ В СОЦСЕТЯХ</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/photo3.png" alt="Partner 3" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <!-- Card 3 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#МЕРЧ</span>
+                                        <span class="tag">#КОРПОРАТИВНЫЙСТИЛЬ</span>
+                                    </div>
+                                    <h3 class="card-title">ФИРМЕННЫЙ КОРПОРАТИВНЫЙ МЕРЧ</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/photo2.png" alt="Partner 2" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+
+                                <!-- Card 4 -->
+                                <div class="partner-card">
+                                    <div class="card-tags">
+                                        <span class="tag">#B2B</span>
+                                        <span class="tag">#КЛИЕНТЫ</span>
+                                    </div>
+                                    <h3 class="card-title">КОФЕЙНЫЕ ТОЧКИ САМООБСУЖИВАНИЯ В ОФИСАХ</h3>
+                                    <div class="card-image-placeholder">
+                                        <img src="franchise/photo4.png" alt="Partner 4" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    let currentPartnersSlide = 0;
+                    const totalPartnersSlides = 2;
+                    const track = document.getElementById('partnersSliderTrack');
+
+                    function changePartnersSlide(direction) {
+                        if (direction === 'next') {
+                            currentPartnersSlide = (currentPartnersSlide + 1) % totalPartnersSlides;
+                        } else {
+                            currentPartnersSlide = (currentPartnersSlide - 1 + totalPartnersSlides) % totalPartnersSlides;
+                        }
+                        track.style.transform = `translateX(-${currentPartnersSlide * 50}%)`;
+                    }
+                </script>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION: FEEDBACK FORM (Оставить заявку)
+             ========================================== -->
+        <section class="section" style="padding: 120px 0 60px 0; overflow: visible; border-bottom: none !important;" id="contact-form">
+            <div class="partners-beans-left-extra"></div>
+            <div style="width: 100%; margin: 0; padding: 0;">
+                <!-- 3-Column Layout Grid (Full Viewport Width) -->
+                <div style="display: grid; grid-template-columns: 220px 1fr 220px; gap: 80px; align-items: flex-start; width: 100%;">
+                    <!-- Left Banner Image (Frame 205) - Flush to Left Edge -->
+                    <div style="border-radius: 0 40px 40px 0; overflow: hidden; box-shadow: 20px 0 40px rgba(251, 176, 59, 0.15); margin-top: 130px; height: 500px;">
+                        <img src="franchise/Frame%20205.png" alt="Global Coffee Left Cup" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;">
+                    </div>
+
+                    <!-- Center Form Panel -->
+                    <div style="display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 0 auto; width: 100%; padding: 0 30px;">
+                        <!-- Header -->
+                        <div class="section-header text-center" style="margin-bottom: 50px; width: 100%; text-align: center;">
+                            <h2 class="section-title" style="font-family: 'Comfortaa', sans-serif; font-size: 3rem; font-weight: 700; color: #ffffff; margin-bottom: 15px; text-align: center;">Оставить заявку</h2>
+                            <div style="margin: 20px auto; max-width: 300px; display: block;">
+                                <img src="Frame 13.png" alt="Divider" style="width: 100%; height: auto; display: block; margin: 0 auto; opacity: 0.8; filter: brightness(1.5);">
+                            </div>
+                            <p class="section-subtitle" style="color: #A19C99; font-size: 1.15rem; margin: 0 auto; line-height: 1.6; text-align: center; max-width: 800px;">
+                                Ваше обращение, идея или пожелание обязательно будет услышано.
+                            </p>
+                        </div>
+
+                        <!-- Tabs / Category Selector -->
+                        <div style="display: flex; width: 100%; max-width: 600px; margin-bottom: 40px;">
+                            <div class="form-tab-item" onclick="selectFormTab(0)" style="flex: 1; text-align: center; padding: 20px 10px 10px 10px; font-family: 'Comfortaa', sans-serif; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; cursor: pointer; color: rgba(255, 255, 255, 0.4); border-top: 3px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;">ИНВЕСТОРЫ</div>
+                            <div class="form-tab-item" onclick="selectFormTab(1)" style="flex: 1; text-align: center; padding: 20px 10px 10px 10px; font-family: 'Comfortaa', sans-serif; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; cursor: pointer; color: rgba(255, 255, 255, 0.4); border-top: 3px solid rgba(255, 255, 255, 0.15); transition: all 0.3s ease;">ФРАНЧАЙЗИ</div>
+                            <div class="form-tab-item" onclick="selectFormTab(2)" style="flex: 1; text-align: center; padding: 20px 10px 10px 10px; font-family: 'Comfortaa', sans-serif; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; cursor: pointer; color: #ffffff; border-top: 3px solid #FBB03B; transition: all 0.3s ease;">ПАРТНЕРЫ</div>
+                        </div>
+
+                        <!-- Form -->
+                        <form onsubmit="handleFormSubmit(event)" style="width: 100%; max-width: 600px;">
+                            <!-- Input: Name -->
+                            <div style="margin-bottom: 30px;">
+                                <input type="text" placeholder="Имя" required style="width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding: 15px 0; color: #ffffff; font-size: 1.05rem; font-family: inherit; outline: none;">
+                            </div>
+
+                            <!-- Input: Phone -->
+                            <div style="margin-bottom: 30px;">
+                                <input type="tel" placeholder="Телефон" required style="width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding: 15px 0; color: #ffffff; font-size: 1.05rem; font-family: inherit; outline: none;">
+                            </div>
+
+                            <!-- Checkbox Disclaimer -->
+                            <div style="display: flex; align-items: flex-start; gap: 15px; margin: 35px 0 45px 0; cursor: pointer;" onclick="toggleFormCheckbox()">
+                                <div id="custom-form-checkbox" style="width: 20px; height: 20px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+                                    <div id="custom-form-checkmark" style="display: none; width: 10px; height: 10px; background-color: #FBB03B; border-radius: 2px;"></div>
+                                </div>
+                                <div style="color: rgba(255, 255, 255, 0.4); font-size: 0.85rem; line-height: 1.5; user-select: none;">
+                                    Нажимая кнопку, вы соглашаетесь с <span style="text-decoration: underline;">условиями обработки персональных данных</span>.
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" style="width: 100%; background-color: #FBB03B; color: #000000; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.1rem; padding: 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; border: none; cursor: pointer; box-shadow: 0 10px 30px rgba(251, 176, 59, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                                <span>Отправить запрос</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right Banner Image (Frame 207) - Flush to Right Edge -->
+                    <div style="border-radius: 40px 0 0 40px; overflow: hidden; box-shadow: -20px 0 40px rgba(251, 176, 59, 0.15); margin-top: 130px; height: 500px;">
+                        <img src="franchise/Frame%20207.png" alt="Global Coffee Right Cup" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==========================================
+         FOOTER SECTION
+         ========================================== -->
+    <footer class="footer" id="contacts" style="background: #15110F; padding: 0; border-top: none !important;">
+        <div class="footer-card">
+            <div class="footer-beans-bg"></div>
+            <div class="container">
+
+                <!-- Top Row: Newsletter Subscription & Search Button -->
+                <div class="footer-top-row">
+                    <div class="footer-sub-info">
+                        <h3 style="font-family: 'Comfortaa', sans-serif; font-size: 1.8rem; font-weight: 700; color: #FFF5E1; margin: 0 0 10px 0;">
+                            Будьте с нами на связи!</h3>
+                        <p style="font-size: 0.95rem; color: #A19C99; margin: 0; max-width: 480px; line-height: 1.5;">
+                            Раз в неделю отправляем полезные письма — никаких лишних уведомлений.</p>
+                    </div>
+
+                    <div class="footer-search-container">
+                        <div class="footer-search-input-wrapper">
+                            <!-- Search Icon SVG -->
+                            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="#8A8581" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" placeholder="Поиск">
+                        </div>
+                        <button class="footer-partner-btn">Стать партнёром</button>
+                    </div>
+                </div>
+
+                <!-- Middle Row: 4 Columns Grid -->
+                <div class="footer-middle-grid">
+                    <!-- Column 1: Navigation -->
+                    <div class="footer-col-nav">
+                        <h4>Навигация</h4>
+                        <a href="index.html#about">О нас</a>
+                        <a href="index.html#contacts">Программа лояльности</a>
+                        <a href="franchise.html">Франшиза</a>
+                        <a href="index.html#contacts">Новости</a>
+                        <a href="index.html#contacts">Письмо руководству</a>
+                        <a href="index.html#contacts">Карта кофеен</a>
+                        <a href="index.html#contacts">Рекламодателям</a>
+                        <a href="index.html#contacts">Школа бариста</a>
+                    </div>
+
+                    <!-- Column 2: Cooperation & Legal -->
+                    <div class="footer-col-nav" style="gap: 30px !important;">
+                        <div class="footer-col-nav">
+                            <h4>Сотрудничество</h4>
+                            <a href="franchise.html">Франшиза</a>
+                            <a href="partners.html">Партнерам</a>
+                        </div>
+                        <div class="footer-col-nav">
+                            <h4>Правовая информация</h4>
+                            <a href="privacy.html">Политика конфиденциальности</a>
+                            <a href="#">Пользовательское соглашение</a>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Contacts -->
+                    <div class="footer-col-nav" style="gap: 16px !important;">
+                        <h4>Контакты</h4>
+                        <div class="footer-contact-item">
+                            <img src="location.png" alt="Location Icon" style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0;">
+                            <span>г. Шымкент, ул. Кунаева, 39</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <img src="Vector12.png" alt="Phone Icon" style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0;">
+                            <a href="tel:+77071913434">+7 707 191 34 34</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <img src="Group.png" alt="Email Icon" style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; filter: invert(98%) sepia(21%) saturate(233%) hue-rotate(323deg) brightness(103%) contrast(101%);">
+                            <a href="mailto:globalcoffee.team@yandex.kz">globalcoffee.team@yandex.kz</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <img src="Group.png" alt="Email Icon" style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; filter: invert(98%) sepia(21%) saturate(233%) hue-rotate(323deg) brightness(103%) contrast(101%);">
+                            <a href="mailto:globalcoffee3434@gmail.com">globalcoffee3434@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <!-- Column 4: Socials -->
+                    <div class="footer-col-nav" style="gap: 15px !important;">
+                        <h4>Социальные сети</h4>
+                        <div class="social-links" style="display: flex !important; gap: 15px !important;">
+                            <a href="#" class="footer-social-link">
+                                <img src="instagram.png" alt="Instagram">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider Line -->
+                <div style="width: 100%; height: 1px; background: rgba(255, 255, 255, 0.1); margin-bottom: 30px;"></div>
+
+                <!-- Bottom Row: Brand Logo & Credits -->
+                <div class="footer-bottom" style="display: flex !important; justify-content: space-between !important; align-items: center !important; flex-wrap: wrap !important; gap: 20px !important;">
+                    <a href="index.html" class="logo" style="display: inline-block !important;">
+                        <img src="logo.png" alt="Global Coffee Logo" style="height: 38px !important; object-fit: contain !important; display: block !important;">
+                    </a>
+                    <span style="color: #8A8581; font-size: 0.85rem; font-family: 'Comfortaa', sans-serif;">Designed by Dejavu Studio</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function selectFormTab(index) {
+            const tabs = document.querySelectorAll('.form-tab-item');
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.style.color = '#ffffff';
+                    tab.style.borderTop = '3px solid #FBB03B';
+                } else {
+                    tab.style.color = 'rgba(255, 255, 255, 0.4)';
+                    tab.style.borderTop = '3px solid rgba(255, 255, 255, 0.15)';
+                }
+            });
+        }
+
+        function toggleFormCheckbox() {
+            const checkmark = document.getElementById('custom-form-checkmark');
+            checkmark.style.display = (checkmark.style.display === 'none' || checkmark.style.display === '') ? 'block' : 'none';
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Спасибо! Ваша заявка успешно отправлена.');
+        }
+    </script>
+
+        <div id="mobileMenu" class="mobile-menu">
+        <!-- Menu Header -->
+        <div class="mobile-menu-header">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Global Coffee Logo" style="filter: brightness(0) invert(1);">
+            </a>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
+        </div>
+
+        <!-- Menu Section -->
+        <div class="mobile-menu-section-title">
+            <span>МЕНЮ</span>
+            <div class="menu-divider-line"></div>
+        </div>
+
+        <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">ГЛАВНАЯ</a>
+            <a href="franchise.html" class="mobile-menu-link">ФРАНШИЗА</a>
+            <a class="mobile-menu-link active" onclick="toggleMobileMenu()">ПАРТНЕРАМ <span class="active-dot"></span></a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mobile-menu-search">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A8581" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Поиск кофейни" class="mobile-search-input">
+        </div>
+
+        <!-- Contacts Section -->
+        <div class="mobile-menu-section-title">
+            <span>КОНТАКТЫ</span>
+            <div class="menu-divider-line"></div>
+        </div>
+
+        <div class="mobile-menu-contacts">
+            <div class="mobile-contact-item">
+                <img src="Vector.png" alt="Phone" class="contact-icon" style="filter: brightness(0) invert(1);">
+                <a href="tel:+77071913434">+7 707 191 34 34</a>
+            </div>
+            <div class="mobile-contact-item">
+                <img src="Group.png" alt="Email" class="contact-icon" style="filter: brightness(0) invert(1);">
+                <a href="mailto:globalcoffee.team@yandex.kz">globalcoffee.team@yandex.kz</a>
+            </div>
+            <div class="mobile-contact-item">
+                <img src="Group.png" alt="Email" class="contact-icon" style="filter: brightness(0) invert(1);">
+                <a href="mailto:globalcoffee3434@gmail.com">globalcoffee3434@gmail.com</a>
+            </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="mobile-menu-languages">
+            <span class="lang-item active">Ru</span>
+            <span class="lang-separator">|</span>
+            <span class="lang-item">Kz</span>
+            <span class="lang-separator">|</span>
+            <span class="lang-item">En</span>
+        </div>
+    </div>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.hamburger');
+            menu.classList.toggle('open');
+            btn.classList.toggle('open');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        }
+    </script>
+    <script src="dynamic-site.js"></script>
+    <script src="form-handler.js"></script>
+</body>
+</html>

@@ -1,0 +1,3273 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+      SEO Meta Tags
+      You can change the title and description to improve how your page looks on search engines.
+    -->
+    <title>Global Coffee - Ваш идеальный кофе</title>
+    <meta name="description"
+        content="Global Coffee - международная сеть кофеен. Доступный кофе, франшиза, и многое другое.">
+
+    <link rel="stylesheet" href="style.css?v=15.0">
+
+    <!-- Inline override style block to bypass 100% of browser caching bugs -->
+    <style>
+        /* Apply textured noise/grain cover image to all section bars across the entire web page */
+        .header, .bg-left-bar, .bg-top-bar, .bg-inner-corner, .bg-partnership-inner-corner, .about-card, .app-main-card, .app-secondary-card, .quality-card, .franchise-card, .location-card, .news-main-card, .mini-news-card, .partner-news-card, .contact-card, .footer-card, .bg-partnership-left-top-bar, .bg-partnership-right-bar, #contact-form, .founder-card, .story-bg-left, .story-bg-right, .case-details-card, .calc-dash-card, .roasting-wrapper, .roasting-wrapper-2, div[style*="#15110F"], div[style*="rgb(21, 17, 15)"] {
+            background-image: url('franchise/main%20image.png') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            background-blend-mode: normal !important;
+            background-color: #15110F !important;
+        }
+
+
+        .bg-inner-corner {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            -webkit-mask-image: radial-gradient(circle at 100% 100%, transparent 40px, black 40px) !important;
+            mask-image: radial-gradient(circle at 100% 100%, transparent 40px, black 40px) !important;
+        }
+
+        .bg-partnership-inner-corner {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            -webkit-mask-image: radial-gradient(circle at 0% 100%, transparent 40px, black 40px) !important;
+            mask-image: radial-gradient(circle at 0% 100%, transparent 40px, black 40px) !important;
+        }
+
+        /* Divider lines between address items inside location cards */
+        .address-item {
+            border-bottom: 1px solid #4A3F39 !important;
+            padding-bottom: 25px !important;
+            margin-bottom: 25px !important;
+        }
+
+        .address-item:last-child {
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Expand header container width to 100% with exactly 60px padding from window edges */
+        .header-container, .container {
+            max-width: 100% !important;
+            padding: 0 60px !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+        }
+
+        .brand-partnership-grid {
+            display: grid !important;
+            grid-template-columns: 1.15fr 0.85fr !important;
+            grid-template-rows: auto auto !important;
+            gap: 0 !important;
+            position: relative !important;
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        /* Unified background layers architecture mirroring the app section */
+        .partnership-bg-layer {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
+            display: grid !important;
+            grid-template-columns: 1.15fr 0.85fr !important;
+            grid-template-rows: auto auto !important;
+        }
+
+        .bg-partnership-left-top-bar {
+            grid-column: 1 !important;
+            grid-row: 1 !important;
+            background-color: #15110F !important;
+            border-top-left-radius: 40px !important;
+            border-bottom-left-radius: 40px !important;
+            position: relative !important;
+            z-index: 5 !important;
+            height: calc(100% - 90px) !important;
+            /* Raises the bottom edge up by 40px to align above the photo */
+        }
+
+        /* Concave Circular Transition Corner */
+        .bg-partnership-inner-corner {
+            display: block !important;
+            position: absolute !important;
+            top: 100% !important;
+            right: 0 !important;
+            width: 40px !important;
+            height: 40px !important;
+            background-color: #15110F !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            -webkit-mask-image: radial-gradient(circle at 0% 100%, transparent 40px, black 40px) !important;
+            mask-image: radial-gradient(circle at 0% 100%, transparent 40px, black 40px) !important;
+            z-index: 5 !important;
+            pointer-events: none !important;
+        }
+
+        .bg-partnership-right-bar {
+            grid-column: 2 !important;
+            grid-row: 1 / span 2 !important;
+            background-color: #15110F !important;
+            border-top-right-radius: 40px !important;
+            border-bottom-right-radius: 40px !important;
+            border-bottom-left-radius: 40px !important;
+            z-index: 2 !important;
+        }
+
+        /* Content layer components sit above background layer */
+        .partnership-left-text-card {
+            grid-column: 1 !important;
+            grid-row: 1 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 50px 40px 50px 60px !important;
+            text-align: left !important;
+            z-index: 6 !important;
+            position: relative !important;
+        }
+
+        .partnership-left-img-wrapper {
+            grid-column: 1 !important;
+            grid-row: 2 !important;
+            position: relative !important;
+            width: 93% !important;
+            /* Expands the right side fully to the right while left side stays aligned */
+            height: 400px !important;
+            border-radius: 40px !important;
+            overflow: hidden !important;
+            margin-top: 40px !important;
+            margin-left: 25px !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            z-index: 3 !important;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        }
+
+        .partnership-left-img-wrapper:hover {
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            transform: translateY(-5px) !important;
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.75) !important;
+        }
+
+        .partnership-right-col {
+            grid-column: 2 !important;
+            grid-row: 1 / span 2 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 40px 40px 0 40px !important;
+            display: flex !important;
+            align-items: stretch !important;
+            z-index: 4 !important;
+            position: relative !important;
+            overflow: hidden !important;
+            border-bottom-right-radius: 40px !important;
+            border-bottom-left-radius: 40px !important;
+        }
+
+        .partnership-right-img-wrapper {
+            border-radius: 30px 30px 0 0 !important;
+            overflow: hidden !important;
+            width: 100% !important;
+        }
+
+        /* Mirroring the same premium flush bottom layout to the Mobile App section */
+        .app-main-card {
+            padding: 30px 30px 0 60px !important;
+            overflow: hidden !important;
+            border-bottom-left-radius: 40px !important;
+            border-bottom-right-radius: 40px !important;
+        }
+
+        .app-main-card img {
+            border-radius: 30px 30px 0 0 !important;
+            height: 100% !important;
+            min-height: 650px !important;
+        }
+
+        .app-outside-card-wrapper {
+            padding: 40px 30px 0 23px !important;
+            margin-top: -92px !important;
+        }
+
+
+        /* Redesigned Premium Footer Styles */
+        .footer-card {
+            background-color: #15110F !important;
+            border-radius: 40px 40px 0 0 !important;
+            padding: 60px 0 40px 0 !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: none !important;
+            box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.45) !important;
+            position: relative !important;
+            z-index: 5 !important;
+        }
+
+        .footer-top-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 50px !important;
+            flex-wrap: wrap !important;
+            gap: 30px !important;
+        }
+
+        .footer-search-container {
+            display: flex !important;
+            align-items: center !important;
+            gap: 20px !important;
+            flex-grow: 1 !important;
+            justify-content: flex-end !important;
+            max-width: 600px !important;
+        }
+
+        .footer-search-input-wrapper {
+            position: relative !important;
+            flex-grow: 1 !important;
+            max-width: 350px !important;
+        }
+
+        .footer-search-input-wrapper input {
+            width: 100% !important;
+            background: transparent !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+            padding: 12px 10px 12px 32px !important;
+            color: #fff !important;
+            font-size: 0.95rem !important;
+            outline: none !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .footer-search-input-wrapper input:focus {
+            border-color: #FBB03B !important;
+        }
+
+        .footer-partner-btn {
+            background: #FBB03B !important;
+            color: #15110F !important;
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 14px 28px !important;
+            font-weight: 700 !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.95rem !important;
+            cursor: pointer !important;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+            white-space: nowrap !important;
+            box-shadow: 0 4px 15px rgba(251, 176, 59, 0.2) !important;
+        }
+
+        .footer-partner-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(251, 176, 59, 0.45) !important;
+            background: #fca821 !important;
+        }
+
+        .footer-middle-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 40px !important;
+            margin-bottom: 50px !important;
+        }
+
+        .footer-col-nav {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+        .footer-col-nav h4 {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+            color: #FFF5E1 !important;
+            letter-spacing: 1px !important;
+            margin-bottom: 8px !important;
+            text-transform: uppercase !important;
+        }
+
+        .footer-col-nav a {
+            color: #8A8581 !important;
+            text-decoration: none !important;
+            font-size: 0.95rem !important;
+            transition: all 0.25s ease !important;
+            display: inline-block !important;
+        }
+
+        .footer-col-nav a:hover {
+            color: #FFF5E1 !important;
+            transform: translateX(4px) !important;
+        }
+
+        .footer-contact-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            color: #8A8581 !important;
+            font-size: 0.95rem !important;
+        }
+
+        .footer-contact-item a {
+            color: #8A8581 !important;
+            text-decoration: none !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-contact-item a:hover {
+            color: #FFF5E1 !important;
+        }
+
+        .footer-social-link {
+            background: transparent !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.3s ease !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .footer-social-link:hover {
+            background: transparent !important;
+            transform: scale(1.1) translateY(-2px) !important;
+        }
+
+        .footer-social-link img {
+            width: 32px !important;
+            height: 32px !important;
+            object-fit: contain !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .footer-social-link:hover img {
+            filter: brightness(1.2) !important;
+        }
+
+        .btn-orange {
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 550 !important;
+        }
+
+        .quality-card:hover {
+            border-color: rgba(255, 255, 255, 0.05) !important;
+            transform: none !important;
+        }
+
+        .main-news-image img {
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        }
+
+        .news-main-card:hover .main-news-image img {
+            transform: scale(1.04) !important;
+        }
+
+        .app-main-card img,
+        .app-secondary-card img {
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        }
+
+        .app-main-card:hover img {
+            transform: scale(1.03) !important;
+        }
+
+        .app-secondary-card:hover img {
+            transform: scale(1.04) !important;
+        }
+
+        .about-image-wrapper {
+            overflow: hidden !important;
+            border-radius: 40px !important;
+        }
+
+        .about-image-wrapper img {
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        }
+
+        .about-image-wrapper:hover img {
+            transform: scale(1.04) !important;
+        }
+
+        .hero {
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        .floating-beans-bg {
+            position: absolute !important;
+            right: 0 !important;
+            top: 5% !important;
+            width: 380px !important;
+            height: 633px !important;
+            background-image: url('coffee 1.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: right top !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.9 !important;
+        }
+
+        @media (max-width: 1200px) {
+            .floating-beans-bg {
+                width: 300px !important;
+                height: 500px !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .floating-beans-bg {
+                width: 200px !important;
+                height: 333px !important;
+                opacity: 0.6 !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .floating-beans-bg {
+                display: none !important;
+            }
+        }
+
+        .about-section {
+            position: relative !important;
+        }
+
+        .about-beans-bg {
+            position: absolute !important;
+            right: 0 !important;
+            bottom: -120px !important;
+            width: 216px !important;
+            height: 352px !important;
+            background-image: url('coffee2.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: right bottom !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.95 !important;
+        }
+
+        @media (max-width: 991px) {
+            .about-beans-bg {
+                width: 140px !important;
+                height: 228px !important;
+                bottom: -80px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .about-beans-bg {
+                display: none !important;
+            }
+        }
+
+        .app-section {
+            padding-top: 0 !important;
+        }
+
+        .app-section > .container {
+            position: relative !important;
+            z-index: 10 !important;
+            padding-bottom: 80px !important;
+        }
+
+        .app-section .section-subtitle {
+            color: #A19C99 !important;
+        }
+
+        .quality-subtitle {
+            color: #A19C99 !important;
+        }
+
+        @media (max-width: 991px) {
+            .app-section {
+                padding-top: 0 !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .app-section {
+                padding-top: 0 !important;
+            }
+        }
+
+        .section-title {
+            font-size: 3.5rem !important;
+            font-weight: 500 !important;
+        }
+
+        @media (max-width: 991px) {
+            .section-title {
+                font-size: 2.2rem !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.8rem !important;
+            }
+        }
+
+        .app-section {
+            position: relative !important;
+            z-index: 5 !important;
+        }
+
+        .app-section .container-fluid {
+            padding: 0 !important;
+        }
+
+        .app-beans-bg {
+            position: absolute !important;
+            right: -70px !important;
+            top: -390px !important;
+            width: 240px !important;
+            height: 380px !important;
+            background-image: url('coffee3.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: right center !important;
+            pointer-events: none !important;
+            z-index: 10 !important;
+            opacity: 0.9 !important;
+        }
+
+        @media (max-width: 991px) {
+            .app-beans-bg {
+                width: 160px !important;
+                height: 250px !important;
+                top: -80px !important;
+                right: -20px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .app-beans-bg {
+                display: none !important;
+            }
+        }
+
+        .franchise-section {
+            position: relative !important;
+            overflow: visible !important;
+            z-index: 1 !important;
+            padding-bottom: 180px !important;
+        }
+
+        .franchise-card {
+            position: relative !important;
+            z-index: 15 !important;
+            overflow: visible !important;
+        }
+
+        .franchise-gallery {
+            margin-bottom: -180px !important;
+            position: relative !important;
+            z-index: 20 !important;
+        }
+
+        .franchise-beans-bg {
+            position: absolute !important;
+            left: 0 !important;
+            transform: none !important;
+            top: -275px !important;
+            width: 1500px !important;
+            height: 450px !important;
+            background-image: url('coffee4.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left center !important;
+            pointer-events: none !important;
+            z-index: 10 !important;
+            opacity: 0.9 !important;
+        }
+
+        @media (max-width: 991px) {
+            .franchise-beans-bg {
+                width: 420px !important;
+                height: 126px !important;
+                top: -100px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .franchise-beans-bg {
+                width: 300px !important;
+                height: 90px !important;
+                top: -70px !important;
+            }
+        }
+
+        /* Responsive adaptations */
+        @media (max-width: 991px) {
+            .brand-partnership-grid {
+                grid-template-columns: 1fr !important;
+                grid-template-rows: auto auto auto !important;
+                gap: 35px !important;
+            }
+
+            .partnership-bg-layer {
+                display: none !important;
+                /* Normal block stack fallback on mobile */
+            }
+
+            .partnership-left-text-card {
+                background: #15110F !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                border-radius: 30px !important;
+                padding: 35px !important;
+            }
+
+            .partnership-left-img-wrapper {
+                width: 100% !important;
+                border-radius: 30px !important;
+                height: 300px !important;
+                margin-top: 0 !important;
+            }
+
+            .partnership-right-col {
+                background: #15110F !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                border-radius: 30px !important;
+                padding: 20px !important;
+            }
+
+            /* Footer responsive overrides */
+            .footer-middle-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 35px !important;
+            }
+
+            .footer-top-row {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 20px !important;
+            }
+
+            .footer-search-container {
+                width: 100% !important;
+                justify-content: flex-start !important;
+                max-width: 100% !important;
+            }
+
+            .footer-search-input-wrapper {
+                max-width: 100% !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-middle-grid {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+            }
+
+            .footer-card {
+                padding: 40px 0 30px 0 !important;
+            }
+
+            .footer-search-container {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+
+            .footer-partner-btn {
+                width: 100% !important;
+                text-align: center !important;
+            }
+        }
+
+        /* News Section Override Rules */
+        .news-section {
+            position: relative !important;
+            overflow: visible !important;
+            z-index: 2 !important;
+        }
+
+        .news-section .container {
+            position: relative !important;
+            z-index: 5 !important;
+        }
+
+
+        /* Contact Section Override Rules */
+        .contact-section {
+            position: relative !important;
+            z-index: 1 !important;
+        }
+
+        /* Map Section Override Rules */
+        .map-section {
+            position: relative !important;
+            overflow: visible !important;
+            z-index: 5 !important;
+        }
+
+        .map-beans-bg {
+            position: absolute !important;
+            left: 0 !important;
+            top: -160px !important;
+            width: 400px !important;
+            height: 700px !important;
+            background-image: url('coffee5.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left center !important;
+            pointer-events: none !important;
+            z-index: 10 !important;
+            opacity: 0.9 !important;
+        }
+
+        @media (max-width: 991px) {
+            .map-beans-bg {
+                width: 280px !important;
+                height: 490px !important;
+                top: -170px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .map-beans-bg {
+                width: 180px !important;
+                height: 315px !important;
+                top: -110px !important;
+            }
+        }
+
+        .map-beans-above-bg {
+            position: absolute !important;
+            left: 0 !important;
+            transform: none !important;
+            top: -240px !important;
+            width: 1200px !important;
+            height: 1200px !important;
+            background-image: url('coffee6.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left center !important;
+            pointer-events: none !important;
+            z-index: 8 !important;
+            opacity: 0.9 !important;
+        }
+
+        @media (max-width: 991px) {
+            .map-beans-above-bg {
+                width: 840px !important;
+                height: 840px !important;
+                top: -270px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .map-beans-above-bg {
+                width: 540px !important;
+                height: 540px !important;
+                top: -180px !important;
+            }
+        }
+
+        .partnership-section {
+            position: relative !important;
+            overflow: visible !important;
+            z-index: 2 !important;
+        }
+
+        .brand-partnership-grid {
+            position: relative !important;
+            z-index: 5 !important;
+        }
+
+        .partnership-beans-bg {
+            position: absolute !important;
+            right: 0 !important;
+            left: auto !important;
+            transform: none !important;
+            top: -380px !important;
+            width: 1200px !important;
+            height: 800px !important;
+            background-image: url('coffee7.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: right center !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.95 !important;
+        }
+
+        @media (max-width: 991px) {
+            .partnership-beans-bg {
+                width: 840px !important;
+                height: 560px !important;
+                top: -120px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .partnership-beans-bg {
+                width: 600px !important;
+                height: 400px !important;
+                top: -100px !important;
+            }
+        }
+
+        .quality-beans-bg {
+            position: absolute !important;
+            left: 0 !important;
+            right: auto !important;
+            transform: none !important;
+            top: -380px !important;
+            width: 1200px !important;
+            height: 800px !important;
+            background-image: url('coffee8.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left center !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.95 !important;
+        }
+
+        @media (max-width: 991px) {
+            .quality-beans-bg {
+                width: 840px !important;
+                height: 560px !important;
+                top: -140px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .quality-beans-bg {
+                width: 600px !important;
+                height: 400px !important;
+                top: -110px !important;
+            }
+        }
+
+        .partners-section {
+            position: relative !important;
+            overflow: visible !important;
+            z-index: 1 !important;
+        }
+
+        .partners-beans-bg {
+            position: absolute !important;
+            left: 0 !important;
+            right: auto !important;
+            transform: none !important;
+            top: -380px !important;
+            width: 1200px !important;
+            height: 800px !important;
+            background-image: url('coffee9.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left center !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.95 !important;
+        }
+
+        @media (max-width: 991px) {
+            .partners-beans-bg {
+                width: 840px !important;
+                height: 560px !important;
+                top: -130px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .partners-beans-bg {
+                width: 600px !important;
+                height: 400px !important;
+                top: -100px !important;
+            }
+        }
+
+        .footer {
+            position: relative !important;
+            overflow: visible !important;
+            z-index: 2 !important;
+        }
+
+        .partners-beans-right-bg {
+            position: absolute !important;
+            left: 0 !important;
+            right: auto !important;
+            transform: none !important;
+            top: -180px !important;
+            width: 1200px !important;
+            height: 800px !important;
+            background-image: url('coffee10.png') !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: left center !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.95 !important;
+        }
+
+        @media (max-width: 991px) {
+            .partners-beans-right-bg {
+                width: 840px !important;
+                height: 560px !important;
+                top: -130px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .partners-beans-right-bg {
+                width: 600px !important;
+                height: 400px !important;
+                top: -100px !important;
+            }
+        }
+    
+        /* ===========================
+           MOBILE PREMIUM SLIDERS STYLE
+           =========================== */
+        .mobile-about-controls, .mobile-map-controls {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px auto;
+            max-width: 320px;
+        }
+
+        /* Hide mobile-specific layout containers on desktop view */
+        .app-mobile-container,
+        .franchise-mobile-content-wrapper,
+        .news-mobile-container,
+        .partnership-mobile-container {
+            display: none;
+        }
+        
+        .mobile-control-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #15110F !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #FFF5E1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0 !important;
+        }
+        
+        .mobile-control-arrow:hover {
+            border-color: #FBB03B !important;
+            color: #FBB03B !important;
+        }
+        
+        .mobile-control-arrow svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .mobile-control-pill {
+            background: #FBB03B !important;
+            color: #15110F !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-weight: 700 !important;
+            font-size: 0.85rem !important;
+            padding: 12px 20px !important;
+            border-radius: 25px !important;
+            text-transform: uppercase !important;
+            flex-grow: 1 !important;
+            text-align: center !important;
+            box-shadow: 0 4px 15px rgba(251, 176, 59, 0.2) !important;
+            letter-spacing: 0.5px !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+        .mobile-about-dots, .app-mobile-dots, .franchise-mobile-dots, .news-mobile-dots, .partnership-mobile-dots, .locations-mobile-dots {
+            display: none;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px auto 10px auto;
+        }
+        
+        .about-dot, .app-dot, .franchise-dot, .news-dot, .partnership-dot, .location-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3) !important;
+            cursor: pointer;
+            transition: all 0.3s ease !important;
+        }
+        
+        .about-dot.active, .app-dot.active, .franchise-dot.active, .news-dot.active, .partnership-dot.active, .location-dot.active {
+            background: #FBB03B !important;
+            transform: scale(1.25) !important;
+        }
+
+        /* Responsive Mobile Layout Grid Overrides */
+        @media (max-width: 768px) {
+            /* Header updates */
+            .header-container {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+            }
+            .hamburger {
+                display: flex !important;
+                order: 1 !important;
+                margin: 0 !important;
+            }
+            .logo {
+                order: 2 !important;
+                margin: 0 auto !important;
+            }
+            .header-right {
+                display: flex !important;
+                order: 3 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+            }
+            .language-selector {
+                display: none !important;
+            }
+            .header-contact {
+                display: block !important;
+                margin: 0 !important;
+            }
+            .phone-link span {
+                display: none !important;
+            }
+            .phone-icon {
+                width: 24px !important;
+                height: 24px !important;
+                margin: 0 !important;
+                filter: brightness(1.2) !important;
+            }
+
+            /* About section dots & controls */
+            .mobile-about-controls {
+                display: flex !important;
+            }
+            .mobile-about-dots {
+                display: flex !important;
+            }
+            .hero-tabs {
+                display: none !important;
+            }
+            .about-slider-track {
+                transform: translate3d(0,0,0);
+                transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            }
+            .about-slide {
+                min-width: 25% !important;
+                width: 25% !important;
+            }
+            .about-card {
+                padding: 30px 20px !important;
+                border-radius: 30px !important;
+            }
+            .about-grid {
+                grid-template-columns: 1fr !important;
+                gap: 25px !important;
+            }
+            .about-image-wrapper {
+                border-radius: 20px !important;
+                max-height: 250px !important;
+                margin-top: 15px !important;
+            }
+            .about-image-wrapper img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+            /* App Section */
+            .app-layout-grid {
+                display: none !important;
+            }
+            .app-mobile-container {
+                display: block !important;
+                padding: 0 10px !important;
+            }
+            .app-mobile-slider {
+                border-radius: 30px !important;
+                overflow: hidden !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                background-color: #15110F !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+                width: 100%;
+            }
+            .app-mobile-track {
+                display: flex;
+                width: 200%;
+                transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+            .app-mobile-slide {
+                width: 50%;
+                flex-shrink: 0;
+            }
+            .app-mobile-slide img {
+                width: 100% !important;
+                height: 280px !important;
+                object-fit: cover !important;
+                display: block !important;
+            }
+            .app-mobile-dots {
+                display: flex !important;
+            }
+            .app-mobile-content {
+                margin-top: 25px !important;
+                padding: 0 10px !important;
+            }
+            .app-mobile-content .pill-tags {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+                justify-content: center !important;
+                margin-bottom: 20px !important;
+            }
+            .app-mobile-content .pill {
+                background: rgba(255, 255, 255, 0.05) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                color: #A19C99 !important;
+                font-size: 0.7rem !important;
+                padding: 6px 12px !important;
+                border-radius: 20px !important;
+                font-weight: 600 !important;
+            }
+            .app-mobile-desc {
+                color: #A19C99 !important;
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+                margin-bottom: 25px !important;
+                text-align: center !important;
+            }
+            .app-mobile-actions {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+                width: 100% !important;
+            }
+            .btn-store-mobile {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 10px !important;
+                padding: 14px 20px !important;
+                border-radius: 12px !important;
+                font-family: 'Comfortaa', sans-serif !important;
+                font-weight: 700 !important;
+                font-size: 0.95rem !important;
+                text-decoration: none !important;
+                transition: all 0.3s ease !important;
+            }
+            .btn-store-mobile.ios {
+                background: #FBB03B !important;
+                color: #15110F !important;
+                box-shadow: 0 4px 15px rgba(251, 176, 59, 0.2) !important;
+            }
+            .btn-store-mobile.android {
+                background: #FFF5E1 !important;
+                color: #15110F !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            .store-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            /* Franchise Section */
+            .franchise-desktop-content {
+                display: none !important;
+            }
+            .franchise-mobile-content-wrapper {
+                display: block !important;
+                padding: 0 10px !important;
+            }
+            .franchise-mobile-slider {
+                border-radius: 30px !important;
+                overflow: hidden !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                background-color: #15110F !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+                margin-top: 25px !important;
+                width: 100%;
+            }
+            .franchise-mobile-track {
+                display: flex;
+                width: 200%;
+                transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+            .franchise-mobile-slide {
+                width: 50%;
+                flex-shrink: 0;
+            }
+            .franchise-mobile-slide img {
+                width: 100% !important;
+                height: 280px !important;
+                object-fit: cover !important;
+                display: block !important;
+            }
+            .franchise-mobile-dots {
+                display: flex !important;
+            }
+            .franchise-mobile-actions {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+                margin-top: 25px !important;
+                width: 100% !important;
+            }
+            .franchise-mobile-actions .btn-orange, .franchise-mobile-actions .btn-white {
+                display: block !important;
+                width: 100% !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+            }
+
+            /* News Section */
+            .news-layout {
+                display: none !important;
+            }
+            .news-mobile-container {
+                display: block !important;
+                padding: 0 10px !important;
+            }
+            .news-mobile-slider {
+                overflow: hidden !important;
+                width: 100%;
+            }
+            .news-mobile-track {
+                display: flex;
+                width: 400%;
+                transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+            .news-mobile-slide {
+                width: 25%;
+                flex-shrink: 0;
+                box-sizing: border-box;
+                padding: 0 10px;
+            }
+            .news-mobile-slide .news-main-card {
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                border-radius: 30px !important;
+                padding: 25px !important;
+                background-color: #15110F !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+                height: 100% !important;
+            }
+            .news-mobile-slide .main-card-content {
+                padding: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                height: 100% !important;
+                justify-content: space-between !important;
+            }
+            .news-mobile-slide .main-news-title {
+                font-family: 'Comfortaa', sans-serif !important;
+                font-size: 1.25rem !important;
+                color: #FFF5E1 !important;
+                margin-bottom: 10px !important;
+                line-height: 1.35 !important;
+                font-weight: 600 !important;
+            }
+            .news-mobile-slide .main-news-subtitle {
+                color: #A19C99 !important;
+                font-size: 0.85rem !important;
+                line-height: 1.5 !important;
+                margin-bottom: 20px !important;
+            }
+            .news-mobile-slide .main-news-image {
+                border-radius: 20px !important;
+                overflow: hidden !important;
+                margin-bottom: 20px !important;
+                height: 180px !important;
+            }
+            .news-mobile-slide .main-news-image img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+            .news-mobile-slide .main-news-footer {
+                display: flex !important;
+                justify-content: flex-end !important;
+                padding: 0 !important;
+                margin-top: 10px !important;
+            }
+            .news-mobile-slide .main-news-footer .btn-orange {
+                width: 100% !important;
+                text-align: center !important;
+            }
+            .news-mobile-dots {
+                display: flex !important;
+            }
+            
+            /* News slides mini & partner cards styling */
+            .news-mobile-slide .mini-news-card, .news-mobile-slide .partner-news-card {
+                background-color: #15110F !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                border-radius: 30px !important;
+                padding: 25px !important;
+                height: 100% !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+            }
+            .news-mobile-slide .mini-img, .news-mobile-slide .partner-logos {
+                width: 100% !important;
+                height: 180px !important;
+                overflow: hidden !important;
+                border-radius: 20px !important;
+                margin: 0 0 20px 0 !important;
+            }
+            .news-mobile-slide .mini-img img, .news-mobile-slide .partner-logos img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                border-radius: 20px !important;
+                display: block !important;
+            }
+            .news-mobile-slide .mini-content h4, .news-mobile-slide .partner-content h4 {
+                font-family: 'Comfortaa', sans-serif !important;
+                font-size: 1.1rem !important;
+                color: #FFF5E1 !important;
+                margin: 0 0 15px 0 !important;
+                line-height: 1.4 !important;
+                font-weight: 600 !important;
+            }
+            .news-mobile-slide .partner-content p {
+                color: #A19C99 !important;
+                font-size: 0.85rem !important;
+                line-height: 1.5 !important;
+                margin: 0 !important;
+            }
+            .news-mobile-slide .arrow-btn {
+                width: 44px !important;
+                height: 44px !important;
+                border-radius: 50% !important;
+                border: 1px solid rgba(255,255,255,0.15) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                align-self: flex-end !important;
+                background: transparent !important;
+                margin-top: 15px !important;
+            }
+            .news-mobile-slide .arrow-btn img {
+                width: 16px !important;
+                height: 16px !important;
+            }
+
+            /* Partnership Section */
+            .brand-partnership-grid {
+                display: none !important;
+            }
+            .partnership-mobile-container {
+                display: block !important;
+                padding: 0 10px !important;
+            }
+            .partnership-mobile-slider {
+                border-radius: 30px !important;
+                overflow: hidden !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                background-color: #15110F !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+                width: 100%;
+            }
+            .partnership-mobile-track {
+                display: flex;
+                width: 200%;
+                transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+            .partnership-mobile-slide {
+                width: 50%;
+                flex-shrink: 0;
+            }
+            .partnership-mobile-slide img {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 400px !important;
+                object-fit: cover !important;
+                display: block !important;
+            }
+            .partnership-mobile-dots {
+                display: flex !important;
+            }
+            .partnership-mobile-content {
+                margin-top: 25px !important;
+                padding: 0 10px !important;
+            }
+            .partnership-mobile-content .partnership-tags-container {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+                justify-content: center !important;
+                margin-bottom: 20px !important;
+            }
+            .partnership-mobile-content .partnership-tag {
+                background: rgba(255, 255, 255, 0.05) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                color: #A19C99 !important;
+                font-size: 0.7rem !important;
+                padding: 6px 12px !important;
+                border-radius: 20px !important;
+                font-weight: 600 !important;
+            }
+            .partnership-mobile-desc {
+                color: #A19C99 !important;
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+                margin-bottom: 25px !important;
+                text-align: center !important;
+            }
+            .partnership-mobile-actions {
+                width: 100% !important;
+            }
+            .partnership-btn-mobile {
+                display: block !important;
+                width: 100% !important;
+                background: #FBB03B !important;
+                color: #15110F !important;
+                border: none !important;
+                padding: 14px 20px !important;
+                border-radius: 12px !important;
+                font-family: 'Comfortaa', sans-serif !important;
+                font-weight: 700 !important;
+                font-size: 0.95rem !important;
+                cursor: pointer !important;
+                transition: all 0.3s ease !important;
+                box-shadow: 0 4px 15px rgba(251, 176, 59, 0.2) !important;
+            }
+
+            /* Map Country Filters / Locations Grid */
+            .map-filters {
+                display: none !important;
+            }
+            .mobile-map-controls {
+                display: flex !important;
+            }
+            .locations-grid {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 15px !important;
+                padding-bottom: 20px !important;
+                scrollbar-width: none !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            .locations-grid::-webkit-scrollbar {
+                display: none !important;
+            }
+            .locations-grid .location-card {
+                min-width: 290px !important;
+                max-width: 290px !important;
+                flex-shrink: 0 !important;
+                scroll-snap-align: center !important;
+                margin: 0 !important;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.4) !important;
+            }
+            .locations-mobile-dots {
+                display: flex !important;
+            }
+        }
+
+        /* Hamburger Button styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1100;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #FFF5E1;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Premium Burger Menu styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000000 !important;
+            z-index: 10000 !important;
+            flex-direction: column;
+            padding: 30px 24px !important;
+            box-sizing: border-box !important;
+            overflow-y: auto;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .mobile-menu.open {
+            display: flex !important;
+        }
+
+        .mobile-menu-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-bottom: 20px !important;
+        }
+
+        .mobile-menu-header .logo img {
+            height: 38px !important;
+            object-fit: contain !important;
+        }
+
+        .mobile-menu-close {
+            background: transparent !important;
+            border: none !important;
+            color: #FFF5E1 !important;
+            font-size: 2rem !important;
+            cursor: pointer !important;
+            line-height: 1 !important;
+            padding: 4px !important;
+        }
+
+        .mobile-menu-section-title {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+            width: 100% !important;
+            margin-top: 15px !important;
+        }
+
+        .mobile-menu-section-title span {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            color: #8A8581 !important;
+            letter-spacing: 1px !important;
+        }
+
+        .menu-divider-line {
+            width: 100% !important;
+            height: 1px !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .mobile-menu-links {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 25px !important;
+            margin: 15px 0 !important;
+            width: 100% !important;
+        }
+
+        .mobile-menu-link {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 1.8rem !important;
+            font-weight: 700 !important;
+            color: #FFF5E1 !important;
+            text-decoration: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            letter-spacing: -0.5px !important;
+            transition: color 0.2s ease !important;
+            text-transform: uppercase !important;
+        }
+
+        .mobile-menu-link:hover, .mobile-menu-link.active {
+            color: #ffffff !important;
+        }
+
+        .mobile-menu-link.active {
+            font-weight: 800 !important;
+        }
+
+        .active-dot {
+            width: 8px !important;
+            height: 8px !important;
+            background-color: #8A8581 !important;
+            border-radius: 50% !important;
+            display: inline-block !important;
+        }
+
+        .mobile-menu-search {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            width: 100% !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+            padding-bottom: 8px !important;
+            margin: 20px 0 !important;
+        }
+
+        .mobile-search-input {
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            color: #ffffff !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 1rem !important;
+            flex-grow: 1 !important;
+        }
+
+        .mobile-search-input::placeholder {
+            color: #8A8581 !important;
+        }
+
+        .mobile-menu-contacts {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 20px !important;
+            margin: 15px 0 !important;
+            width: 100% !important;
+        }
+
+        .mobile-contact-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 15px !important;
+        }
+
+        .mobile-contact-item a {
+            color: #FFF5E1 !important;
+            text-decoration: none !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+        }
+
+        .contact-icon {
+            width: 20px !important;
+            height: 20px !important;
+            object-fit: contain !important;
+        }
+
+        .mobile-menu-languages {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            margin-top: auto !important;
+            padding-top: 30px !important;
+        }
+
+        .lang-item {
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.95rem !important;
+            font-weight: 700 !important;
+            color: #8A8581 !important;
+            cursor: pointer !important;
+        }
+
+        .lang-item.active {
+            color: #FFF5E1 !important;
+        }
+
+        .lang-separator {
+            color: rgba(255, 255, 255, 0.15) !important;
+            font-size: 0.95rem !important;
+        }
+
+        @media (max-width: 768px) {
+            .about-list {
+                padding-left: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 30px !important;
+                position: relative !important;
+            }
+            
+            .about-list-item {
+                display: flex !important;
+                align-items: flex-start !important;
+                gap: 15px !important;
+                list-style-type: none !important;
+                position: relative !important;
+                z-index: 2 !important;
+            }
+
+            .about-list-item .item-icon {
+                width: 42px !important;
+                height: 42px !important;
+                border-radius: 50% !important;
+                background-color: #FFF5E1 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                flex-shrink: 0 !important;
+                position: relative !important;
+                z-index: 5 !important;
+            }
+
+            .about-list-item .item-icon img {
+                width: 22px !important;
+                height: 22px !important;
+                object-fit: contain !important;
+                filter: brightness(0.1) contrast(1.2) !important;
+            }
+
+            .about-list::before {
+                content: '' !important;
+                position: absolute !important;
+                left: 21px !important;
+                top: 21px !important;
+                bottom: 21px !important;
+                width: 1px !important;
+                border-left: 1px dashed rgba(255, 255, 255, 0.25) !important;
+                z-index: 1 !important;
+            }
+
+            .about-list-decor {
+                display: none !important;
+            }
+
+            .about-image-wrapper {
+                height: 260px !important;
+                border-radius: 20px !important;
+            }
+        }
+
+        #map {
+            width: 100%;
+            height: 550px;
+            z-index: 1;
+        }
+        @media (max-width: 768px) {
+            #map {
+                height: 350px;
+            }
+        }
+</style>
+
+    <!-- Leaflet CSS for interactive map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER NAVIGATION
+         ========================================== -->
+    <header class="header">
+        <div class="container header-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Global Coffee Logo">
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="nav">
+                <a href="franchise.html">Франшиза</a>
+                <a href="partners.html">Партнерам</a>
+            </nav>
+
+            <!-- Language and Contact Info -->
+            <div class="header-right">
+                <div class="language-selector">
+                    <span>Ru</span> <span class="arrow">▼</span>
+                </div>
+                <div class="header-contact">
+                    <a href="tel:+77071913434" class="phone-link">
+                        <img src="Vector.png" alt="Phone" class="phone-icon">
+                        <span>+ 7 707 191 34 34</span>
+                    </a>
+                </div>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- ==========================================
+             HERO SECTION
+             ========================================== -->
+        <section class="hero section">
+            <div class="container text-center">
+                <h1 class="main-title">Масштабируем вкус успеха</h1>
+                <div class="divider-wrapper">
+                    <img src="Frame 13.png" alt="Divider" class="divider-img">
+                </div>
+                <p class="subtitle">Мы хотим, чтобы в каждом городе, на каждой улице, каждый человек мог выпить вкусный
+                    кофе.</p>
+
+                <!-- Hero Tabs / Timeline -->
+                <div class="hero-tabs" style="display: flex; justify-content: center; gap: 40px; position: relative; z-index: 10;">
+                    <div class="tab-item active" onclick="switchSlide(0)" style="cursor: pointer;">
+                        <span class="dot"></span>
+                        <span class="tab-text">О НАС</span>
+                    </div>
+                    <div class="tab-item" onclick="switchSlide(1)" style="cursor: pointer;">
+                        <span class="dot"></span>
+                        <span class="tab-text">СТАТЬ ПАРТНЁРОМ</span>
+                    </div>
+                    <div class="tab-item" onclick="switchSlide(2)" style="cursor: pointer;">
+                        <span class="dot"></span>
+                        <span class="tab-text">СТАНЬТЕ ЧАСТЬЮ GLOBAL COFFEE</span>
+                    </div>
+                    <div class="tab-item" onclick="switchSlide(3)" style="cursor: pointer;">
+                        <span class="dot"></span>
+                        <span class="tab-text">НОВИНКИ</span>
+                    </div>
+                </div>
+
+                <div class="floating-beans-bg">
+                    <!-- This will be styled in CSS with an image -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             ABOUT SECTION (World of Global Coffee)
+             ========================================== -->
+        <section class="about-section section" id="about" style="overflow: hidden; position: relative;">
+            <!-- Mobile Controls -->
+            <div class="mobile-about-controls">
+                <button class="mobile-control-arrow prev" onclick="changeAboutSlideMobile(-1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <div class="mobile-control-pill" id="about-active-pill">О НАС</div>
+                <button class="mobile-control-arrow next" onclick="changeAboutSlideMobile(1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
+
+            <div class="about-slider-container" style="width: 100%; overflow: hidden; position: relative;">
+                <div class="about-slider-track" style="display: flex; width: 400%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);">
+                    
+                    <!-- Slide 1: О нас -->
+                    <div class="about-slide" style="width: 25%; flex-shrink: 0;">
+                        <div class="container-fluid">
+                            <div class="about-card">
+                                <div class="grid-2 about-grid">
+                                    <div class="about-text-content">
+                                        <h2 class="about-title">Mup Global Coffee</h2>
+                                        <ul class="about-list" style="position: relative;">
+                                            <!-- Decorative connection line background -->
+                                            <div class="about-list-decor" style="position: absolute; left: -2px; top: 5px; bottom: 5px; width: 46px; background-image: url('Vector 152.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: top center; z-index: 1; pointer-events: none; opacity: 0.8;"></div>
+                                            
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="map icon.png" alt="Global Icon" class="icon-img">
+                                                </div>
+                                                <p>Global Coffee — это сеть кофеен, созданная в Казахстане и выросшая в международный бренд.</p>
+                                            </li>
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="coffee icon.png" alt="Coffee Icon" class="icon-img">
+                                                </div>
+                                                <p>Мы — про качественный кофе и сервис в формате "у дома". Глобальная сеть с едиными стандартами и локальным подходом.</p>
+                                            </li>
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="men icon.png" alt="List Icon" class="icon-img">
+                                                </div>
+                                                <div class="item-details">
+                                                    <p>Сегодня Global Coffee — это:</p>
+                                                    <ul style="list-style-type: disc; padding-left: 20px; color: #8A8581; margin-top: 5px;">
+                                                        <li style="margin-bottom: 5px;">10 лет на рынке</li>
+                                                        <li style="margin-bottom: 5px;">более 300 кофеен</li>
+                                                        <li style="margin-bottom: 5px;">кофе, который всегда рядом</li>
+                                                        <li style="margin-bottom: 5px;">бренд с понятной философией</li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="about-image-wrapper">
+                                        <img src="Rectangle 3.png" alt="Mup Global Coffee" class="rounded-image shadow-lg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Стать партнером -->
+                    <div class="about-slide" style="width: 25%; flex-shrink: 0;">
+                        <div class="container-fluid">
+                            <div class="about-card">
+                                <div class="grid-2 about-grid">
+                                    <div class="about-text-content">
+                                        <h2 class="about-title">Почему партнёры растут вместе с нами</h2>
+                                        <ul class="about-list" style="position: relative;">
+                                            <!-- Decorative connection line background -->
+                                            <div class="about-list-decor" style="position: absolute; left: 19px; top: 20px; bottom: 20px; width: 1px; background-image: url('images/Line 26.svg'); background-size: 1px auto; background-repeat: repeat-y; background-position: center top; z-index: 1; pointer-events: none; opacity: 0.8;"></div>
+                                            
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="slider11.png" alt="Coffee Icon" class="icon-img">
+                                                </div>
+                                                <div class="item-details">
+                                                    <ul style="list-style-type: none; padding-left: 0; color: #8A8581; font-family: 'Comfortaa', sans-serif;">
+                                                        <li style="margin-bottom: 10px; position: relative; padding-left: 20px;">
+                                                            <span style="position: absolute; left: 0; color: #D4A373;">•</span> единая стратегия развития сети
+                                                        </li>
+                                                        <li style="margin-bottom: 10px; position: relative; padding-left: 20px;">
+                                                            <span style="position: absolute; left: 0; color: #D4A373;">•</span> масштабируемая бизнес-модель
+                                                        </li>
+                                                        <li style="margin-bottom: 10px; position: relative; padding-left: 20px;">
+                                                            <span style="position: absolute; left: 0; color: #D4A373;">•</span> поддержка на старте и в росте
+                                                        </li>
+                                                        <li style="margin-bottom: 10px; position: relative; padding-left: 20px;">
+                                                            <span style="position: absolute; left: 0; color: #D4A373;">•</span> понятная логика: сначала стабильность — потом масштаб
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="about-list-item" style="margin-top: 15px;">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="slider12.png" alt="Partners Icon" class="icon-img">
+                                                </div>
+                                                <p>Мы заинтересованы в сильных партнёрах, потому что рост каждого усиливает всю сеть.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="about-image-wrapper">
+                                         <img src="slider1.png" alt="Почему партнёры растут вместе с нами" class="rounded-image shadow-lg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Станьте частью GLOBAL COFFEE -->
+                    <div class="about-slide" style="width: 25%; flex-shrink: 0;">
+                        <div class="container-fluid">
+                            <div class="about-card">
+                                <div class="grid-2 about-grid">
+                                    <div class="about-text-content">
+                                        <h2 class="about-title">Запусти прибыльный бизнес с лидером рынка</h2>
+                                        <ul class="about-list" style="position: relative;">
+                                            <!-- Decorative connection line background -->
+                                            <div class="about-list-decor" style="position: absolute; left: 19px; top: 44px; bottom: 44px; width: 1px; background-image: url('images/Line 26.svg'); background-size: 1px auto; background-repeat: repeat-y; background-position: center top; z-index: 1; pointer-events: none; opacity: 0.8;"></div>
+                                            
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="slider21.png" alt="Global Icon" class="icon-img">
+                                                </div>
+                                                <p>Наша франшиза — это не просто право на название. Это вход в работающую систему кофейного бизнеса, выстроенную на 10-летнем практическом опыте.</p>
+                                            </li>
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="slider22.png" alt="Coffee Icon" class="icon-img">
+                                                </div>
+                                                <p>Мы передаём партнёрам ключевое — интеллектуальную модель управления кофейней: продуманную экономику, чёткие процессы и решения, которые уже приносят результат в действующих точках сети.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="about-image-wrapper">
+                                        <img src="slide3.png" alt="Запусти прибыльный бизнес с лидером рынка" class="rounded-image shadow-lg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Новинки -->
+                    <div class="about-slide" style="width: 25%; flex-shrink: 0;">
+                        <div class="container-fluid">
+                            <div class="about-card">
+                                <div class="grid-2 about-grid">
+                                    <div class="about-text-content">
+                                        <h2 class="about-title">Вкусы момента</h2>
+                                        <ul class="about-list" style="position: relative;">
+                                            <!-- Decorative connection line background -->
+                                            <div class="about-list-decor" style="position: absolute; left: 19px; top: 20px; bottom: 20px; width: 1px; background-image: url('images/Line 26.svg'); background-size: 1px auto; background-repeat: repeat-y; background-position: center top; z-index: 1; pointer-events: none; opacity: 0.8;"></div>
+                                            
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="slider31.png" alt="Coffee Icon" class="icon-img">
+                                                </div>
+                                                <p>Каждый сезон — это новые вкусы, новые эмоции и новые причины для гостей возвращаться снова и снова.</p>
+                                            </li>
+                                            <li class="about-list-item">
+                                                <div class="item-icon" style="position: relative; z-index: 2;">
+                                                    <img src="slider32.png" alt="Trends Icon" class="icon-img">
+                                                </div>
+                                                <p>Мы внимательно следим за мировыми трендами кофейной индустрии, анализируем спрос и тестируем рецептуры, прежде чем они появляются в меню.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="about-image-wrapper">
+                                        <img src="slide4.png" alt="Вкусы момента" class="rounded-image shadow-lg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Mobile Dots -->
+            <div class="mobile-about-dots">
+                <span class="about-dot active" onclick="goToAboutSlide(0)"></span>
+                <span class="about-dot" onclick="goToAboutSlide(1)"></span>
+                <span class="about-dot" onclick="goToAboutSlide(2)"></span>
+                <span class="about-dot" onclick="goToAboutSlide(3)"></span>
+            </div>
+            <div class="about-beans-bg"></div>
+        </section>
+
+
+        <section class="app-section section">
+            <div class="container text-center">
+                <h2 class="section-title">Бесплатный кофе — наш язык любви</h2>
+                <div class="divider-wrapper">
+                    <img src="Frame 13.png" alt="Divider" class="divider-img">
+                </div>
+                <p class="section-subtitle">Регистрируйся в программе лояльности и получай кофе в подарок снова и
+                    снова!<br>И это ещё не всё!</p>
+            </div>
+
+            <div class="container-fluid" style="position: relative;">
+                
+                <!-- Mobile App Slider Container -->
+                <div class="app-mobile-container">
+                    <div class="app-mobile-slider">
+                        <div class="app-mobile-track">
+                            <div class="app-mobile-slide">
+                                <img src="Rectangle 78.png" alt="Global Coffee App">
+                            </div>
+                            <div class="app-mobile-slide">
+                                <img src="Rectangle 14.png" alt="Happy Customers">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-mobile-dots">
+                        <span class="app-dot active" onclick="goToAppSlide(0)"></span>
+                        <span class="app-dot" onclick="goToAppSlide(1)"></span>
+                    </div>
+                    <div class="app-mobile-content">
+                        <div class="pill-tags">
+                            <span class="pill">#ЛОЯЛЬНОСТЬ</span>
+                            <span class="pill">#КОФЕЙНЫЕПРИВЕЛЕГИИ</span>
+                            <span class="pill">#БАЛЛЫ</span>
+                            <span class="pill">#КОПИТЕ</span>
+                            <span class="pill">#ЗАРАБАТЫВАЙТЕ</span>
+                            <span class="pill">#МЕНЯЙТЕ</span>
+                            <span class="pill">#ОЦЕНИВАЙТЕ</span>
+                        </div>
+                        <p class="app-mobile-desc">Скачайте приложение Global Coffee. Копите бесплатные стаканы и бонусы! Воспользуйтесь системой предоплаты, чтобы напитки были готовы к вашему визиту. Ожидание в очереди – в прошлом. Не пропускайте наши акции и будьте в курсе новостей.</p>
+                        <div class="app-mobile-actions">
+                            <a href="#" class="btn-store-mobile ios">
+                                <svg class="store-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71,19.5 C17.88,20.74 17,21.95 15.66,22 C14.32,22.05 13.89,21.24 12.37,21.24 C10.84,21.24 10.37,21.97 9.1,22.03 C7.79,22.08 6.8,20.74 5.96,19.53 C4.26,17.06 2.97,12.51 4.72,9.47 C5.59,7.96 7.15,7 8.83,6.97 C10.11,6.95 11.31,7.83 12.09,7.83 C12.87,7.83 14.34,6.77 15.87,6.93 C16.51,6.95 18.31,7.19 19.5,8.93 C19.4,8.99 17.15,10.31 17.17,12.93 C17.2,16.08 19.9,17.13 19.93,17.14 C19.91,17.2 19.51,18.57 18.71,19.5 M15.97,4.17 C16.63,3.37 17.07,2.28 16.95,1 C16,1.04 14.9,1.6 14.24,2.38 C13.68,3.04 13.19,4.14 13.34,5.39 C14.39,5.47 15.4,4.88 15.97,4.17 Z"/></svg>
+                                <span>Скачать для iOS</span>
+                            </a>
+                            <a href="#" class="btn-store-mobile android">
+                                <svg class="store-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M17.5,12A5.5,5.5 0 0,0 12,6.5A5.5,5.5 0 0,0 6.5,12A5.5,5.5 0 0,0 12,17.5A5.5,5.5 0 0,0 17.5,12M12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5Z"/></svg>
+                                <span>Скачать для Android</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+<div class="app-layout-grid">
+                    <!-- Layer 1: Solid Background Pieces (Ideal Rounding) -->
+                    <div class="app-bg-layer">
+                        <div class="bg-left-bar"></div>
+                        <div class="bg-top-bar">
+                            <div class="bg-inner-corner"></div>
+                        </div>
+                    </div>
+
+                    <!-- Layer 2: Perfect Continuous Border Line -->
+                    <div class="app-border-svg">
+                        <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+                            <path
+                                d="M 0 40 Q 0 0 40 0 L 960 0 Q 1000 0 1000 40 V 360 Q 1000 400 960 400 H 440 Q 400 400 400 440 V 960 Q 400 1000 360 1000 H 40 Q 0 1000 0 960 Z"
+                                fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"
+                                vector-effect="non-scaling-stroke" />
+                        </svg>
+                    </div>
+
+                    <!-- Left side photo (Spans both rows) -->
+                    <div class="app-main-card">
+                        <img src="Rectangle 78.png" alt="Global Coffee App">
+                    </div>
+
+                    <!-- Top right text -->
+                    <div class="app-text-info">
+                        <p>Скачайте приложение Global Coffee. Копите бесплатные стаканы и бонусы! Воспользуйтесь
+                            системой предоплаты, чтобы напитки были готовы к вашему визиту. Ожидание в очереди – в
+                            прошлом. Не пропускайте наши акции и будьте в курсе новостей.</p>
+
+                        <div class="pill-tags">
+                            <span class="pill">#ЛОЯЛЬНОСТЬ</span>
+                            <span class="pill">#КОФЕЙНЫЕПРИВЕЛЕГИИ</span>
+                            <span class="pill">#БАЛЛЫ</span>
+                            <span class="pill">#КОПИТЕ</span>
+                            <span class="pill">#ЗАРАБАТЫВАЙТЕ</span>
+                            <span class="pill">#МЕНЯЙТЕ</span>
+                            <span class="pill">#ОЦЕНИВАЙТЕ</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom right card (Outside the bar) -->
+                    <div class="app-outside-card-wrapper">
+                        <div class="app-secondary-card">
+                            <img src="Rectangle 14.png" alt="Happy Customers" class="rounded-image">
+                            <div class="download-overlay">
+                                <a href="#" class="btn-store-img">
+                                    <img src="button 3.png" alt="Скачать для iOS">
+                                </a>
+                                <a href="#" class="btn-store-img">
+                                    <img src="button 4.png" alt="Скачать для Android">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-beans-bg"></div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             FRANCHISE SECTION
+             ========================================== -->
+        <!-- Franchise Section -->
+        <section class="franchise-section section">
+            <div class="franchise-beans-bg"></div>
+            <div class="container">
+                <div class="franchise-card">
+                    <div class="franchise-content">
+                        <h2 class="franchise-title">Начни зарабатывать с Global Coffee!</h2>
+
+                        <div class="bean-divider">
+                            <img src="Frame 13.png" alt="divider" class="franchise-divider">
+                        </div>
+
+                        <p class="franchise-desc">
+                            Открывай кофейню под ключ — с обучением, поддержкой и готовыми инструментами.<br>
+                            Уже 240+ кофеен в 3 странах. Твоя — следующая. Пора начинать своё дело
+                            вместе&nbsp;с&nbsp;профессионалами!
+                        </p>
+
+                        <!-- Desktop Actions & Gallery -->
+                        <div class="franchise-desktop-content">
+                            <div class="franchise-actions">
+                                <a href="#" class="btn-orange">Связаться с менеджером</a>
+                                <a href="#" class="btn-white">Скачать презентацию</a>
+                            </div>
+
+                            <div class="franchise-gallery">
+                                <div class="gallery-item">
+                                    <img src="Rectangle 16.png" alt="Global Coffee Store">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="Rectangle 18.png" alt="Global Coffee Interior">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Content -->
+                        <div class="franchise-mobile-content-wrapper">
+                            <div class="franchise-mobile-slider">
+                                <div class="franchise-mobile-track">
+                                    <div class="franchise-mobile-slide">
+                                        <img src="Rectangle 16.png" alt="Global Coffee Store">
+                                    </div>
+                                    <div class="franchise-mobile-slide">
+                                        <img src="Rectangle 18.png" alt="Global Coffee Interior">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="franchise-mobile-dots">
+                                <span class="franchise-dot active" onclick="goToFranchiseSlide(0)"></span>
+                                <span class="franchise-dot" onclick="goToFranchiseSlide(1)"></span>
+                            </div>
+                            <div class="franchise-mobile-actions">
+                                <a href="#" class="btn-orange">Связаться с менеджером</a>
+                                <a href="#" class="btn-white">Скачать презентацию</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             NEWS SECTION
+             ========================================== -->
+        <!-- News Section -->
+        <!-- News Section -->
+        <section class="news-section section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="franchise-title">Всегда на волне кофейных событий</h2>
+                    <div class="bean-divider">
+                        <img src="Frame 13.png" alt="divider" class="franchise-divider">
+                    </div>
+                    <p class="franchise-desc">
+                        Читайте свежие новости Global Coffee — от запусков новых кофеен до акций и идей для вдохновения.
+                        Оставайтесь в курсе и будьте частью нашей истории!
+                    </p>
+                </div>
+
+                
+                <!-- Mobile News Slider Container -->
+                <div class="news-mobile-container">
+                    <div class="news-mobile-slider">
+                        <div class="news-mobile-track">
+                            <!-- Slide 1 -->
+                            <div class="news-mobile-slide">
+                                <div class="news-main-card">
+                                    <div class="main-card-content">
+                                        <h3 class="main-news-title">2026 год стал юбилейным для Global Coffee</h3>
+                                        <p class="main-news-subtitle">Бренду исполняется 10 лет, и в этом же году открывается 300-я точка сети...</p>
+                                        <div class="main-news-image">
+                                            <img src="Rectangle 49.png" alt="Anniversary Event">
+                                        </div>
+                                        <div class="main-news-footer">
+                                            <a href="#" class="btn-orange">Читать подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="news-mobile-slide">
+                                <div class="mini-news-card">
+                                    <div class="mini-img">
+                                        <img src="Rectangle 52.png" alt="Barista Cup">
+                                    </div>
+                                    <div class="mini-content">
+                                        <h4>Global Coffee был приглашён в состав жюри профессионального чемпионата Barista Cup</h4>
+                                    </div>
+                                    <a href="#" class="arrow-btn"><img src="Vector1.png" alt="arrow"></a>
+                                </div>
+                            </div>
+                            <!-- Slide 3 -->
+                            <div class="news-mobile-slide">
+                                <div class="mini-news-card">
+                                    <div class="mini-img">
+                                        <img src="Rectangle 54.png" alt="Global Expansion">
+                                    </div>
+                                    <div class="mini-content">
+                                        <h4>Global Coffee покоряет мир. Сегодня нас выбирают уже в 3 странах</h4>
+                                    </div>
+                                    <a href="#" class="arrow-btn"><img src="Vector1.png" alt="arrow"></a>
+                                </div>
+                            </div>
+                            <!-- Slide 4 -->
+                            <div class="news-mobile-slide">
+                                <div class="partner-news-card">
+                                    <div class="partner-logos">
+                                        <img src="Rectangle 55.png" alt="Digital Qazaqstan Partnership">
+                                    </div>
+                                    <div class="partner-content">
+                                        <h4>Мы — партнеры Digital Kazakhstan</h4>
+                                        <p>В марте 2026 года в Шымкенте пройдет форум, объединяющий региональные и globalные технологии экосистемы...</p>
+                                    </div>
+                                    <a href="#" class="arrow-btn"><img src="Vector1.png" alt="arrow"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-mobile-dots">
+                        <span class="news-dot active" onclick="goToNewsSlide(0)"></span>
+                        <span class="news-dot" onclick="goToNewsSlide(1)"></span>
+                        <span class="news-dot" onclick="goToNewsSlide(2)"></span>
+                        <span class="news-dot" onclick="goToNewsSlide(3)"></span>
+                    </div>
+                </div>
+<div class="news-layout">
+                    <!-- Main Featured News -->
+                    <div class="news-main-card">
+                        <div class="main-card-content">
+                            <h3 class="main-news-title">2026 год стал юбилейным для Global Coffee</h3>
+                            <p class="main-news-subtitle">Бренду исполняется 10 лет, и в этом же году открывается 300-я
+                                точка сети...</p>
+                            <div class="main-news-image">
+                                <img src="Rectangle 49.png" alt="Anniversary Event">
+                            </div>
+                            <div class="main-news-footer">
+                                <div class="author">
+                                    <img src="Image-60.png" alt="Фролов М." class="avatar">
+                                    <span>Фролов М.</span>
+                                </div>
+                                <a href="#" class="btn-orange">Читать подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- News Sidebar -->
+                    <div class="news-sidebar">
+                        <div class="mini-news-card">
+                            <div class="mini-img">
+                                <img src="Rectangle 52.png" alt="Barista Cup">
+                            </div>
+                            <div class="mini-content">
+                                <h4>Global Coffee был приглашён в состав жюри профессионального чемпионата Barista Cup
+                                </h4>
+                            </div>
+                            <a href="#" class="arrow-btn"><img src="Vector1.png" alt="arrow"></a>
+                        </div>
+
+                        <div class="mini-news-card">
+                            <div class="mini-img">
+                                <img src="Rectangle 54.png" alt="Global Expansion">
+                            </div>
+                            <div class="mini-content">
+                                <h4>Global Coffee покоряет мир. Сегодня нас выбирают уже в 3 странах</h4>
+                            </div>
+                            <a href="#" class="arrow-btn"><img src="Vector1.png" alt="arrow"></a>
+                        </div>
+
+                        <!-- Partner Card -->
+                        <div class="partner-news-card">
+                            <div class="partner-logos">
+                                <div class="partner-group">
+                                    <img src="Rectangle 55.png" alt="Digital Qazaqstan Partnership">
+                                </div>
+                            </div>
+                            <div class="partner-content">
+                                <h4>Мы — партнеры Digital Kazakhstan</h4>
+                                <p>В марте 2026 года в Шымкенте пройдет форум, объединяющий региональные и globalные
+                                    технологические экосистемы...</p>
+                            </div>
+                            <a href="#" class="arrow-btn"><img src="Vector1.png" alt="arrow"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Founders Section -->
+        <section class="contact-section section">
+            <div class="contact-card">
+                <!-- Decorative Side Elements -->
+                <div class="contact-decor left">
+                    <div class="decor-bg"></div>
+                    <img src="bg.png" alt="Coffee Splash">
+                </div>
+                <div class="contact-decor right">
+                    <div class="decor-bg"></div>
+                    <img src="bb.png" alt="Iced Coffee">
+                </div>
+
+                <div class="contact-content text-center">
+                    <h2 class="franchise-title">Напишите письмо основателям <br> Global Coffee</h2>
+                    <div class="bean-divider">
+                        <img src="Frame 13.png" alt="divider" class="franchise-divider">
+                    </div>
+                    <p class="franchise-desc">
+                        Ваше обращение, идея или пожелание обязательно будет услышано.
+                    </p>
+                    <a href="#" class="btn-orange btn-contact">
+                        <img src="Group.png" alt="Email Icon" class="btn-contact-icon"
+                            style="height: 20px; width: auto; object-fit: contain;"> Написать письмо
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             MAP SECTION
+             ========================================== -->
+        <section class="map-section section" id="menu">
+            <div class="map-beans-above-bg"></div>
+            <div class="map-beans-bg"></div>
+            <div class="container text-center" style="position: relative;">
+                <div class="map-header">
+                    <h2 class="map-title">Мы уже завариваем ваш любимый напиток</h2>
+                    <p class="map-subtitle">Выберите ближайший к вам Global Coffee.</p>
+                </div>
+
+                
+                <!-- Mobile Map Country Selector -->
+                <div class="mobile-map-controls">
+                    <button class="mobile-control-arrow prev" onclick="changeMapFilterMobile(-1)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
+                    <div class="mobile-control-pill" id="map-active-pill">КАЗАХСТАН</div>
+                    <button class="mobile-control-arrow next" onclick="changeMapFilterMobile(1)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </div>
+<div class="map-filters">
+                    <button class="filter-btn active">КАЗАХСТАН</button>
+                    <button class="filter-btn">УЗБЕКИСТАН</button>
+                    <button class="filter-btn">ГРУЗИЯ</button>
+                </div>
+
+                <div class="map-wrapper">
+                    <div id="map"></div>
+                </div>
+
+                <!-- Addresses Section -->
+                <div class="addresses-section">
+                    <div class="addresses-header">
+                        <h2 class="addresses-section-title">Адреса</h2>
+                        <img src="arrow down.png" alt="Arrow" class="addresses-section-arrow">
+                    </div>
+                    <div class="addresses-line"></div>
+
+                    <div class="locations-grid">
+                        <!-- Card 1: Астана -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. АСТАНА</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Мангилик ел, 55а, блок С</p>
+                                    <p class="address-hours">График работы: 08:00 - 23:00</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Кенесары, 45</p>
+                                    <p class="address-hours">График работы: 08:00 - 22:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Тараз -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. ТАРАЗ</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Тауке хана, 37</p>
+                                    <p class="address-hours">График работы: 24/7</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Абая, 117</p>
+                                    <p class="address-hours">График работы: 07:30 - 01:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Шымкент -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. ШЫМКЕНТ</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Кунаева, 38</p>
+                                    <p class="address-hours">График работы: 08:00 - 01:00</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Тауке хана, 155</p>
+                                    <p class="address-hours">График работы: 24/7</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Атырау -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. АТЫРАУ</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Сатпаева, 46/1</p>
+                                    <p class="address-hours">График работы: 24/7</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">ул. Жарбосынова, 85</p>
+                                    <p class="address-hours">График работы: 08:00 - 01:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Кызылорда -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. КЫЗЫЛОРДА</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Абая, 62</p>
+                                    <p class="address-hours">График работы: 24/7</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Байтурсынова, 48А</p>
+                                    <p class="address-hours">График работы: 08:00 - 01:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: Семей -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. СЕМЕЙ</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Шакарима, 40а</p>
+                                    <p class="address-hours">График работы: 24/7</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Мухамеджанова, 23Б</p>
+                                    <p class="address-hours">График работы: 24/7</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 7: Караганды -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. КАРАГАНДЫ</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">Ашимова, 21</p>
+                                    <p class="address-hours">График работы: 08:00 - 00:00</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">ЦУМ</p>
+                                    <p class="address-hours">График работы: 08:00 - 23:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 8: Актау -->
+                        <div class="location-card">
+                            <h3 class="location-city">Г. АКТАУ</h3>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">6-й мкр., 40/1</p>
+                                    <p class="address-hours">График работы: 08:00 - 00:00</p>
+                                </div>
+                            </div>
+                            <div class="address-item">
+                                <div class="address-icon">
+                                    <img src="location.png" alt="Location" class="address-marker-icon">
+                                </div>
+                                <div class="address-info">
+                                    <p class="address-street">15-й мкр., ЖК "Оазис"</p>
+                                    <p class="address-hours">График работы: 08:00 - 01:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="locations-mobile-dots"></div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             TEAM / CAREERS SECTION
+             ========================================== -->
+        <section class="partnership-section section" id="partnership">
+            <div class="partnership-beans-bg"></div>
+            <div class="container text-center">
+                <h2 class="partnership-title" style="color: #FFF5E1 !important;">Ваш бренд в руках гостей, когда им особенно хорошо</h2>
+                <div class="partnership-divider"
+                    style="margin: 25px auto; text-align: center; display: block; position: relative;">
+                    <img src="Frame 13.png" alt="Beans Decor" class="partnership-divider-img"
+                        style="width: 380px !important; height: auto !important; display: block !important; margin: 0 auto !important; opacity: 1 !important; visibility: visible !important; filter: brightness(2.2) contrast(1.1) !important;">
+                </div>
+                <p class="partnership-subtitle">Тысячи касаний ежедневно + аналитика, чтобы измерить каждое из них.</p>
+
+
+                
+                <!-- Mobile Partnership Slider Container -->
+                <div class="partnership-mobile-container">
+                    <div class="partnership-mobile-slider">
+                        <div class="partnership-mobile-track">
+                            <div class="partnership-mobile-slide">
+                                <img src="Rectangle 34.png" alt="Brand Partnership Guest">
+                            </div>
+                            <div class="partnership-mobile-slide">
+                                <img src="Rectangle 38.png" alt="Brand Partnership Table">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="partnership-mobile-dots">
+                        <span class="partnership-dot active" onclick="goToPartnershipSlide(0)"></span>
+                        <span class="partnership-dot" onclick="goToPartnershipSlide(1)"></span>
+                    </div>
+                    <div class="partnership-mobile-content">
+                        <div class="partnership-tags-container">
+                            <span class="partnership-tag">#БРЕНДИНГ</span>
+                            <span class="partnership-tag">#ПРОДВИЖЕНИЕ</span>
+                            <span class="partnership-tag">#УЗНАВАЕМОСТЬ</span>
+                            <span class="partnership-tag">#ВЫДЕЛЯЙТЕСЬ</span>
+                            <span class="partnership-tag">#СОЗДАВАЙТЕПРИСУТСТВИЕ</span>
+                            <span class="partnership-tag">#ДОСТИГАЙТЕ</span>
+                        </div>
+                        <p class="partnership-mobile-desc">Разместите свой бренд там, где его точно заметят в уютный момент с чашкой кофе. Рекламируйтесь через тепло, которое действительно чувствуется.</p>
+                        <div class="partnership-mobile-actions">
+                            <button class="partnership-btn-mobile">Узнать подробнее</button>
+                        </div>
+                    </div>
+                </div>
+<div class="brand-partnership-grid">
+                    <!-- Layer 1: Solid Background Pieces forming the curved 6-angled container (Mirrored from app section) -->
+                    <div class="partnership-bg-layer">
+                        <div class="bg-partnership-left-top-bar">
+                            <div class="bg-partnership-inner-corner"></div>
+                        </div>
+                        <div class="bg-partnership-right-bar"></div>
+                    </div>
+
+                    <!-- Left top text content card -->
+                    <div class="partnership-left-text-card">
+                        <div class="partnership-tags-container">
+                            <span class="partnership-tag">#БРЕНДИНГ</span>
+                            <span class="partnership-tag">#ПРОДВИЖЕНИЕ</span>
+                            <span class="partnership-tag">#УЗНАВАЕМОСТЬ</span>
+                            <span class="partnership-tag">#ВЫДЕЛЯЙТЕСЬ</span>
+                            <span class="partnership-tag">#СОЗДАВАЙТЕПРИСУТСТВИЕ</span>
+                            <span class="partnership-tag">#ДОСТИГАЙТЕ</span>
+                        </div>
+                        <p class="partnership-desc">Разместите свой бренд там, где его точно заметят в уютный момент с
+                            чашкой кофе. Рекламируйтесь через тепло, которое действительно чувствуется.</p>
+                    </div>
+
+                    <!-- Left bottom out-of-bar image card -->
+                    <div class="partnership-left-img-wrapper">
+                        <img src="Rectangle 38.png" alt="Brand Partnership Table">
+                        <button class="partnership-btn">Узнать подробнее</button>
+                    </div>
+
+                    <!-- Right full-height image card -->
+                    <div class="partnership-right-col">
+                        <div class="partnership-right-img-wrapper">
+                            <img src="Rectangle 34.png" alt="Brand Partnership Guest">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             QUALITY SECTION
+             ========================================== -->
+        <section class="quality-section section" style="padding-bottom: 60px !important;">
+            <div class="quality-beans-bg"></div>
+            <div class="container">
+                <div class="quality-card text-center">
+                    <h2 class="section-title quality-title" style="color: #FFF5E1 !important;">Идеальный эспрессо!
+                        Секреты мастерства!</h2>
+
+                    <div class="quality-beans-decor" style="margin: 10px auto !important;">
+                        <img src="Frame 13.png" alt="Beans Decor" class="quality-divider-img"
+                            style="width: 380px !important; height: auto !important; display: block !important; margin: 0 auto !important; opacity: 1 !important; visibility: visible !important; filter: brightness(2.2) contrast(1.1) !important;">
+                    </div>
+
+                    <p class="section-subtitle quality-subtitle" style="max-width: 1050px !important;">
+                        Обучайте и сертифицируйте ваших бариста в нашей школе. Уникальный навык, авторская методика.<br>
+                        Мы обучили свыше 250 + франчайзи их сотрудников. Единственная школа бариста в Шымкенте.
+                    </p>
+
+                    <div class="quality-action">
+                        <a href="#" class="btn-orange">Оставить заявку на обучение</a>
+                    </div>
+
+                    <div class="quality-image-wrapper" style="margin-bottom: -280px !important;">
+                        <img src="baristas.png" alt="Baristas" class="baristas-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             PARTNERS SECTION
+             ========================================== -->
+        <section class="partners-section section" style="padding-top: 0 !important;">
+            <div class="partners-beans-bg"></div>
+            <div class="partners-beans-right-bg"></div>
+            
+            <!-- Right-aligned coffee11.png floating beans between baristas photo and text -->
+            <div class="right-coffee-beans partners-animate delay-1" style="text-align: right; padding-right: 0 !important; margin-top: 365px !important; margin-bottom: -375px !important; position: relative; z-index: 3;">
+                <img src="coffee11.png" alt="Floating Beans" style="max-width: 165px; width: 100%; height: auto; display: inline-block; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));">
+            </div>
+
+            <div class="container text-center" style="margin-top: 0 !important;">
+                <h2 class="section-title partners-animate delay-2">Наши партнёры</h2>
+                <div class="divider-wrapper partners-animate delay-3" style="margin: 25px auto; text-align: center; display: block; position: relative;">
+                    <img src="Frame 13.png" alt="Divider" class="divider-img" style="width: 380px !important; height: auto !important; display: block !important; margin: 0 auto !important; opacity: 1 !important; visibility: visible !important; filter: brightness(2.2) contrast(1.1) !important;">
+                </div>
+                <p class="section-subtitle partners-animate delay-3">Лидеры рынка, которые выбирают качество и безупречный сервис в каждой детали.</p>
+            </div>
+
+            <div class="partners-grid" style="margin-top: 55px !important; margin-bottom: 0 !important;">
+                <div class="partners-ticker-track">
+                    <!-- Group 1 -->
+                    <div class="ticker-group">
+                        <img src="logo 1.png" alt="Partner 1">
+                        <img src="logo 2.png" alt="Partner 2">
+                        <img src="logo 3.png" alt="Partner 3">
+                        <img src="logo 4.png" alt="Partner 4">
+                        <img src="logo 5.png" alt="Partner 5">
+                    </div>
+                    <!-- Group 2 -->
+                    <div class="ticker-group">
+                        <img src="logo 1.png" alt="Partner 1">
+                        <img src="logo 2.png" alt="Partner 2">
+                        <img src="logo 3.png" alt="Partner 3">
+                        <img src="logo 4.png" alt="Partner 4">
+                        <img src="logo 5.png" alt="Partner 5">
+                    </div>
+                    <!-- Group 3 -->
+                    <div class="ticker-group">
+                        <img src="logo 1.png" alt="Partner 1">
+                        <img src="logo 2.png" alt="Partner 2">
+                        <img src="logo 3.png" alt="Partner 3">
+                        <img src="logo 4.png" alt="Partner 4">
+                        <img src="logo 5.png" alt="Partner 5">
+                    </div>
+                    <!-- Group 4 -->
+                    <div class="ticker-group">
+                        <img src="logo 1.png" alt="Partner 1">
+                        <img src="logo 2.png" alt="Partner 2">
+                        <img src="logo 3.png" alt="Partner 3">
+                        <img src="logo 4.png" alt="Partner 4">
+                        <img src="logo 5.png" alt="Partner 5">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================
+         FOOTER SECTION
+         ========================================== -->
+    <footer class="footer" id="contacts"
+        style="background: transparent; padding: 60px 0 0 0; border-top: none !important;">
+        <div class="footer-card">
+            <div class="container">
+
+                <!-- Top Row: Newsletter Subscription & Search Button -->
+                <div class="footer-top-row">
+                    <div class="footer-sub-info">
+                        <h3
+                            style="font-family: 'Comfortaa', sans-serif; font-size: 1.8rem; font-weight: 700; color: #FFF5E1; margin: 0 0 10px 0;">
+                            Будьте с нами на связи!</h3>
+                        <p style="font-size: 0.95rem; color: #A19C99; margin: 0; max-width: 480px; line-height: 1.5;">
+                            Раз в неделю отправляем полезные письма — никаких лишних уведомлений.</p>
+                    </div>
+
+                    <div class="footer-search-container">
+                        <div class="footer-search-input-wrapper">
+                            <!-- Search Icon SVG -->
+                            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="#8A8581" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" placeholder="Поиск">
+                        </div>
+                        <button class="footer-partner-btn">Стать партнёром</button>
+                    </div>
+                </div>
+
+                <!-- Middle Row: 4 Columns Grid -->
+                <div class="footer-middle-grid">
+
+                    <!-- Column 1: Navigation -->
+                    <div class="footer-col-nav">
+                        <h4>Навигация</h4>
+                        <a href="#about">О нас</a>
+                        <a href="#contacts">Программа лояльности</a>
+                        <a href="franchise.html">Франшиза</a>
+                        <a href="#contacts">Новости</a>
+                        <a href="#contacts">Письмо руководству</a>
+                        <a href="#contacts">Карта кофеен</a>
+                        <a href="#contacts">Рекламодателям</a>
+                        <a href="#contacts">Школа бариста</a>
+                    </div>
+
+                    <!-- Column 2: Cooperation & Legal -->
+                    <div class="footer-col-nav" style="gap: 30px !important;">
+                        <div class="footer-col-nav">
+                            <h4>Сотрудничество</h4>
+                            <a href="franchise.html">Франшиза</a>
+                            <a href="partners.html">Партнерам</a>
+                        </div>
+                        <div class="footer-col-nav">
+                            <h4>Правовая информация</h4>
+                            <a href="#">Политика конфиденциальности</a>
+                            <a href="#">Пользовательское соглашение</a>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Contacts -->
+                    <div class="footer-col-nav" style="gap: 16px !important;">
+                        <h4>Контакты</h4>
+
+                        <div class="footer-contact-item">
+                            <img src="location.png" alt="Location Icon"
+                                style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0;">
+                            <span>г. Шымкент, ул. Кунаева, 39</span>
+                        </div>
+
+                        <div class="footer-contact-item">
+                            <img src="Vector12.png" alt="Phone Icon"
+                                style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0;">
+                            <a href="tel:+77071913434">+7 707 191 34 34</a>
+                        </div>
+
+                        <div class="footer-contact-item">
+                            <img src="Group.png" alt="Email Icon"
+                                style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; filter: invert(98%) sepia(21%) saturate(233%) hue-rotate(323deg) brightness(103%) contrast(101%);">
+                            <a href="mailto:globalcoffee.team@yandex.kz">globalcoffee.team@yandex.kz</a>
+                        </div>
+
+                        <div class="footer-contact-item">
+                            <img src="Group.png" alt="Email Icon"
+                                style="width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; filter: invert(98%) sepia(21%) saturate(233%) hue-rotate(323deg) brightness(103%) contrast(101%);">
+                            <a href="mailto:globalcoffee3434@gmail.com">globalcoffee3434@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <!-- Column 4: Socials -->
+                    <div class="footer-col-nav" style="gap: 15px !important;">
+                        <h4>Социальные сети</h4>
+                        <div class="social-links" style="display: flex !important; gap: 15px !important;">
+                            <a href="#" class="footer-social-link">
+                                <img src="instagram.png" alt="Instagram">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Divider Line -->
+                <div style="width: 100%; height: 1px; background: rgba(255, 255, 255, 0.1); margin-bottom: 30px;"></div>
+
+                <!-- Bottom Row: Brand Logo & Credits -->
+                <div class="footer-bottom"
+                    style="display: flex !important; justify-content: space-between !important; align-items: center !important; flex-wrap: wrap !important; gap: 20px !important;">
+                    <a href="#" class="logo" style="display: inline-block !important;">
+                        <img src="logo.png" alt="Global Coffee Logo"
+                            style="height: 38px !important; object-fit: contain !important; display: block !important;">
+                    </a>
+                    <span style="color: #8A8581; font-size: 0.85rem; font-family: 'Comfortaa', sans-serif;">Designed by
+                        Dejavu Studio</span>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script to switch slides on clicking hero tabs -->
+    <script>
+        function switchSlide(index) {
+            // 1. Update active state of tab-items
+            const tabs = document.querySelectorAll('.hero-tabs .tab-item');
+            tabs.forEach((tab, idx) => {
+                if (idx === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // 2. Translate the slider track horizontally to scroll from right to left
+            const track = document.querySelector('.about-slider-track');
+            if (track) {
+                track.style.transform = `translateX(-${index * 25}%)`;
+            }
+        }
+
+        // IntersectionObserver to animate partners section header on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animElements = entry.target.querySelectorAll('.partners-animate');
+                        animElements.forEach(el => {
+                            el.classList.add('active');
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const partnersSection = document.querySelector('.partners-section');
+            if (partnersSection) {
+                observer.observe(partnersSection);
+            }
+
+            // Check for slide parameter in URL to auto-switch slide
+            const urlParams = new URLSearchParams(window.location.search);
+            const slideParam = urlParams.get('slide');
+            if (slideParam !== null) {
+                const slideIndex = parseInt(slideParam, 10);
+                if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < 4) {
+                    setTimeout(function() {
+                        switchSlide(slideIndex);
+                        const aboutSection = document.getElementById('about');
+                        if (aboutSection) {
+                            aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 100);
+                }
+            }
+        });
+    </script>
+
+
+    <!-- Premium Mobile Sliders Script -->
+    <script>
+        // About Us section slider state
+        let currentAboutIndex = 0;
+        window.changeAboutSlideMobile = function(dir) {
+            let nextIdx = currentAboutIndex + dir;
+            if (nextIdx < 0) nextIdx = 3;
+            if (nextIdx > 3) nextIdx = 0;
+            switchSlide(nextIdx);
+        };
+        window.goToAboutSlide = function(idx) {
+            switchSlide(idx);
+        };
+
+        // App slider state
+        let currentAppIdx = 0;
+        window.goToAppSlide = function(idx) {
+            currentAppIdx = idx;
+            const track = document.querySelector('.app-mobile-track');
+            if (track) track.style.transform = `translateX(-${idx * 50}%)`;
+            document.querySelectorAll('.app-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === idx);
+            });
+        };
+
+        // Franchise slider state
+        let currentFranchiseIdx = 0;
+        window.goToFranchiseSlide = function(idx) {
+            currentFranchiseIdx = idx;
+            const track = document.querySelector('.franchise-mobile-track');
+            if (track) track.style.transform = `translateX(-${idx * 50}%)`;
+            document.querySelectorAll('.franchise-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === idx);
+            });
+        };
+
+        // News slider state
+        let currentNewsIdx = 0;
+        window.goToNewsSlide = function(idx) {
+            currentNewsIdx = idx;
+            const track = document.querySelector('.news-mobile-track');
+            if (track) track.style.transform = `translateX(-${idx * 25}%)`;
+            document.querySelectorAll('.news-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === idx);
+            });
+        };
+
+        // Partnership slider state
+        let currentPartnershipIdx = 0;
+        window.goToPartnershipSlide = function(idx) {
+            currentPartnershipIdx = idx;
+            const track = document.querySelector('.partnership-mobile-track');
+            if (track) track.style.transform = `translateX(-${idx * 50}%)`;
+            document.querySelectorAll('.partnership-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === idx);
+            });
+        };
+
+        // Mobile map country filter navigation
+        window.changeMapFilterMobile = function(dir) {
+            const countries = ['КАЗАХСТАН', 'УЗБЕКИСТАН', 'ГРУЗИЯ'];
+            const activePill = document.getElementById('map-active-pill');
+            if (!activePill) return;
+            
+            let currentIdx = countries.indexOf(activePill.textContent.trim().toUpperCase());
+            let nextIdx = currentIdx + dir;
+            if (nextIdx < 0) nextIdx = countries.length - 1;
+            if (nextIdx >= countries.length) nextIdx = 0;
+            
+            const nextCountry = countries[nextIdx];
+            activePill.textContent = nextCountry;
+            
+            // Programmatically click the hidden desktop filter button to trigger Leaflet update
+            const filterBtns = document.querySelectorAll('.map-filters .filter-btn');
+            filterBtns.forEach(btn => {
+                if (btn.textContent.trim().toUpperCase() === nextCountry) {
+                    btn.click();
+                }
+            });
+        };
+
+        // Swipe Gesture Detection Helper
+        function enableTouchSwipe(trackSelector, onSwipe) {
+            const track = document.querySelector(trackSelector);
+            if (!track) return;
+            let startX = 0;
+            let startY = 0;
+            
+            track.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            track.addEventListener('touchend', (e) => {
+                const diffX = e.changedTouches[0].clientX - startX;
+                const diffY = e.changedTouches[0].clientY - startY;
+                
+                // Trigger swipe if horizontal displacement is greater than vertical and exceeds threshold
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        onSwipe('right');
+                    } else {
+                        onSwipe('left');
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // Initialize Swipe listeners and dynamic Location cards slider setup
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup swipe listeners
+            enableTouchSwipe('.about-slider-track', (dir) => {
+                if (dir === 'left') changeAboutSlideMobile(1);
+                else changeAboutSlideMobile(-1);
+            });
+            enableTouchSwipe('.app-mobile-track', (dir) => {
+                let nextIdx = currentAppIdx + (dir === 'left' ? 1 : -1);
+                if (nextIdx >= 0 && nextIdx < 2) goToAppSlide(nextIdx);
+            });
+            enableTouchSwipe('.franchise-mobile-track', (dir) => {
+                let nextIdx = currentFranchiseIdx + (dir === 'left' ? 1 : -1);
+                if (nextIdx >= 0 && nextIdx < 2) goToFranchiseSlide(nextIdx);
+            });
+            enableTouchSwipe('.news-mobile-track', (dir) => {
+                let nextIdx = currentNewsIdx + (dir === 'left' ? 1 : -1);
+                if (nextIdx >= 0 && nextIdx < 4) goToNewsSlide(nextIdx);
+            });
+            enableTouchSwipe('.partnership-mobile-track', (dir) => {
+                let nextIdx = currentPartnershipIdx + (dir === 'left' ? 1 : -1);
+                if (nextIdx >= 0 && nextIdx < 2) goToPartnershipSlide(nextIdx);
+            });
+
+            // Dynamic location cards dots & scroll sync via MutationObserver
+            const grid = document.querySelector('.locations-grid');
+            const dotsContainer = document.querySelector('.locations-mobile-dots');
+            
+            if (grid && dotsContainer) {
+                const updateLocationDots = () => {
+                    const cards = grid.querySelectorAll('.location-card');
+                    dotsContainer.innerHTML = '';
+                    cards.forEach((card, idx) => {
+                        const dot = document.createElement('span');
+                        dot.className = 'location-dot' + (idx === 0 ? ' active' : '');
+                        dot.addEventListener('click', () => {
+                            grid.scrollTo({
+                                left: card.offsetLeft - grid.offsetLeft,
+                                behavior: 'smooth'
+                            });
+                        });
+                        dotsContainer.appendChild(dot);
+                    });
+                };
+
+                // Update dots initially
+                updateLocationDots();
+
+                // Listen for structural changes in the grid (e.g. city filter rendering new cards)
+                const observer = new MutationObserver(() => {
+                    updateLocationDots();
+                });
+                observer.observe(grid, { childList: true });
+
+                // Scroll listener to update active dot
+                grid.addEventListener('scroll', () => {
+                    const scrollLeft = grid.scrollLeft;
+                    const cardWidth = grid.querySelector('.location-card')?.clientWidth || grid.clientWidth;
+                    const activeIdx = Math.round(scrollLeft / cardWidth);
+                    const dots = dotsContainer.querySelectorAll('.location-dot');
+                    dots.forEach((dot, idx) => {
+                        dot.classList.toggle('active', idx === activeIdx);
+                    });
+                });
+            }
+
+            // Extend the default switchSlide to also update the mobile controls & dots
+            const originalSwitchSlide = window.switchSlide;
+            window.switchSlide = function(index) {
+                // Call original desktop function
+                if (typeof originalSwitchSlide === 'function') {
+                    originalSwitchSlide(index);
+                }
+                
+                // Update mobile active state
+                currentAboutIndex = index;
+                const activePill = document.getElementById('about-active-pill');
+                if (activePill) {
+                    const titles = ["О НАС", "СТАТЬ ПАРТНЁРОМ", "СТАНЬТЕ ЧАСТЬЮ GLOBAL COFFEE", "НОВИНКИ"];
+                    activePill.textContent = titles[index] || "О НАС";
+                }
+                
+                const dots = document.querySelectorAll('.about-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            };
+        });
+    </script>
+    <div id="mobileMenu" class="mobile-menu">
+        <!-- Menu Header -->
+        <div class="mobile-menu-header">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Global Coffee Logo" style="filter: brightness(0) invert(1);">
+            </a>
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
+        </div>
+
+        <!-- Menu Section -->
+        <div class="mobile-menu-section-title">
+            <span>МЕНЮ</span>
+            <div class="menu-divider-line"></div>
+        </div>
+
+        <div class="mobile-menu-links">
+            <a href="#" class="mobile-menu-link active" onclick="toggleMobileMenu()">ГЛАВНАЯ <span class="active-dot"></span></a>
+            <a href="franchise.html" class="mobile-menu-link">ФРАНШИЗА</a>
+            <a href="partners.html" class="mobile-menu-link">ПАРТНЕРАМ</a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mobile-menu-search">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A8581" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Поиск кофейни" class="mobile-search-input">
+        </div>
+
+        <!-- Contacts Section -->
+        <div class="mobile-menu-section-title">
+            <span>КОНТАКТЫ</span>
+            <div class="menu-divider-line"></div>
+        </div>
+
+        <div class="mobile-menu-contacts">
+            <div class="mobile-contact-item">
+                <img src="Vector.png" alt="Phone" class="contact-icon" style="filter: brightness(0) invert(1);">
+                <a href="tel:+77071913434">+7 707 191 34 34</a>
+            </div>
+            <div class="mobile-contact-item">
+                <img src="Group.png" alt="Email" class="contact-icon" style="filter: brightness(0) invert(1);">
+                <a href="mailto:globalcoffee.team@yandex.kz">globalcoffee.team@yandex.kz</a>
+            </div>
+            <div class="mobile-contact-item">
+                <img src="Group.png" alt="Email" class="contact-icon" style="filter: brightness(0) invert(1);">
+                <a href="mailto:globalcoffee3434@gmail.com">globalcoffee3434@gmail.com</a>
+            </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="mobile-menu-languages">
+            <span class="lang-item active">Ru</span>
+            <span class="lang-separator">|</span>
+            <span class="lang-item">Kz</span>
+            <span class="lang-separator">|</span>
+            <span class="lang-item">En</span>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.hamburger');
+            menu.classList.toggle('open');
+            if (btn) btn.classList.toggle('open');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        }
+    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="interactive-map.js"></script>
+    <script src="dynamic-site.js"></script>
+    <script src="form-handler.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель управления | Global Coffee</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="/logo.png" alt="Global Coffee">
+            </div>
+            <h2 class="login-title">Войти в админ-панель</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="password">Пароль администратора</label>
+                    <input type="password" id="password" required placeholder="Введите пароль">
+                </div>
+                <div id="loginError" class="login-error">Неверный пароль. Попробуйте еще раз.</div>
+                <button type="submit" class="wp-button wp-button-primary">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Admin Layout -->
+    <div id="adminLayout" class="admin-layout" style="display: none;">
+        <!-- Admin Toolbar (Top Bar) -->
+        <header class="wp-toolbar">
+            <div class="toolbar-left">
+                <span class="wp-logo-icon">W</span>
+                <span class="toolbar-site-title">Global Coffee</span>
+                <a href="/" target="_blank" class="toolbar-view-site"> Перейти на сайт </a>
+            </div>
+            <div class="toolbar-right">
+                <span id="adminUsername" class="toolbar-user">Привет, Администратор!</span>
+                <button onclick="handleLogout()" class="toolbar-logout">Выйти</button>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="wp-sidebar">
+            <ul class="wp-menu">
+                <li class="menu-item active" data-target="dashboard">
+                    <span class="menu-icon">📊</span> Консоль
+                </li>
+                <li class="menu-item" data-target="page-editor">
+                    <span class="menu-icon">📝</span> Редактор страниц
+                </li>
+                <li class="menu-item" data-target="map-editor">
+                    <span class="menu-icon">📍</span> Интерактивная карта
+                </li>
+                <li class="menu-item" data-target="leads">
+                    <span class="menu-icon">📨</span> Заявки (Лиды)
+                    <span id="leadsBadge" class="leads-count-badge" style="display: none;">0</span>
+                </li>
+                <li class="menu-item" data-target="settings">
+                    <span class="menu-icon">⚙️</span> Настройки
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="wp-content">
+            <!-- Alert Notifications -->
+            <div id="toastNotification" class="toast-notification">Сохранено успешно!</div>
+
+            <!-- DASHBOARD SECTION -->
+            <section id="sec-dashboard" class="content-section active">
+                <h1 class="wp-heading">Консоль управления</h1>
+                <div class="wp-welcome-panel">
+                    <h2>Добро пожаловать в админ-панель Global Coffee!</h2>
+                    <p>Здесь вы можете изменить любой текст на сайте, загрузить новые изображения, управлять кофейнями на интерактивной карте, а также просматривать заявки, поступающие с форм обратной связи.</p>
+                </div>
+
+                <div class="dashboard-stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="statLeads">0</div>
+                        <div class="stat-label">Всего заявок</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statPoints">0</div>
+                        <div class="stat-label">Кофеен на карте</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statCities">0</div>
+                        <div class="stat-label">Активных городов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statTelegram">Бот не настроен</div>
+                        <div class="stat-label">Telegram уведомления</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-recent-row">
+                    <div class="wp-box recent-leads-box">
+                        <h3>Последние 5 заявок</h3>
+                        <div class="table-wrapper">
+                            <table class="wp-table">
+                                <thead>
+                                    <tr>
+                                        <th>Имя</th>
+                                        <th>Телефон</th>
+                                        <th>Категория</th>
+                                        <th>Дата</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentLeadsTable">
+                                    <tr>
+                                        <td colspan="4" class="text-center">Загрузка данных...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="wp-box system-info-box">
+                        <h3>Быстрые ссылки</h3>
+                        <div class="quick-links-list">
+                            <button onclick="switchTab('page-editor')" class="wp-button wp-button-secondary">Редактировать тексты Главной</button>
+                            <button onclick="switchTab('map-editor')" class="wp-button wp-button-secondary">Добавить кофейню на карту</button>
+                            <button onclick="switchTab('settings')" class="wp-button wp-button-secondary">Настроить Telegram бота</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE EDITOR SECTION -->
+            <section id="sec-page-editor" class="content-section">
+                <h1 class="wp-heading">Визуальный редактор страниц</h1>
+                
+                <div class="customizer-layout">
+                    <!-- Left Sidebar Controls -->
+                    <div class="customizer-sidebar">
+                        <div class="customizer-page-selector-row">
+                            <label for="customizerPageSelect">Редактируемая страница:</label>
+                            <select id="customizerPageSelect" onchange="changeCustomizerPage()">
+                                <option value="/">Главная страница</option>
+                                <option value="/franchise">Страница Франшизы</option>
+                                <option value="/partners">Страница Партнеров</option>
+                            </select>
+                        </div>
+                        
+                        <div class="wp-tabs-bar" style="display: none;">
+                            <button type="button" class="wp-tab-btn active" data-subtab="home">Главная страница</button>
+                            <button type="button" class="wp-tab-btn" data-subtab="franchise">Страница Франшизы</button>
+                            <button type="button" class="wp-tab-btn" data-subtab="partners">Страница Партнеров</button>
+                        </div>
+
+                        <form id="pageEditorForm" onsubmit="savePageContent(event)">
+                            <!-- Home Subtab -->
+                            <div id="sub-home" class="subtab-content active">
+                                <div class="wp-box">
+                                    <h3>Раздел Шапки и Главного экрана</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group span-full">
+                                            <label>Заголовок секции карты</label>
+                                            <input type="text" name="home.hero_title">
+                                        </div>
+                                        <div class="form-group span-full">
+                                            <label>Подзаголовок секции карты</label>
+                                            <input type="text" name="home.hero_subtitle">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Блок "О нас" (Слайдер)</h3>
+                                    <div class="wp-collapsible-container">
+                                        <!-- Slide 1 -->
+                                        <div class="wp-collapsible-item">
+                                            <div class="wp-collapsible-header">Слайд 1 (О нас)</div>
+                                            <div class="wp-collapsible-body">
+                                                <div class="form-group">
+                                                    <label>Заголовок слайда</label>
+                                                    <input type="text" name="home.about_title_1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Описание</label>
+                                                    <textarea name="home.about_desc_1"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Пункты списка (каждый с новой строки)</label>
+                                                    <textarea name="home.about_bullets_1" placeholder="Пункт 1&#10;Пункт 2"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Изображение слайда</label>
+                                                    <input type="file" data-key="home.about_image_1" accept="image/*">
+                                                    <img id="preview-home-about_image_1" class="image-preview" src="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Slide 2 -->
+                                        <div class="wp-collapsible-item">
+                                            <div class="wp-collapsible-header">Слайд 2 (Рост партнеров)</div>
+                                            <div class="wp-collapsible-body">
+                                                <div class="form-group">
+                                                    <label>Заголовок слайда</label>
+                                                    <input type="text" name="home.about_title_2">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Описание внизу</label>
+                                                    <textarea name="home.about_desc_2"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Пункты списка (каждый с новой строки)</label>
+                                                    <textarea name="home.about_bullets_2"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Изображение слайда</label>
+                                                    <input type="file" data-key="home.about_image_2" accept="image/*">
+                                                    <img id="preview-home-about_image_2" class="image-preview" src="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Slide 3 -->
+                                        <div class="wp-collapsible-item">
+                                            <div class="wp-collapsible-header">Слайд 3 (Бизнес с лидером)</div>
+                                            <div class="wp-collapsible-body">
+                                                <div class="form-group">
+                                                    <label>Заголовок слайда</label>
+                                                    <input type="text" name="home.about_title_3">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Абзац 1</label>
+                                                    <textarea name="home.about_desc_3_1"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Абзац 2</label>
+                                                    <textarea name="home.about_desc_3_2"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Изображение слайда</label>
+                                                    <input type="file" data-key="home.about_image_3" accept="image/*">
+                                                    <img id="preview-home-about_image_3" class="image-preview" src="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Slide 4 -->
+                                        <div class="wp-collapsible-item">
+                                            <div class="wp-collapsible-header">Слайд 4 (Вкусы момента)</div>
+                                            <div class="wp-collapsible-body">
+                                                <div class="form-group">
+                                                    <label>Заголовок слайда</label>
+                                                    <input type="text" name="home.about_title_4">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Абзац 1</label>
+                                                    <textarea name="home.about_desc_4_1"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Абзац 2</label>
+                                                    <textarea name="home.about_desc_4_2"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Изображение слайда</label>
+                                                    <input type="file" data-key="home.about_image_4" accept="image/*">
+                                                    <img id="preview-home-about_image_4" class="image-preview" src="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Мобильное приложение (Блок "Язык любви")</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок</label>
+                                            <input type="text" name="home.app_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Подзаголовок</label>
+                                            <input type="text" name="home.app_subtitle">
+                                        </div>
+                                        <div class="form-group span-full">
+                                            <label>Описание</label>
+                                            <textarea name="home.app_desc"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Изображение слева</label>
+                                            <input type="file" data-key="home.app_image_left" accept="image/*">
+                                            <img id="preview-home-app_image_left" class="image-preview" src="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Изображение справа</label>
+                                            <input type="file" data-key="home.app_image_right" accept="image/*">
+                                            <img id="preview-home-app_image_right" class="image-preview" src="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Раздел Франшизы</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок карточки франшизы</label>
+                                            <input type="text" name="home.franchise_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Описание</label>
+                                            <textarea name="home.franchise_desc"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Галерея: Изображение 1</label>
+                                            <input type="file" data-key="home.franchise_gallery_1" accept="image/*">
+                                            <img id="preview-home-franchise_gallery_1" class="image-preview" src="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Галерея: Изображение 2</label>
+                                            <input type="file" data-key="home.franchise_gallery_2" accept="image/*">
+                                            <img id="preview-home-franchise_gallery_2" class="image-preview" src="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Раздел Событий и Новостей</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок раздела</label>
+                                            <input type="text" name="home.news_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Подзаголовок раздела</label>
+                                            <textarea name="home.news_desc"></textarea>
+                                        </div>
+                                        <div class="form-group span-full"><hr style="border: none; border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+                                        
+                                        <div class="form-group">
+                                            <label>Главная новость: Заголовок</label>
+                                            <input type="text" name="home.news_main_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Главная новость: Анонс</label>
+                                            <textarea name="home.news_main_subtitle"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Имя автора</label>
+                                            <input type="text" name="home.news_main_author">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Аватар автора</label>
+                                            <input type="file" data-key="home.news_main_avatar" accept="image/*">
+                                            <img id="preview-home-news_main_avatar" class="image-preview" src="">
+                                        </div>
+                                        <div class="form-group span-full">
+                                            <label>Изображение главной новости</label>
+                                            <input type="file" data-key="home.news_main_image" accept="image/*">
+                                            <img id="preview-home-news_main_image" class="image-preview" src="">
+                                        </div>
+                                        <div class="form-group span-full"><hr style="border: none; border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+
+                                        <div class="form-group">
+                                            <label>Новость в сайдбаре 1: Заголовок</label>
+                                            <textarea name="home.news_item_1_title"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Изображение 1</label>
+                                            <input type="file" data-key="home.news_item_1_image" accept="image/*">
+                                            <img id="preview-home-news_item_1_image" class="image-preview" src="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Новость в сайдбаре 2: Заголовок</label>
+                                            <textarea name="home.news_item_2_title"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Изображение 2</label>
+                                            <input type="file" data-key="home.news_item_2_image" accept="image/*">
+                                            <img id="preview-home-news_item_2_image" class="image-preview" src="">
+                                        </div>
+                                        <div class="form-group span-full"><hr style="border: none; border-bottom: 1px solid #ddd; margin: 10px 0;"></div>
+
+                                        <div class="form-group">
+                                            <label>Новость-партнер: Заголовок</label>
+                                            <input type="text" name="home.news_partner_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Новость-партнер: Описание</label>
+                                            <textarea name="home.news_partner_desc"></textarea>
+                                        </div>
+                                        <div class="form-group span-full">
+                                            <label>Логотип партнера</label>
+                                            <input type="file" data-key="home.news_partner_image" accept="image/*">
+                                            <img id="preview-home-news_partner_image" class="image-preview" src="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Блок Письмо Основателям</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок</label>
+                                            <textarea name="home.contact_founders_title"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Описание</label>
+                                            <textarea name="home.contact_founders_desc"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Секция Сотрудничества ("Ваш бренд в руках гостей")</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок раздела</label>
+                                            <input type="text" name="home.partnership_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Подзаголовок раздела</label>
+                                            <input type="text" name="home.partnership_subtitle">
+                                        </div>
+                                        <div class="form-group span-full">
+                                            <label>Описание</label>
+                                            <textarea name="home.partnership_desc"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Изображение слева</label>
+                                            <input type="file" data-key="home.partnership_image_left" accept="image/*">
+                                            <img id="preview-home-partnership_image_left" class="image-preview" src="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Изображение справа</label>
+                                            <input type="file" data-key="home.partnership_image_right" accept="image/*">
+                                            <img id="preview-home-partnership_image_right" class="image-preview" src="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Школа бариста (Блок "Идеальный эспрессо")</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок раздела</label>
+                                            <input type="text" name="home.quality_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Описание</label>
+                                            <textarea name="home.quality_subtitle"></textarea>
+                                        </div>
+                                        <div class="form-group span-full">
+                                            <label>Изображение бариста</label>
+                                            <input type="file" data-key="home.quality_image" accept="image/*">
+                                            <img id="preview-home-quality_image" class="image-preview" src="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Глобальные контакты</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Телефон сайта</label>
+                                            <input type="text" name="general.phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email сайта</label>
+                                            <input type="text" name="general.email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wp-box">
+                                    <h3>Динамические ссылки</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Ссылка на Instagram</label>
+                                            <input type="text" name="links.instagram">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ссылка на Telegram</label>
+                                            <input type="text" name="links.telegram">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ссылка на WhatsApp</label>
+                                            <input type="text" name="links.whatsapp">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Скачать презентацию (Ссылка/Файл)</label>
+                                            <input type="text" name="links.franchise_presentation">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Приложение: iOS (App Store)</label>
+                                            <input type="text" name="links.ios_app">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Приложение: Android (Google Play)</label>
+                                            <input type="text" name="links.android_app">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Политика конфиденциальности</label>
+                                            <input type="text" name="links.privacy_policy">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ссылка на страницу Франшизы</label>
+                                            <input type="text" name="links.nav_franchise">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ссылка на страницу Партнеров</label>
+                                            <input type="text" name="links.nav_partners">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Franchise Subtab -->
+                            <div id="sub-franchise" class="subtab-content">
+                                <div class="wp-box">
+                                    <h3>Главный экран (Франшиза)</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок</label>
+                                            <input type="text" name="franchise.hero_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Описание</label>
+                                            <textarea name="franchise.hero_subtitle"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Partners Subtab -->
+                            <div id="sub-partners" class="subtab-content">
+                                <div class="wp-box">
+                                    <h3>Главный экран (Партнерам)</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Заголовок</label>
+                                            <input type="text" name="partners.hero_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Описание</label>
+                                            <textarea name="partners.hero_subtitle"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions-bar">
+                                <button type="submit" class="wp-button wp-button-primary wp-button-large">Опубликовать контент</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right Live Preview (Iframe) -->
+                    <div class="customizer-preview">
+                        <div class="preview-device-toolbar">
+                            <button type="button" onclick="setPreviewSize('desktop')" class="device-btn active" title="Десктоп">💻 Компьютер</button>
+                            <button type="button" onclick="setPreviewSize('tablet')" class="device-btn" title="Планшет">📱 Планшет</button>
+                            <button type="button" onclick="setPreviewSize('mobile')" class="device-btn" title="Мобильный">📞 Смартфон</button>
+                            <span class="preview-url-indicator" id="previewUrlLabel">index.html</span>
+                        </div>
+                        <div class="preview-iframe-container">
+                            <iframe id="customizerPreviewIframe" src="/index.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MAP EDITOR SECTION -->
+            <section id="sec-map-editor" class="content-section">
+                <h1 class="wp-heading">Редактор интерактивной карты</h1>
+                
+                <div class="map-editor-layout">
+                    <!-- Visual Map Workspace -->
+                    <div class="wp-box map-visual-workspace">
+                        <h3>Интерактивная карта (Визуальный редактор)</h3>
+                        <p class="map-instruction-label">Выберите страну, затем <strong>кликните на любое место карты</strong> для автоматического получения координат или перетаскивайте маркер для точной настройки.</p>
+                        
+                        <div class="map-visual-header">
+                            <label for="mapVisualCountry">Фильтр по стране:</label>
+                            <select id="mapVisualCountry" onchange="changeMapVisualCountry()">
+                                <option value="КАЗАХСТАН">Казахстан</option>
+                                <option value="УЗБЕКИСТАН">Узбекистан</option>
+                                <option value="ГРУЗИЯ">Грузия</option>
+                            </select>
+                        </div>
+
+                        <!-- Map Container -->
+                        <div id="visualMapContainer" class="visual-map-container" style="height: 400px; background: #15110F; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; position: relative; z-index: 1;">
+                            <!-- Leaflet Map will be rendered here -->
+                        </div>
+                    </div>
+
+                    <!-- Point Details Panel / Editor -->
+                    <div class="wp-box map-point-form-panel">
+                        <h3 id="mapFormTitle">Добавить кофейню</h3>
+                        <form id="mapPointForm" onsubmit="saveMapPoint(event)">
+                            <input type="hidden" id="pointId" value="">
+                            
+                            <div class="form-group">
+                                <label for="pointCountry">Страна</label>
+                                <select id="pointCountry" required>
+                                    <option value="КАЗАХСТАН">Казахстан</option>
+                                    <option value="УЗБЕКИСТАН">Узбекистан</option>
+                                    <option value="ГРУЗИЯ">Грузия</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pointCity">Город</label>
+                                <input type="text" id="pointCity" required placeholder="Напр. Г. АСТАНА">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pointStreet">Адрес (Улица, дом)</label>
+                                <input type="text" id="pointStreet" required placeholder="Напр. Мангилик ел, 55а">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pointHours">Режим работы</label>
+                                <input type="text" id="pointHours" required placeholder="Напр. 08:00 - 23:00 или 24/7">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pointLat">Широта (Latitude)</label>
+                                    <input type="number" id="pointLat" required step="0.000001" min="-90" max="90" placeholder="51.1284">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pointLng">Долгота (Longitude)</label>
+                                    <input type="number" id="pointLng" required step="0.000001" min="-180" max="180" placeholder="71.4305">
+                                </div>
+                            </div>
+
+                            <div class="map-form-actions">
+                                <button type="submit" class="wp-button wp-button-primary" id="btnSavePoint">Создать точку</button>
+                                <button type="button" onclick="cancelPointEdit()" class="wp-button wp-button-secondary">Отмена</button>
+                                <button type="button" onclick="deleteActivePoint()" id="btnDeletePoint" class="wp-button wp-button-danger" style="display: none;">Удалить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- List of All Points -->
+                <div class="wp-box points-list-box" style="margin-top: 30px;">
+                    <h3>Список зарегистрированных точек</h3>
+                    <div class="table-wrapper">
+                        <table class="wp-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Страна</th>
+                                    <th>Город</th>
+                                    <th>Адрес</th>
+                                    <th>Режим работы</th>
+                                    <th>Координаты (X / Y)</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allPointsTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Загрузка данных...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LEADS SECTION -->
+            <section id="sec-leads" class="content-section">
+                <h1 class="wp-heading">Входящие заявки</h1>
+                <p>Здесь собраны все заявки, отправленные посетителями с сайта. Все новые заявки автоматически пересылаются в Telegram-бот.</p>
+                
+                <div class="wp-box">
+                    <div class="leads-filter-bar">
+                        <label for="leadSearch">Поиск по имени/номеру:</label>
+                        <input type="text" id="leadSearch" placeholder="Введите текст для поиска..." oninput="filterLeads()">
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="wp-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Имя</th>
+                                    <th>Телефон</th>
+                                    <th>Категория</th>
+                                    <th>Страница источника</th>
+                                    <th>Дата поступления</th>
+                                    <th>Сообщение</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allLeadsTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Загрузка данных...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SETTINGS SECTION -->
+            <section id="sec-settings" class="content-section">
+                <h1 class="wp-heading">Настройки системы</h1>
+
+                <div class="settings-grid">
+                    <!-- Telegram Integration -->
+                    <div class="wp-box">
+                        <h3>Интеграция с Telegram-ботом</h3>
+                        <p class="settings-desc">Заполните токен вашего бота и ваш персональный чат/группу ID, чтобы получать мгновенные уведомления о новых заявках.</p>
+                        
+                        <form id="telegramSettingsForm" onsubmit="saveTelegramSettings(event)">
+                            <div class="form-group">
+                                <label for="tgBotToken">Токен Telegram бота</label>
+                                <input type="text" id="tgBotToken" placeholder="Напр. 123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ">
+                            </div>
+                            <div class="form-group">
+                                <label for="tgChatId">Чат ID получателя (группа или личный чат)</label>
+                                <input type="text" id="tgChatId" placeholder="Напр. -100123456789 или 987654321">
+                                <span class="help-text">Если это группа, ID обычно начинается с "-100". Перед тестированием убедитесь, что бот добавлен в чат/группу и запущен!</span>
+                            </div>
+
+                            <div class="settings-actions">
+                                <button type="submit" class="wp-button wp-button-primary">Сохранить токен и ID</button>
+                                <button type="button" onclick="testTelegramConnection()" class="wp-button wp-button-secondary">Проверить связь с ботом</button>
+                            </div>
+                            <div id="tgTestResult" class="tg-test-result"></div>
+                        </form>
+                    </div>
+
+                    <!-- Admin Password Change -->
+                    <div class="wp-box">
+                        <h3>Безопасность панели управления</h3>
+                        <p class="settings-desc">Измените пароль для входа в данную панель администратора.</p>
+                        
+                        <form id="passwordSettingsForm" onsubmit="savePasswordSettings(event)">
+                            <div class="form-group">
+                                <label for="newPassword">Новый пароль</label>
+                                <input type="password" id="newPassword" required placeholder="Введите новый пароль">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Подтвердите новый пароль</label>
+                                <input type="password" id="confirmPassword" required placeholder="Повторите новый пароль">
+                            </div>
+                            <div id="passwordError" class="password-error">Пароли не совпадают!</div>
+                            <button type="submit" class="wp-button wp-button-primary">Сменить пароль</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script loading -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="admin.js"></script>
+</body>
+</html>
