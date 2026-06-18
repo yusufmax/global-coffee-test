@@ -19,3 +19,18 @@
 
 [build.processing.images]
   compress = true
+
+[[redirects]]
+  from = "/franchise"
+  to = "/franchise.html"
+  status = 200
+
+[[redirects]]
+  from = "/partners"
+  to = "/partners.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
