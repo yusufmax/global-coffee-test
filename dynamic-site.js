@@ -2,8 +2,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     const pageName = window.location.pathname.split('/').pop() || 'index.html';
 
-    fetch('/api/config')
-        .then(res => res.json())
+    function fetchConfig() {
+        return fetch('/api/config')
+            .then(res => {
+                if (!res.ok) throw new Error('API config failed');
+                return res.json();
+            })
+            .catch(() => {
+                console.log('Falling back to static config.json');
+                return fetch('/config.json').then(res => res.json());
+            });
+    }
+
+    fetchConfig()
         .then(config => {
             hydrateGeneral(config);
             hydrateLinks(config.links);
