@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Helper to send lead data to the python server
+    // Helper to send lead data to the python server, with fallback directly to Telegram if static
     async function submitLeadToServer(leadData) {
         try {
             const response = await fetch('/api/lead', {
@@ -107,11 +107,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(leadData)
             });
-            const result = await response.json();
-            return result.status === 'success';
+            if (response.ok) {
+                const result = await response.json();
+                return result.status === 'success';
+            }
+            throw new Error('Backend API not available');
         } catch (err) {
-            console.error('Error submitting lead:', err);
-            return false;
+            console.warn('Backend submission failed, trying direct Telegram fallback...', err);
+            try {
+                // Fetch config to get bot credentials
+                const configRes = await fetch('/config.json');
+                const config = await configRes.json();
+                const token = config.general.telegram_bot_token;
+                const chatId = config.general.telegram_chat_id;
+
+                if (!token || !chatId) {
+                    console.error('Direct Telegram send failed: missing token or chat_id in config');
+                    return false;
+                }
+
+                // Format the message nicely for Telegram
+                const messageText = `⚡ <b>Новая заявка с сайта Global Coffee</b>\n\n` +
+                    `👤 <b>Имя:</b> ${leadData.name || 'Не указано'}\n` +
+                    `📞 <b>Телефон:</b> ${leadData.phone || 'Не указан'}\n` +
+                    `📋 <b>Сортировка:</b> ${leadData.source || 'Заявка'}\n` +
+                    `🌐 <b>Страница:</b> ${leadData.page || 'Не указана'}\n` +
+                    `📅 <b>Дата:</b> ${new Date().toLocaleString('ru-RU')}`;
+
+                const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage`;
+                const tgRes = await fetch(telegramUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: messageText,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (tgRes.ok) {
+                    console.log('Lead sent successfully direct to Telegram bot');
+                    return true;
+                }
+                const tgError = await tgRes.json();
+                console.error('Telegram API error:', tgError);
+                return false;
+            } catch (fallbackErr) {
+                console.error('Direct Telegram fallback failed:', fallbackErr);
+                return false;
+            }
         }
     }
 
