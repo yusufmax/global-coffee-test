@@ -29,5 +29,15 @@ def main():
             shutil.copy2(src_path, dst_path)
             print(f"Copied file: {src_path} -> {dst_path}")
 
+    # Copy all individual files from images/ directory to the root of public/ to handle root-level image references on static hosting
+    images_dir = 'images'
+    if os.path.exists(images_dir) and os.path.isdir(images_dir):
+        for img_file in os.listdir(images_dir):
+            img_path = os.path.join(images_dir, img_file)
+            if os.path.isfile(img_path) and not img_file.startswith('.'):
+                dst_img_path = os.path.join(target, img_file)
+                shutil.copy2(img_path, dst_img_path)
+                print(f"Copied image to root fallback: {img_path} -> {dst_img_path}")
+
 if __name__ == '__main__':
     main()
