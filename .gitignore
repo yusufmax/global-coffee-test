@@ -23,3 +23,6 @@ __MACOSX/
 leads.json
 tg_subscribers.json
 *.log
+
+# Generated folders
+/public/

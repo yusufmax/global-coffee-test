@@ -1,6 +1,6 @@
 [build]
-  command = "echo 'Static site, no build command needed'"
-  publish = "."
+  command = "python3 build_netlify.py"
+  publish = "public"
 
 [build.processing]
   skip_processing = false
