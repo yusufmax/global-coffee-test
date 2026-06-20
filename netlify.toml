@@ -34,3 +34,8 @@
   from = "/privacy"
   to = "/privacy.html"
   status = 200
+
+[[redirects]]
+  from = "/news"
+  to = "/news.html"
+  status = 200

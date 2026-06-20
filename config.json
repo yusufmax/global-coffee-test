@@ -241,6 +241,7 @@
     "franchise_presentation": "#",
     "privacy_policy": "/privacy",
     "nav_franchise": "/franchise",
-    "nav_partners": "/partners"
+    "nav_partners": "/partners",
+    "nav_news": "/news"
   }
 }

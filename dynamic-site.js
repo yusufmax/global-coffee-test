@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 hydrateFranchisePage(config.franchise);
             } else if (pageName === 'partners.html' || pageName === 'partners') {
                 hydratePartnersPage(config.partners);
+            } else if (pageName === 'news.html' || pageName === 'news') {
+                hydrateNewsPage(config.home);
             }
         })
         .catch(err => console.error('Error hydrating site:', err));
@@ -169,6 +171,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (links.nav_partners) {
                 link.href = links.nav_partners;
                 link.setAttribute('data-edit-key', 'links.nav_partners');
+            }
+        });
+
+        // 7. News page nav links
+        const newsLinks = document.querySelectorAll('a[href="news.html"], a[href="/news.html"], a[href="news"], a[href="/news"], .mobile-menu-link[href*="news"]');
+        newsLinks.forEach(link => {
+            if (links.nav_news) {
+                link.href = links.nav_news;
+                link.setAttribute('data-edit-key', 'links.nav_news');
             }
         });
     }
@@ -373,6 +384,72 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!partners) return;
         setElementText('.partners-hero .section-title', partners.hero_title, 'partners.hero_title');
         setElementText('.partners-hero .section-subtitle', partners.hero_subtitle, 'partners.hero_subtitle');
+    }
+
+    function hydrateNewsPage(home) {
+        if (!home) return;
+
+        const prependNews = (src) => {
+            if (!src) return '';
+            if (src.startsWith('news/') || src.startsWith('http') || src.startsWith('/')) return src;
+            return 'news/' + src;
+        };
+
+        // News Hero
+        setElementText('.news-hero-text h1', home.news_title, 'home.news_title');
+        setElementText('.news-hero-text p', home.news_desc, 'home.news_desc');
+
+        // Main Card
+        setElementText('.news-main-card .main-news-title', home.news_main_title, 'home.news_main_title');
+        setElementText('.news-main-card .main-news-subtitle', home.news_main_subtitle, 'home.news_main_subtitle');
+        setElementText('.news-main-card .author span', home.news_main_author, 'home.news_main_author');
+        setElementImage('.news-main-card .author .avatar', prependNews(home.news_main_avatar), 'home.news_main_avatar');
+        setElementImage('.news-main-card .main-news-image img', prependNews(home.news_main_image), 'home.news_main_image');
+
+        // Sidebar
+        const miniCards = document.querySelectorAll('.news-sidebar .mini-news-card');
+        if (miniCards.length >= 2) {
+            const card1Title = miniCards[0].querySelector('h4');
+            if (card1Title) {
+                card1Title.textContent = home.news_item_1_title;
+                card1Title.setAttribute('data-edit-key', 'home.news_item_1_title');
+            }
+            const card1Img = miniCards[0].querySelector('.mini-img img');
+            if (card1Img) {
+                card1Img.src = prependNews(home.news_item_1_image);
+                card1Img.setAttribute('data-edit-key', 'home.news_item_1_image');
+            }
+
+            const card2Title = miniCards[1].querySelector('h4');
+            if (card2Title) {
+                card2Title.textContent = home.news_item_2_title;
+                card2Title.setAttribute('data-edit-key', 'home.news_item_2_title');
+            }
+            const card2Img = miniCards[1].querySelector('.mini-img img');
+            if (card2Img) {
+                card2Img.src = prependNews(home.news_item_2_image);
+                card2Img.setAttribute('data-edit-key', 'home.news_item_2_image');
+            }
+        }
+
+        const partnerCard = document.querySelector('.news-sidebar .partner-news-card');
+        if (partnerCard) {
+            const partnerTitle = partnerCard.querySelector('h4');
+            if (partnerTitle) {
+                partnerTitle.textContent = home.news_partner_title;
+                partnerTitle.setAttribute('data-edit-key', 'home.news_partner_title');
+            }
+            const partnerDesc = partnerCard.querySelector('p');
+            if (partnerDesc) {
+                partnerDesc.textContent = home.news_partner_desc;
+                partnerDesc.setAttribute('data-edit-key', 'home.news_partner_desc');
+            }
+            const partnerImg = partnerCard.querySelector('.partner-logos img, .partner-group img');
+            if (partnerImg) {
+                partnerImg.src = prependNews(home.news_partner_image);
+                partnerImg.setAttribute('data-edit-key', 'home.news_partner_image');
+            }
+        }
     }
 
     // Expose dynamic updates to window object for Live visual editing communication

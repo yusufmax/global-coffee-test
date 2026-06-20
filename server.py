@@ -213,6 +213,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             path = '/partners.html'
         elif clean == '/privacy':
             path = '/privacy.html'
+        elif clean == '/news':
+            path = '/news.html'
 
         default_path = super().translate_path(path)
         if not os.path.exists(default_path) and not os.path.isdir(default_path):
@@ -235,7 +237,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         path_str = parsed_path.path
         
         # Redirect clean URL requests with trailing slashes to clean URL without trailing slash
-        if path_str in ['/franchise/', '/partners/', '/privacy/']:
+        if path_str in ['/franchise/', '/partners/', '/privacy/', '/news/']:
             self.send_response(301)
             self.send_header('Location', path_str.rstrip('/'))
             self.end_headers()
