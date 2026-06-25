@@ -115,7 +115,7 @@ def get_default_config():
             "hero_subtitle": "Наша команда помогает подобрать формат, который будет работать именно на вашу цель — от охвата до прямых продаж. Global Coffee — место, где бренды становятся ближе к людям."
         },
         "links": {
-            "instagram": "https://instagram.com/globalcoffee_kz",
+            "instagram": "https://www.instagram.com/global_coffee_uz/",
             "telegram": "https://t.me/globalcoffee",
             "whatsapp": "https://wa.me/77071913434",
             "ios_app": "https://apps.apple.com/app/global-coffee",
