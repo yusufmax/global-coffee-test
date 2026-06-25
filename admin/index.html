@@ -59,6 +59,9 @@
                     <span class="menu-icon">📨</span> Заявки (Лиды)
                     <span id="leadsBadge" class="leads-count-badge" style="display: none;">0</span>
                 </li>
+                <li class="menu-item" data-target="articles">
+                    <span class="menu-icon">📰</span> Статьи
+                </li>
                 <li class="menu-item" data-target="settings">
                     <span class="menu-icon">⚙️</span> Настройки
                 </li>
@@ -700,6 +703,186 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </section>
+
+            <!-- ARTICLES SECTION -->
+            <section id="sec-articles" class="content-section">
+                <h1 class="wp-heading">Управление статьями</h1>
+                <p>Здесь вы можете добавлять, редактировать или удалять новости и статьи, отображаемые на сайте.</p>
+
+                <!-- List View -->
+                <div id="articlesListView" class="wp-box">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3>Все статьи</h3>
+                        <button type="button" onclick="createNewArticleForm()" class="wp-button wp-button-primary">+ Добавить статью</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="wp-table">
+                            <thead>
+                                <tr>
+                                    <th>Изображение</th>
+                                    <th>Заголовок</th>
+                                    <th>Категория</th>
+                                    <th>Дата</th>
+                                    <th>Автор</th>
+                                    <th>Просмотры</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allArticlesTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Загрузка статей...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Editor Form View (Hidden by default) -->
+                <div id="articleEditView" class="wp-box" style="display: none;">
+                    <h3 id="articleEditorTitle">Редактирование статьи</h3>
+                    <form id="articleForm" onsubmit="saveArticle(event)" style="margin-top: 20px;">
+                        <input type="hidden" id="articleFormId">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="articleTitle">Заголовок статьи</label>
+                                <input type="text" id="articleTitle" required placeholder="Напр. 2026 год стал юбилейным для Global Coffee">
+                            </div>
+                            <div class="form-group">
+                                <label for="articleCategory">Категория</label>
+                                <input type="text" id="articleCategory" required placeholder="Напр. Событие, Открытия, Акции">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="articleSubtitle">Краткое описание (Subtitle)</label>
+                            <textarea id="articleSubtitle" required rows="2" placeholder="Краткое содержание статьи для списка новостей..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="articleDate">Дата публикации</label>
+                                <input type="text" id="articleDate" required placeholder="Напр. 12 июня 2026">
+                            </div>
+                            <div class="form-group">
+                                <label for="articleAuthor">Автор</label>
+                                <input type="text" id="articleAuthor" required placeholder="Напр. Фролов М.">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="articleViews">Просмотры</label>
+                                <input type="number" id="articleViews" required min="0" placeholder="4823">
+                            </div>
+                            <div class="form-group">
+                                <label for="articleReadTime">Время чтения</label>
+                                <input type="text" id="articleReadTime" required placeholder="Напр. 5 мин чтения">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="articleImageFile">Обложка статьи (Cover Image)</label>
+                                <input type="file" id="articleImageFile" accept="image/*" onchange="uploadArticleImage('image')">
+                                <input type="text" id="articleImage" required placeholder="Путь к картинке (или загрузите файл)">
+                                <div style="margin-top:10px;"><img id="previewArticleImage" src="" style="max-width:200px; max-height:120px; display:none; border-radius:8px;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="articleAvatarFile">Аватар автора</label>
+                                <input type="file" id="articleAvatarFile" accept="image/*" onchange="uploadArticleImage('avatar')">
+                                <input type="text" id="articleAvatar" required placeholder="Путь к аватару (или загрузите файл)">
+                                <div style="margin-top:10px;"><img id="previewArticleAvatar" src="" style="width:50px; height:50px; border-radius:50%; display:none; object-fit:cover;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Key Facts Grid -->
+                        <div class="wp-collapsible-item open" style="margin-top:20px;">
+                            <div class="wp-collapsible-header">
+                                <span>Ключевые факты (Sidebar)</span>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="wp-collapsible-content" style="padding: 15px;">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Факт 1: Название</label>
+                                        <input type="text" id="articleFactLabel1" placeholder="Напр. Лет бренду">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Факт 1: Значение</label>
+                                        <input type="text" id="articleFactValue1" placeholder="Напр. 10">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Факт 2: Название</label>
+                                        <input type="text" id="articleFactLabel2" placeholder="Напр. Точек сети">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Факт 2: Значение</label>
+                                        <input type="text" id="articleFactValue2" placeholder="Напр. 300">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Факт 3: Название</label>
+                                        <input type="text" id="articleFactLabel3" placeholder="Напр. Стран">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Факт 3: Значение</label>
+                                        <input type="text" id="articleFactValue3" placeholder="Напр. 3">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Факт 4: Название</label>
+                                        <input type="text" id="articleFactLabel4" placeholder="Напр. Сотрудников">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Факт 4: Значение</label>
+                                        <input type="text" id="articleFactValue4" placeholder="Напр. 1 200+">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label for="articleTags">Теги (через запятую)</label>
+                            <input type="text" id="articleTags" placeholder="Напр. Юбилей, новости, 300кофеен, 2026">
+                        </div>
+
+                        <!-- Content Blocks Builder -->
+                        <div class="wp-collapsible-item open" style="margin-top: 25px;">
+                            <div class="wp-collapsible-header">
+                                <span>Конструктор содержания статьи</span>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="wp-collapsible-content" style="padding: 15px;">
+                                <p class="help-text" style="margin-bottom:15px;">Добавляйте блоки абзацев, заголовков, цитат, показателей (stats) и истории (timeline) в том порядке, в котором они должны отображаться.</p>
+                                
+                                <div id="articleBlocksContainer" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                                    <!-- Dynamic Blocks will be inserted here -->
+                                </div>
+
+                                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                    <button type="button" onclick="addContentBlock('paragraph')" class="wp-button wp-button-secondary">+ Текст (Параграф)</button>
+                                    <button type="button" onclick="addContentBlock('heading')" class="wp-button wp-button-secondary">+ Подзаголовок (H2)</button>
+                                    <button type="button" onclick="addContentBlock('quote')" class="wp-button wp-button-secondary">+ Цитата</button>
+                                    <button type="button" onclick="addContentBlock('stats')" class="wp-button wp-button-secondary">+ Показатели (Stats)</button>
+                                    <button type="button" onclick="addContentBlock('timeline')" class="wp-button wp-button-secondary">+ Временная шкала (Timeline)</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top: 30px; display: flex; gap: 12px;">
+                            <button type="submit" class="wp-button wp-button-primary" id="btnSaveArticle">Сохранить статью</button>
+                            <button type="button" onclick="cancelArticleEdit()" class="wp-button wp-button-secondary">Отмена</button>
+                        </div>
+                    </form>
                 </div>
             </section>
 

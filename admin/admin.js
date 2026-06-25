@@ -166,6 +166,7 @@ function loadData() {
         .then(config => {
             currentConfig = config;
             loadStats();
+            renderArticlesTable();
         })
         .catch(err => console.error(err));
 }
@@ -1087,4 +1088,511 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 3000);
+}
+
+// ==========================================
+// ARTICLES MANAGEMENT SECTION
+// ==========================================
+let currentArticleBlocks = [];
+
+function renderArticlesTable() {
+    const tbody = document.getElementById('allArticlesTable');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    
+    const articles = currentConfig.articles || [];
+    if (articles.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center">Нет созданных статей.</td></tr>';
+        return;
+    }
+
+    const getImgUrl = (src) => {
+        if (!src) return '';
+        if (src.startsWith('http') || src.startsWith('/') || src.startsWith('images/') || src.startsWith('news/')) return src;
+        return '../news/' + src;
+    };
+
+    articles.forEach(art => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><img src="${getImgUrl(art.image)}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;"></td>
+            <td><strong>${art.title}</strong><br><small style="color: #646970;">ID: ${art.id}</small></td>
+            <td><span class="wp-badge" style="background:#e0f0ff; color:#0056b3; padding: 3px 8px; border-radius: 12px; font-size: 11px;">${art.category || 'Событие'}</span></td>
+            <td>${art.date || ''}</td>
+            <td>${art.author || ''}</td>
+            <td>${art.views || 0}</td>
+            <td>
+                <div style="display: flex; gap: 6px;">
+                    <button type="button" onclick="editArticleForm('${art.id}')" class="wp-button wp-button-secondary" style="padding: 2px 8px; font-size: 11px;">Правка</button>
+                    <button type="button" onclick="deleteArticle('${art.id}')" class="wp-button wp-button-danger" style="padding: 2px 8px; font-size: 11px;">Удалить</button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function createNewArticleForm() {
+    document.getElementById('articlesListView').style.display = 'none';
+    document.getElementById('articleEditView').style.display = 'block';
+    
+    document.getElementById('articleEditorTitle').textContent = 'Добавить новую статью';
+    document.getElementById('articleFormId').value = '';
+    document.getElementById('articleForm').reset();
+    
+    // Clear images previews
+    document.getElementById('previewArticleImage').style.display = 'none';
+    document.getElementById('previewArticleImage').src = '';
+    document.getElementById('previewArticleAvatar').style.display = 'none';
+    document.getElementById('previewArticleAvatar').src = '';
+
+    // Clear blocks
+    currentArticleBlocks = [
+        { type: 'paragraph', text: '' }
+    ];
+    renderArticleBlocks();
+}
+
+function editArticleForm(id) {
+    const articles = currentConfig.articles || [];
+    const art = articles.find(a => a.id === id);
+    if (!art) return;
+
+    document.getElementById('articlesListView').style.display = 'none';
+    document.getElementById('articleEditView').style.display = 'block';
+    document.getElementById('articleEditorTitle').textContent = 'Редактировать статью';
+
+    document.getElementById('articleFormId').value = art.id;
+    document.getElementById('articleTitle').value = art.title || '';
+    document.getElementById('articleCategory').value = art.category || '';
+    document.getElementById('articleSubtitle').value = art.subtitle || '';
+    document.getElementById('articleDate').value = art.date || '';
+    document.getElementById('articleAuthor').value = art.author || '';
+    document.getElementById('articleViews').value = art.views || 0;
+    document.getElementById('articleReadTime').value = art.read_time || '';
+    
+    // Image fields
+    document.getElementById('articleImage').value = art.image || '';
+    document.getElementById('articleAvatar').value = art.avatar || '';
+
+    const getImgUrl = (src) => {
+        if (!src) return '';
+        if (src.startsWith('http') || src.startsWith('/') || src.startsWith('images/') || src.startsWith('news/')) return src;
+        return '../news/' + src;
+    };
+
+    // Previews
+    if (art.image) {
+        document.getElementById('previewArticleImage').src = getImgUrl(art.image);
+        document.getElementById('previewArticleImage').style.display = 'block';
+    } else {
+        document.getElementById('previewArticleImage').style.display = 'none';
+    }
+
+    if (art.avatar) {
+        document.getElementById('previewArticleAvatar').src = getImgUrl(art.avatar);
+        document.getElementById('previewArticleAvatar').style.display = 'block';
+    } else {
+        document.getElementById('previewArticleAvatar').style.display = 'none';
+    }
+
+    // Key facts
+    const facts = art.key_facts || [];
+    for (let i = 1; i <= 4; i++) {
+        const fact = facts[i - 1] || { label: '', value: '' };
+        document.getElementById(`articleFactLabel${i}`).value = fact.label || '';
+        document.getElementById(`articleFactValue${i}`).value = fact.value || '';
+    }
+
+    // Tags
+    document.getElementById('articleTags').value = (art.tags || []).join(', ');
+
+    // Blocks
+    currentArticleBlocks = JSON.parse(JSON.stringify(art.content || []));
+    renderArticleBlocks();
+}
+
+function cancelArticleEdit() {
+    document.getElementById('articlesListView').style.display = 'block';
+    document.getElementById('articleEditView').style.display = 'none';
+}
+
+async function uploadArticleImage(type) {
+    const fileInput = document.getElementById(type === 'image' ? 'articleImageFile' : 'articleAvatarFile');
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const preview = document.getElementById(type === 'image' ? 'previewArticleImage' : 'previewArticleAvatar');
+    const textInput = document.getElementById(type === 'image' ? 'articleImage' : 'articleAvatar');
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+        const base64Data = event.target.result;
+        
+        if (preview) {
+            preview.src = base64Data;
+            preview.style.display = 'block';
+            preview.style.opacity = '0.5';
+        }
+
+        try {
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename: file.name, filedata: base64Data })
+            });
+            const result = await res.json();
+            
+            if (result.status === 'success') {
+                textInput.value = result.url;
+                if (preview) {
+                    preview.src = result.url;
+                    preview.style.opacity = '1';
+                }
+                showToast('Изображение успешно загружено!');
+            } else {
+                alert('Не удалось загрузить изображение: ' + result.error);
+                if (preview) preview.style.opacity = '1';
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Ошибка при загрузке изображения.');
+            if (preview) preview.style.opacity = '1';
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
+function addContentBlock(type) {
+    if (type === 'paragraph') {
+        currentArticleBlocks.push({ type: 'paragraph', text: '' });
+    } else if (type === 'heading') {
+        currentArticleBlocks.push({ type: 'heading', text: '' });
+    } else if (type === 'quote') {
+        currentArticleBlocks.push({ type: 'quote', text: '', author: '' });
+    } else if (type === 'stats') {
+        currentArticleBlocks.push({
+            type: 'stats',
+            items: [
+                { value: '', label: '' }
+            ]
+        });
+    } else if (type === 'timeline') {
+        currentArticleBlocks.push({
+            type: 'timeline',
+            title: 'Вехи истории',
+            events: [
+                { year: '', text: '' }
+            ]
+        });
+    }
+    renderArticleBlocks();
+}
+
+function deleteBlock(idx) {
+    currentArticleBlocks.splice(idx, 1);
+    renderArticleBlocks();
+}
+
+function moveBlock(idx, dir) {
+    const targetIdx = idx + dir;
+    if (targetIdx < 0 || targetIdx >= currentArticleBlocks.length) return;
+    
+    // Swap
+    const temp = currentArticleBlocks[idx];
+    currentArticleBlocks[idx] = currentArticleBlocks[targetIdx];
+    currentArticleBlocks[targetIdx] = temp;
+    
+    renderArticleBlocks();
+}
+
+function updateBlockValue(idx, key, val) {
+    currentArticleBlocks[idx][key] = val;
+}
+
+function updateStatItemValue(blockIdx, itemIdx, key, val) {
+    currentArticleBlocks[blockIdx].items[itemIdx][key] = val;
+}
+
+function addStatItem(blockIdx) {
+    currentArticleBlocks[blockIdx].items.push({ value: '', label: '' });
+    renderArticleBlocks();
+}
+
+function deleteStatItem(blockIdx, itemIdx) {
+    currentArticleBlocks[blockIdx].items.splice(itemIdx, 1);
+    renderArticleBlocks();
+}
+
+function updateTimelineEventValue(blockIdx, eventIdx, key, val) {
+    currentArticleBlocks[blockIdx].events[eventIdx][key] = val;
+}
+
+function addTimelineEvent(blockIdx) {
+    currentArticleBlocks[blockIdx].events.push({ year: '', text: '' });
+    renderArticleBlocks();
+}
+
+function deleteTimelineEvent(blockIdx, eventIdx) {
+    currentArticleBlocks[blockIdx].events.splice(eventIdx, 1);
+    renderArticleBlocks();
+}
+
+function renderArticleBlocks() {
+    const container = document.getElementById('articleBlocksContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (currentArticleBlocks.length === 0) {
+        container.innerHTML = '<p style="color: #646970; text-align:center; padding: 20px;">Нет блоков. Добавьте текстовый блок или другие элементы ниже.</p>';
+        return;
+    }
+
+    currentArticleBlocks.forEach((block, idx) => {
+        const div = document.createElement('div');
+        div.className = 'builder-block';
+        div.dataset.type = block.type;
+
+        let blockName = 'Блок';
+        let bodyHtml = '';
+
+        if (block.type === 'paragraph') {
+            blockName = 'Текст (Абзац)';
+            bodyHtml = `
+                <textarea placeholder="Введите текст абзаца..." oninput="updateBlockValue(${idx}, 'text', this.value)" required rows="4">${block.text || ''}</textarea>
+            `;
+        } else if (block.type === 'heading') {
+            blockName = 'Подзаголовок (H2)';
+            bodyHtml = `
+                <input type="text" placeholder="Введите текст подзаголовка..." value="${block.text || ''}" oninput="updateBlockValue(${idx}, 'text', this.value)" required>
+            `;
+        } else if (block.type === 'quote') {
+            blockName = 'Цитата основателя/эксперта';
+            bodyHtml = `
+                <textarea placeholder="Текст цитаты..." oninput="updateBlockValue(${idx}, 'text', this.value)" required rows="2" style="margin-bottom:10px;">${block.text || ''}</textarea>
+                <input type="text" placeholder="Автор цитаты (Напр. Максим Фролов)" value="${block.author || ''}" oninput="updateBlockValue(${idx}, 'author', this.value)">
+            `;
+        } else if (block.type === 'stats') {
+            blockName = 'Показатели / Статистика (Stats)';
+            let itemsHtml = '';
+            (block.items || []).forEach((item, itemIdx) => {
+                itemsHtml += `
+                    <div class="builder-sub-item">
+                        <div class="builder-sub-item-header">
+                            <span>Показатель #${itemIdx + 1}</span>
+                            <button type="button" class="builder-sub-item-delete" onclick="deleteStatItem(${idx}, ${itemIdx})">Удалить</button>
+                        </div>
+                        <div class="form-row" style="margin-bottom:0;">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:11px;">Значение (Напр. 300)</label>
+                                <input type="text" placeholder="300" value="${item.value || ''}" oninput="updateStatItemValue(${idx}, ${itemIdx}, 'value', this.value)" required style="margin-bottom:0;">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:11px;">Описание (Напр. точек сети)</label>
+                                <input type="text" placeholder="точек сети" value="${item.label || ''}" oninput="updateStatItemValue(${idx}, ${itemIdx}, 'label', this.value)" required style="margin-bottom:0;">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            bodyHtml = `
+                <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:10px;">
+                    ${itemsHtml}
+                </div>
+                <button type="button" class="wp-button wp-button-secondary" onclick="addStatItem(${idx})" style="font-size:11px; padding:3px 10px;">+ Добавить показатель</button>
+            `;
+        } else if (block.type === 'timeline') {
+            blockName = 'Временная шкала истории (Timeline)';
+            let eventsHtml = '';
+            (block.events || []).forEach((ev, evIdx) => {
+                eventsHtml += `
+                    <div class="builder-sub-item">
+                        <div class="builder-sub-item-header">
+                            <span>Событие #${evIdx + 1}</span>
+                            <button type="button" class="builder-sub-item-delete" onclick="deleteTimelineEvent(${idx}, ${evIdx})">Удалить</button>
+                        </div>
+                        <div class="form-row" style="margin-bottom:0;">
+                            <div class="form-group" style="margin-bottom:0; flex:1;">
+                                <label style="font-size:11px;">Год (Напр. 2016)</label>
+                                <input type="text" placeholder="2016" value="${ev.year || ''}" oninput="updateTimelineEventValue(${idx}, ${evIdx}, 'year', this.value)" required style="margin-bottom:0;">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0; flex:4;">
+                                <label style="font-size:11px;">Событие (Напр. Открытие первой точки)</label>
+                                <input type="text" placeholder="Открытие первой точки..." value="${ev.text || ''}" oninput="updateTimelineEventValue(${idx}, ${evIdx}, 'text', this.value)" required style="margin-bottom:0;">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            bodyHtml = `
+                <div class="form-group">
+                    <label>Заголовок шкалы</label>
+                    <input type="text" value="${block.title || 'Вехи истории'}" oninput="updateBlockValue(${idx}, 'title', this.value)" required>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:10px;">
+                    ${eventsHtml}
+                </div>
+                <button type="button" class="wp-button wp-button-secondary" onclick="addTimelineEvent(${idx})" style="font-size:11px; padding:3px 10px;">+ Добавить событие истории</button>
+            `;
+        }
+
+        div.innerHTML = `
+            <div class="builder-block-header">
+                <span>${blockName}</span>
+                <div class="builder-block-controls">
+                    <button type="button" onclick="moveBlock(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.3;"' : ''}>▲</button>
+                    <button type="button" onclick="moveBlock(${idx}, 1)" ${idx === currentArticleBlocks.length - 1 ? 'disabled style="opacity:0.3;"' : ''}>▼</button>
+                    <button type="button" onclick="deleteBlock(${idx})" style="color:#d63638; border-color:#f8b0b0;">✕</button>
+                </div>
+            </div>
+            <div class="builder-block-body">
+                ${bodyHtml}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function slugify(text) {
+    const cyr = {
+        'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'c','ч':'ch','ш':'sh','щ':'shch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'
+    };
+    let s = text.toString().toLowerCase().trim();
+    let res = '';
+    for (let i = 0; i < s.length; i++) {
+        const c = s[i];
+        if (cyr[c] !== undefined) res += cyr[c];
+        else res += c;
+    }
+    return res
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w-]+/g, '')        // Remove all non-word chars
+        .replace(/--+/g, '-')           // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start
+        .replace(/-+$/, '');            // Trim - from end
+}
+
+async function saveArticle(event) {
+    event.preventDefault();
+    
+    const formId = document.getElementById('articleFormId').value;
+    const title = document.getElementById('articleTitle').value.trim();
+    const category = document.getElementById('articleCategory').value.trim();
+    const subtitle = document.getElementById('articleSubtitle').value.trim();
+    const date = document.getElementById('articleDate').value.trim();
+    const author = document.getElementById('articleAuthor').value.trim();
+    const views = parseInt(document.getElementById('articleViews').value) || 0;
+    const readTime = document.getElementById('articleReadTime').value.trim();
+    const image = document.getElementById('articleImage').value.trim();
+    const avatar = document.getElementById('articleAvatar').value.trim();
+    
+    // Key facts
+    const keyFacts = [];
+    for (let i = 1; i <= 4; i++) {
+        const label = document.getElementById(`articleFactLabel${i}`).value.trim();
+        const value = document.getElementById(`articleFactValue${i}`).value.trim();
+        if (label && value) {
+            keyFacts.push({ label, value });
+        }
+    }
+
+    // Tags
+    const tagsRaw = document.getElementById('articleTags').value;
+    const tags = tagsRaw.split(',')
+        .map(t => t.trim())
+        .filter(t => t.length > 0);
+
+    let articleId = formId;
+    let isNew = false;
+    
+    if (!articleId) {
+        isNew = true;
+        articleId = slugify(title);
+        // Ensure unique slug
+        const articles = currentConfig.articles || [];
+        let tempId = articleId;
+        let counter = 1;
+        while (articles.some(a => a.id === tempId)) {
+            tempId = `${articleId}-${counter}`;
+            counter++;
+        }
+        articleId = tempId;
+    }
+
+    const articleData = {
+        id: articleId,
+        title,
+        category,
+        subtitle,
+        date,
+        author,
+        avatar,
+        image,
+        views,
+        read_time: readTime,
+        key_facts: keyFacts,
+        tags,
+        content: currentArticleBlocks
+    };
+
+    if (!currentConfig.articles) {
+        currentConfig.articles = [];
+    }
+
+    if (isNew) {
+        currentConfig.articles.push(articleData);
+    } else {
+        const idx = currentConfig.articles.findIndex(a => a.id === articleId);
+        if (idx !== -1) {
+            currentConfig.articles[idx] = articleData;
+        } else {
+            currentConfig.articles.push(articleData);
+        }
+    }
+
+    // Save to API
+    try {
+        const res = await fetch('/api/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentConfig)
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            showToast('Статья успешно сохранена!');
+            cancelArticleEdit();
+            renderArticlesTable();
+        } else {
+            alert('Ошибка сохранения: ' + result.error);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Ошибка при сохранении статьи на сервере.');
+    }
+}
+
+async function deleteArticle(id) {
+    if (!confirm('Вы уверены, что хотите удалить эту статью?')) return;
+    
+    if (!currentConfig.articles) return;
+    
+    currentConfig.articles = currentConfig.articles.filter(a => a.id !== id);
+
+    try {
+        const res = await fetch('/api/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentConfig)
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            showToast('Статья успешно удалена!');
+            renderArticlesTable();
+        } else {
+            alert('Ошибка удаления: ' + result.error);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Ошибка при удалении статьи на сервере.');
+    }
 }

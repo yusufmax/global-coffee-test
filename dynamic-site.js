@@ -19,13 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
             hydrateGeneral(config);
             hydrateLinks(config.links);
             if (pageName === 'index.html' || pageName === '' || pageName === 'index') {
-                hydrateHomePage(config.home);
+                hydrateHomePage(config);
             } else if (pageName === 'franchise.html' || pageName === 'franchise') {
                 hydrateFranchisePage(config.franchise);
             } else if (pageName === 'partners.html' || pageName === 'partners') {
                 hydratePartnersPage(config.partners);
             } else if (pageName === 'news.html' || pageName === 'news') {
-                hydrateNewsPage(config.home);
+                hydrateNewsPage(config);
+            } else if (pageName === 'article.html' || pageName === 'article') {
+                hydrateArticlePage(config);
             }
         })
         .catch(err => console.error('Error hydrating site:', err));
@@ -184,7 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function hydrateHomePage(home) {
+    function hydrateHomePage(config) {
+        const home = config.home;
         if (!home) return;
 
         setElementText('.map-section .map-title', home.hero_title, 'home.hero_title');
@@ -308,55 +311,122 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setElementText('.news-section .franchise-title', home.news_title, 'home.news_title');
         setElementText('.news-section .franchise-desc', home.news_desc, 'home.news_desc');
-        setElementText('.news-main-card .main-news-title', home.news_main_title, 'home.news_main_title');
-        setElementText('.news-main-card .main-news-subtitle', home.news_main_subtitle, 'home.news_main_subtitle');
-        setElementText('.news-main-card .author span', home.news_main_author, 'home.news_main_author');
-        setElementImage('.news-main-card .author .avatar', home.news_main_avatar, 'home.news_main_avatar');
-        setElementImage('.news-main-card .main-news-image img', home.news_main_image, 'home.news_main_image');
         
-        const miniCards = document.querySelectorAll('.news-sidebar .mini-news-card');
-        if (miniCards.length >= 2) {
-            const card1Title = miniCards[0].querySelector('h4');
-            if (card1Title) {
-                card1Title.textContent = home.news_item_1_title;
-                card1Title.setAttribute('data-edit-key', 'home.news_item_1_title');
-            }
-            const card1Img = miniCards[0].querySelector('.mini-img img');
-            if (card1Img) {
-                card1Img.src = home.news_item_1_image;
-                card1Img.setAttribute('data-edit-key', 'home.news_item_1_image');
-            }
+        // Hydrate homepage news dynamically from config.articles
+        const articles = config.articles || [];
+        const getImgUrl = (src) => {
+            if (!src) return '';
+            if (src.startsWith('http') || src.startsWith('/') || src.startsWith('images/') || src.startsWith('news/')) return src;
+            return 'news/' + src;
+        };
 
-            const card2Title = miniCards[1].querySelector('h4');
-            if (card2Title) {
-                card2Title.textContent = home.news_item_2_title;
-                card2Title.setAttribute('data-edit-key', 'home.news_item_2_title');
+        // Desktop main card
+        const mainCard = document.querySelector('.news-section .news-main-card');
+        if (mainCard && articles[0]) {
+            setElementText('.news-section .news-main-card .main-news-title', articles[0].title, 'articles.0.title');
+            setElementText('.news-section .news-main-card .main-news-subtitle', articles[0].subtitle, 'articles.0.subtitle');
+            setElementText('.news-section .news-main-card .author span', articles[0].author, 'articles.0.author');
+            setElementImage('.news-section .news-main-card .author .avatar', getImgUrl(articles[0].avatar), 'articles.0.avatar');
+            setElementImage('.news-section .news-main-card .main-news-image img', getImgUrl(articles[0].image), 'articles.0.image');
+            const btn = mainCard.querySelector('.btn-orange');
+            if (btn) btn.href = `article.html?id=${articles[0].id}`;
+        }
+
+        // Desktop mini cards
+        const mCards = document.querySelectorAll('.news-section .news-sidebar .mini-news-card');
+        if (mCards.length >= 2) {
+            if (articles[1]) {
+                const titleEl = mCards[0].querySelector('h4');
+                if (titleEl) {
+                    titleEl.textContent = articles[1].title;
+                    titleEl.setAttribute('data-edit-key', 'articles.1.title');
+                }
+                const imgEl = mCards[0].querySelector('.mini-img img');
+                if (imgEl) {
+                    imgEl.src = getImgUrl(articles[1].image);
+                    imgEl.setAttribute('data-edit-key', 'articles.1.image');
+                }
+                const btn = mCards[0].querySelector('.arrow-btn');
+                if (btn) btn.href = `article.html?id=${articles[1].id}`;
             }
-            const card2Img = miniCards[1].querySelector('.mini-img img');
-            if (card2Img) {
-                card2Img.src = home.news_item_2_image;
-                card2Img.setAttribute('data-edit-key', 'home.news_item_2_image');
+            if (articles[2]) {
+                const titleEl = mCards[1].querySelector('h4');
+                if (titleEl) {
+                    titleEl.textContent = articles[2].title;
+                    titleEl.setAttribute('data-edit-key', 'articles.2.title');
+                }
+                const imgEl = mCards[1].querySelector('.mini-img img');
+                if (imgEl) {
+                    imgEl.src = getImgUrl(articles[2].image);
+                    imgEl.setAttribute('data-edit-key', 'articles.2.image');
+                }
+                const btn = mCards[1].querySelector('.arrow-btn');
+                if (btn) btn.href = `article.html?id=${articles[2].id}`;
             }
         }
 
-        const partnerCard = document.querySelector('.news-sidebar .partner-news-card');
-        if (partnerCard) {
-            const partnerTitle = partnerCard.querySelector('h4');
-            if (partnerTitle) {
-                partnerTitle.textContent = home.news_partner_title;
-                partnerTitle.setAttribute('data-edit-key', 'home.news_partner_title');
+        // Desktop partner card
+        const partnerCard = document.querySelector('.news-section .news-sidebar .partner-news-card');
+        if (partnerCard && articles[3]) {
+            const titleEl = partnerCard.querySelector('h4');
+            if (titleEl) {
+                titleEl.textContent = articles[3].title;
+                titleEl.setAttribute('data-edit-key', 'articles.3.title');
             }
             const partnerDesc = partnerCard.querySelector('p');
             if (partnerDesc) {
-                partnerDesc.textContent = home.news_partner_desc;
-                partnerDesc.setAttribute('data-edit-key', 'home.news_partner_desc');
+                partnerDesc.textContent = articles[3].subtitle || articles[3].title;
+                partnerDesc.setAttribute('data-edit-key', 'articles.3.subtitle');
             }
-            const partnerImg = partnerCard.querySelector('.partner-logos img');
+            const partnerImg = partnerCard.querySelector('.partner-logos img, .partner-group img');
             if (partnerImg) {
-                partnerImg.src = home.news_partner_image;
-                partnerImg.setAttribute('data-edit-key', 'home.news_partner_image');
+                partnerImg.src = getImgUrl(articles[3].image);
+                partnerImg.setAttribute('data-edit-key', 'articles.3.image');
             }
+            const btn = partnerCard.querySelector('.arrow-btn');
+            if (btn) btn.href = `article.html?id=${articles[3].id}`;
         }
+
+        // Mobile slider cards
+        const mobileSlides = document.querySelectorAll('.news-section .news-mobile-slide');
+        mobileSlides.forEach((slide, idx) => {
+            const article = articles[idx];
+            if (!article) return;
+            
+            const mMain = slide.querySelector('.news-main-card');
+            if (mMain) {
+                const titleEl = mMain.querySelector('.main-news-title');
+                if (titleEl) titleEl.textContent = article.title;
+                const subtitleEl = mMain.querySelector('.main-news-subtitle');
+                if (subtitleEl) subtitleEl.textContent = article.subtitle;
+                const imgEl = mMain.querySelector('.main-news-image img');
+                if (imgEl) imgEl.src = getImgUrl(article.image);
+                const btn = mMain.querySelector('.btn-orange');
+                if (btn) btn.href = `article.html?id=${article.id}`;
+            }
+
+            const mMini = slide.querySelector('.mini-news-card');
+            if (mMini) {
+                const titleEl = mMini.querySelector('h4');
+                if (titleEl) titleEl.textContent = article.title;
+                const imgEl = mMini.querySelector('.mini-img img');
+                if (imgEl) imgEl.src = getImgUrl(article.image);
+                const btn = mMini.querySelector('.arrow-btn');
+                if (btn) btn.href = `article.html?id=${article.id}`;
+            }
+
+            const mPartner = slide.querySelector('.partner-news-card');
+            if (mPartner) {
+                const titleEl = mPartner.querySelector('h4');
+                if (titleEl) titleEl.textContent = article.title;
+                const descEl = mPartner.querySelector('.partner-content p');
+                if (descEl) descEl.textContent = article.subtitle || article.title;
+                const imgEl = mPartner.querySelector('.partner-logos img');
+                if (imgEl) imgEl.src = getImgUrl(article.image);
+                const btn = mPartner.querySelector('.arrow-btn');
+                if (btn) btn.href = `article.html?id=${article.id}`;
+            }
+        });
 
         setElementText('.contact-section .franchise-title', home.contact_founders_title, 'home.contact_founders_title');
         setElementText('.contact-section .franchise-desc', home.contact_founders_desc, 'home.contact_founders_desc');
@@ -386,12 +456,14 @@ document.addEventListener('DOMContentLoaded', () => {
         setElementText('.partners-hero .section-subtitle', partners.hero_subtitle, 'partners.hero_subtitle');
     }
 
-    function hydrateNewsPage(home) {
+    function hydrateNewsPage(config) {
+        const home = config.home;
         if (!home) return;
+        const articles = config.articles || [];
 
         const prependNews = (src) => {
             if (!src) return '';
-            if (src.startsWith('news/') || src.startsWith('http') || src.startsWith('/')) return src;
+            if (src.startsWith('news/') || src.startsWith('http') || src.startsWith('/') || src.startsWith('images/')) return src;
             return 'news/' + src;
         };
 
@@ -400,56 +472,322 @@ document.addEventListener('DOMContentLoaded', () => {
         setElementText('.news-hero-text p', home.news_desc, 'home.news_desc');
 
         // Main Card
-        setElementText('.news-main-card .main-news-title', home.news_main_title, 'home.news_main_title');
-        setElementText('.news-main-card .main-news-subtitle', home.news_main_subtitle, 'home.news_main_subtitle');
-        setElementText('.news-main-card .author span', home.news_main_author, 'home.news_main_author');
-        setElementImage('.news-main-card .author .avatar', prependNews(home.news_main_avatar), 'home.news_main_avatar');
-        setElementImage('.news-main-card .main-news-image img', prependNews(home.news_main_image), 'home.news_main_image');
+        if (articles[0]) {
+            setElementText('.news-main-card .main-news-title', articles[0].title, 'articles.0.title');
+            setElementText('.news-main-card .main-news-subtitle', articles[0].subtitle, 'articles.0.subtitle');
+            setElementText('.news-main-card .author span', articles[0].author, 'articles.0.author');
+            setElementImage('.news-main-card .author .avatar', prependNews(articles[0].avatar), 'articles.0.avatar');
+            setElementImage('.news-main-card .main-news-image img', prependNews(articles[0].image), 'articles.0.image');
+            const btn = document.querySelector('.news-main-card .btn-orange');
+            if (btn) btn.href = `article.html?id=${articles[0].id}`;
+        }
 
         // Sidebar
         const miniCards = document.querySelectorAll('.news-sidebar .mini-news-card');
         if (miniCards.length >= 2) {
-            const card1Title = miniCards[0].querySelector('h4');
-            if (card1Title) {
-                card1Title.textContent = home.news_item_1_title;
-                card1Title.setAttribute('data-edit-key', 'home.news_item_1_title');
-            }
-            const card1Img = miniCards[0].querySelector('.mini-img img');
-            if (card1Img) {
-                card1Img.src = prependNews(home.news_item_1_image);
-                card1Img.setAttribute('data-edit-key', 'home.news_item_1_image');
+            if (articles[1]) {
+                const card1Title = miniCards[0].querySelector('h4');
+                if (card1Title) {
+                    card1Title.textContent = articles[1].title;
+                    card1Title.setAttribute('data-edit-key', 'articles.1.title');
+                }
+                const card1Img = miniCards[0].querySelector('.mini-img img');
+                if (card1Img) {
+                    card1Img.src = prependNews(articles[1].image);
+                    card1Img.setAttribute('data-edit-key', 'articles.1.image');
+                }
+                const btn = miniCards[0].querySelector('.arrow-btn');
+                if (btn) btn.href = `article.html?id=${articles[1].id}`;
             }
 
-            const card2Title = miniCards[1].querySelector('h4');
-            if (card2Title) {
-                card2Title.textContent = home.news_item_2_title;
-                card2Title.setAttribute('data-edit-key', 'home.news_item_2_title');
-            }
-            const card2Img = miniCards[1].querySelector('.mini-img img');
-            if (card2Img) {
-                card2Img.src = prependNews(home.news_item_2_image);
-                card2Img.setAttribute('data-edit-key', 'home.news_item_2_image');
+            if (articles[2]) {
+                const card2Title = miniCards[1].querySelector('h4');
+                if (card2Title) {
+                    card2Title.textContent = articles[2].title;
+                    card2Title.setAttribute('data-edit-key', 'articles.2.title');
+                }
+                const card2Img = miniCards[1].querySelector('.mini-img img');
+                if (card2Img) {
+                    card2Img.src = prependNews(articles[2].image);
+                    card2Img.setAttribute('data-edit-key', 'articles.2.image');
+                }
+                const btn = miniCards[1].querySelector('.arrow-btn');
+                if (btn) btn.href = `article.html?id=${articles[2].id}`;
             }
         }
 
         const partnerCard = document.querySelector('.news-sidebar .partner-news-card');
-        if (partnerCard) {
+        if (partnerCard && articles[3]) {
             const partnerTitle = partnerCard.querySelector('h4');
             if (partnerTitle) {
-                partnerTitle.textContent = home.news_partner_title;
-                partnerTitle.setAttribute('data-edit-key', 'home.news_partner_title');
+                partnerTitle.textContent = articles[3].title;
+                partnerTitle.setAttribute('data-edit-key', 'articles.3.title');
             }
             const partnerDesc = partnerCard.querySelector('p');
             if (partnerDesc) {
-                partnerDesc.textContent = home.news_partner_desc;
-                partnerDesc.setAttribute('data-edit-key', 'home.news_partner_desc');
+                partnerDesc.textContent = articles[3].subtitle || articles[3].title;
+                partnerDesc.setAttribute('data-edit-key', 'articles.3.subtitle');
             }
             const partnerImg = partnerCard.querySelector('.partner-logos img, .partner-group img');
             if (partnerImg) {
-                partnerImg.src = prependNews(home.news_partner_image);
-                partnerImg.setAttribute('data-edit-key', 'home.news_partner_image');
+                partnerImg.src = prependNews(articles[3].image);
+                partnerImg.setAttribute('data-edit-key', 'articles.3.image');
             }
+            const btn = partnerCard.querySelector('.arrow-btn');
+            if (btn) btn.href = `article.html?id=${articles[3].id}`;
         }
+
+        // Earlier section
+        const earlierGrid = document.querySelector('.earlier-grid');
+        if (earlierGrid && articles.length > 4) {
+            earlierGrid.innerHTML = '';
+            const emojis = ['🎉', '⭐', '🥇', '🌐', '☕', '📢', '🔥'];
+            articles.slice(4).forEach((art, idx) => {
+                const emoji = emojis[idx % emojis.length];
+                const card = document.createElement('div');
+                card.className = 'earlier-card';
+                card.innerHTML = `
+                    <div class="earlier-emoji">${emoji}</div>
+                    <div class="earlier-card-content">
+                        <h3>${art.title}</h3>
+                        <p>${art.subtitle || ''}</p>
+                    </div>
+                    <a href="article.html?id=${art.id}" class="arrow-btn" aria-label="Читать"><img src="news/arrow right.svg" alt="arrow"></a>
+                `;
+                earlierGrid.appendChild(card);
+            });
+        }
+    }
+
+    function hydrateArticlePage(config) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id');
+        const articles = config.articles || [];
+        const article = articles.find(a => a.id === articleId) || articles[0];
+
+        const container = document.getElementById('article-page-content');
+        if (!container) return;
+
+        if (!article) {
+            container.innerHTML = `
+                <div class="article-error">
+                    <h2>Статья не найдена</h2>
+                    <p>Запрашиваемая вами страница не существует или была перенесена.</p>
+                    <a href="news.html" class="btn-orange" style="display:inline-block; text-decoration:none; padding: 12px 30px; border-radius:12px;">Вернуться к новостям</a>
+                </div>
+            `;
+            return;
+        }
+
+        // Set metadata
+        document.title = article.title + ' — Global Coffee';
+        const breadcrumbCurrent = document.getElementById('breadcrumb-current');
+        if (breadcrumbCurrent) {
+            breadcrumbCurrent.textContent = article.title;
+        }
+        const metaDesc = document.getElementById('meta-desc');
+        if (metaDesc) {
+            metaDesc.content = article.subtitle || article.title;
+        }
+
+        const getImgUrl = (src) => {
+            if (!src) return '';
+            if (src.startsWith('http') || src.startsWith('/') || src.startsWith('images/') || src.startsWith('news/')) return src;
+            return 'news/' + src;
+        };
+
+        // Key facts sidebar card
+        let factsHtml = '';
+        if (article.key_facts && article.key_facts.length > 0) {
+            factsHtml = `
+                <div class="sidebar-card">
+                    <h3 class="sidebar-card-title">Ключевые факты</h3>
+                    <div class="facts-list">
+                        ${article.key_facts.map(f => `
+                            <div class="fact-item">
+                                <span class="fact-label">${f.label}</span>
+                                <span class="fact-value">${f.value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Tags sidebar card
+        let tagsHtml = '';
+        if (article.tags && article.tags.length > 0) {
+            tagsHtml = `
+                <div class="sidebar-card">
+                    <h3 class="sidebar-card-title">Теги</h3>
+                    <div class="sidebar-tags">
+                        ${article.tags.map(t => `<a href="#" class="sidebar-tag">#${t}</a>`).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Similar articles
+        const similarArticles = articles.filter(a => a.id !== article.id).slice(0, 3);
+        let similarHtml = '';
+        if (similarArticles.length > 0) {
+            similarHtml = `
+                <div class="sidebar-card">
+                    <h3 class="sidebar-card-title">
+                        Похожие новости
+                        <div class="nav-arrows">
+                            <button class="nav-arrow" onclick="window.location.href='article.html?id=${similarArticles[0].id}'">←</button>
+                            <button class="nav-arrow" onclick="window.location.href='article.html?id=${similarArticles[similarArticles.length - 1].id}'">→</button>
+                        </div>
+                    </h3>
+                    <div class="similar-list">
+                        ${similarArticles.map(sa => `
+                            <a href="article.html?id=${sa.id}" class="similar-item">
+                                <span class="similar-meta">${sa.category || 'Новость'} • ${sa.date}</span>
+                                <span class="similar-title">${sa.title}</span>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Article body blocks
+        let bodyHtml = '';
+        if (article.content && Array.isArray(article.content)) {
+            article.content.forEach(block => {
+                if (block.type === 'paragraph') {
+                    bodyHtml += `<p>${block.text}</p>`;
+                } else if (block.type === 'heading') {
+                    bodyHtml += `<h2>${block.text}</h2>`;
+                } else if (block.type === 'quote') {
+                    bodyHtml += `
+                        <blockquote class="article-quote">
+                            ${block.text}
+                            ${block.author ? `<span class="article-quote-author">${block.author}</span>` : ''}
+                        </blockquote>
+                    `;
+                } else if (block.type === 'stats') {
+                    bodyHtml += `
+                        <div class="article-stats-grid">
+                            ${(block.items || []).map(item => `
+                                <div class="article-stat-card">
+                                    <div class="article-stat-value">${item.value}</div>
+                                    <div class="article-stat-label">${item.label}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (block.type === 'timeline') {
+                    bodyHtml += `
+                        <div class="article-timeline-container">
+                            <h3 class="article-timeline-title">${block.title || 'Вехи истории'}</h3>
+                            <div class="article-timeline">
+                                ${(block.events || []).map(ev => `
+                                    <div class="timeline-event">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-year">${ev.year}</div>
+                                        <div class="timeline-text">${ev.text}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        window.copyArticleLink = function() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Ссылка скопирована в буфер обмена!');
+            }).catch(err => {
+                console.error(err);
+            });
+        };
+
+        container.innerHTML = `
+            <div class="article-layout">
+                <!-- Left Column -->
+                <article class="article-main">
+                    <span class="article-tag">${article.category || 'Событие'}</span>
+                    <h1 class="article-title">${article.title}</h1>
+                    
+                    <div class="article-meta">
+                        <div class="meta-author">
+                            <img src="${getImgUrl(article.avatar)}" alt="${article.author || 'Автор'}" class="avatar">
+                            <span>${article.author || 'Global Coffee'}</span>
+                        </div>
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>${article.date || 'Недавно'}</span>
+                        </div>
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <span>${article.views || 4823} просмотров</span>
+                        </div>
+                        <div class="meta-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>${article.read_time || '5 мин чтения'}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-cover">
+                        <img src="${getImgUrl(article.image)}" alt="${article.title}">
+                    </div>
+                    
+                    <div class="article-body">
+                        ${bodyHtml}
+                    </div>
+                    
+                    <div class="article-share">
+                        <span class="share-label">Понравилась статья? Поделитесь:</span>
+                        <div class="share-buttons">
+                            <a href="https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(article.title)}" target="_blank" class="share-btn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.84 8.7L15.11 16.85C14.98 17.43 14.64 17.57 14.15 17.3L11.52 15.36L10.25 16.58C10.11 16.72 9.99 16.84 9.72 16.84L9.91 14.14L14.83 9.7C15.04 9.51 14.79 9.4 14.51 9.59L8.43 13.42L5.81 12.6C5.24 12.42 5.23 12.03 5.93 11.76L16.14 7.82C16.61 7.65 17.02 7.93 16.84 8.7Z"/>
+                                </svg> Telegram
+                            </a>
+                            <a href="https://vk.com/share.php?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(article.title)}" target="_blank" class="share-btn">
+                                ВКонтакте
+                            </a>
+                            <button onclick="window.copyArticleLink()" class="share-btn">
+                                Копировать ссылку
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Right Column -->
+                <aside class="article-sidebar">
+                    <!-- Key Facts -->
+                    ${factsHtml}
+                    
+                    <!-- Partner CTA -->
+                    <div class="partner-cta-card">
+                        <h3>Хотите стать партнером?</h3>
+                        <p>Откройте собственную прибыльную кофейню в составе международной сети Global Coffee.</p>
+                        <a href="franchise.html" class="partner-cta-btn">Узнать подробнее</a>
+                    </div>
+                    
+                    <!-- Similar News -->
+                    ${similarHtml}
+                    
+                    <!-- Tags -->
+                    ${tagsHtml}
+                </aside>
+            </div>
+        `;
     }
 
     // Expose dynamic updates to window object for Live visual editing communication

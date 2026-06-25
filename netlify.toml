@@ -39,3 +39,8 @@
   from = "/news"
   to = "/news.html"
   status = 200
+
+[[redirects]]
+  from = "/article"
+  to = "/article.html"
+  status = 200
