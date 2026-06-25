@@ -1,6 +1,10 @@
 // Dynamic site content loader / hydration with Customizer live message injection support
 document.addEventListener('DOMContentLoaded', () => {
-    const pageName = window.location.pathname.split('/').pop() || 'index.html';
+    let path = window.location.pathname;
+    if (path.endsWith('/') && path.length > 1) {
+        path = path.slice(0, -1);
+    }
+    const pageName = path.split('/').pop() || 'index.html';
 
     function fetchConfig() {
         return fetch('/api/config')
@@ -316,8 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const articles = config.articles || [];
         const getImgUrl = (src) => {
             if (!src) return '';
-            if (src.startsWith('http') || src.startsWith('/') || src.startsWith('images/') || src.startsWith('news/')) return src;
-            return 'news/' + src;
+            if (src.startsWith('http') || src.startsWith('/')) return src;
+            if (src.startsWith('images/') || src.startsWith('news/')) return '/' + src;
+            return '/news/' + src;
         };
 
         // Desktop main card
@@ -592,8 +597,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const getImgUrl = (src) => {
             if (!src) return '';
-            if (src.startsWith('http') || src.startsWith('/') || src.startsWith('images/') || src.startsWith('news/')) return src;
-            return 'news/' + src;
+            if (src.startsWith('http') || src.startsWith('/')) return src;
+            if (src.startsWith('images/') || src.startsWith('news/')) return '/' + src;
+            return '/news/' + src;
         };
 
         // Key facts sidebar card

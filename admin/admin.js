@@ -44,14 +44,25 @@ function showAdminLayout() {
     loadData();
 }
 
+function fetchConfig() {
+    return fetch('/api/config')
+        .then(res => {
+            if (!res.ok) throw new Error('API config failed');
+            return res.json();
+        })
+        .catch(() => {
+            console.log('Falling back to static config.json');
+            return fetch('/config.json').then(res => res.json());
+        });
+}
+
 function handleLogin(e) {
     e.preventDefault();
     const password = document.getElementById('password').value;
     const errorMsg = document.getElementById('loginError');
 
     // Fetch config to verify password
-    fetch('/api/config')
-        .then(res => res.json())
+    fetchConfig()
         .then(config => {
             const correctPass = config.general?.admin_password || 'admin';
             if (password === correctPass) {
@@ -65,7 +76,7 @@ function handleLogin(e) {
         })
         .catch(err => {
             console.error(err);
-            alert('Ошибка сервера при авторизации.');
+            alert('Ошибка при авторизации.');
         });
 }
 
@@ -161,8 +172,7 @@ function setupCollapsibles() {
 
 // DATA LOAD AND POPULATE
 function loadData() {
-    fetch('/api/config')
-        .then(res => res.json())
+    fetchConfig()
         .then(config => {
             currentConfig = config;
             loadStats();
