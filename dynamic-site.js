@@ -451,8 +451,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function hydrateFranchisePage(franchise) {
         if (!franchise) return;
-        setElementText('.partners-hero .section-title', franchise.hero_title, 'franchise.hero_title');
-        setElementText('.partners-hero .section-subtitle', franchise.hero_subtitle, 'franchise.hero_subtitle');
+        setElementText('.founders-section .section-title', franchise.hero_title, 'franchise.hero_title');
+        setElementText('.founders-section .section-subtitle', franchise.hero_subtitle, 'franchise.hero_subtitle');
     }
 
     function hydratePartnersPage(partners) {
@@ -997,8 +997,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Partners title
             else if (field === 'partners_title') setElementText('.partners-section .section-title', value);
         } else if (section === 'franchise') {
-            if (field === 'hero_title') setElementText('.partners-hero .section-title', value);
-            else if (field === 'hero_subtitle') setElementText('.partners-hero .section-subtitle', value);
+            if (field === 'hero_title') setElementText('.founders-section .section-title', value);
+            else if (field === 'hero_subtitle') setElementText('.founders-section .section-subtitle', value);
         } else if (section === 'partners') {
             if (field === 'hero_title') setElementText('.partners-hero .section-title', value);
             else if (field === 'hero_subtitle') setElementText('.partners-hero .section-subtitle', value);

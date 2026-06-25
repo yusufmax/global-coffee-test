@@ -107,8 +107,8 @@ def get_default_config():
             "partners_title": "Наши партнёры"
         },
         "franchise": {
-            "hero_title": "Франшиза Global Coffee",
-            "hero_subtitle": "Открой свою прибыльную кофейню"
+            "hero_title": "Основатели и путь",
+            "hero_subtitle": "История об открытии первой кофейни."
         },
         "partners": {
             "hero_title": "Партнёрам Global Coffee",

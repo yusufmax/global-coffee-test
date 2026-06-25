@@ -1046,6 +1046,49 @@ function selectInputInSidebar(key) {
         return;
     }
 
+    // Automatically switch active subtab if the input is in another subtab
+    let subtab = 'home';
+    if (key.startsWith('franchise.')) {
+        subtab = 'franchise';
+    } else if (key.startsWith('partners.')) {
+        subtab = 'partners';
+    }
+
+    // Switch active editor form section based on the detected subtab
+    const tabs = document.querySelectorAll('.wp-tabs-bar .wp-tab-btn');
+    tabs.forEach(t => {
+        if (t.dataset.subtab === subtab) {
+            t.classList.add('active');
+        } else {
+            t.classList.remove('active');
+        }
+    });
+
+    const contents = document.querySelectorAll('#sec-page-editor .subtab-content');
+    contents.forEach(c => {
+        if (c.id === `sub-${subtab}`) {
+            c.classList.add('active');
+        } else {
+            c.classList.remove('active');
+        }
+    });
+
+    // Update select dropdown value
+    const select = document.getElementById('customizerPageSelect');
+    if (select) {
+        let expectedValue = '/';
+        if (subtab === 'franchise') expectedValue = '/franchise';
+        else if (subtab === 'partners') expectedValue = '/partners';
+        
+        if (select.value !== expectedValue) {
+            select.value = expectedValue;
+            const label = document.getElementById('previewUrlLabel');
+            if (label) {
+                label.textContent = expectedValue.replace('/', '') || 'index.html';
+            }
+        }
+    }
+
     // Expand any parent collapsible accordion container if closed
     let parent = input.parentElement;
     while (parent && parent !== form) {
